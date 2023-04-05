@@ -1,7 +1,7 @@
 Statistical sampling with TDEP
 ===
 
-Briefly put, the idea is to generate force constants self-consistently by using them to approximate the atomic displacement distribution in the (harmonic) canonical ensemble, and iteratively improve the approximation by true forces in the system.
+Briefly put, the idea is to generate force constants self-consistently by using them to approximate the atomic displacement distribution in the (harmonic) canonical ensemble, and iteratively improve the approximation by true forces in the system. [Check out the documentation of `canonical_configuration` for some background.](http://ollehellman.github.io/program/canonical_configuration.html)
 
 ## General scope
 
@@ -129,6 +129,10 @@ This tutorial **does not cover**:
 ## Notes on convergence
 
 - In general you should converge the quantity of your interest. E.g., the free energy computed at each iteration might not change anymore when the dispersion still changes a by a few meV between iterations.
+
+## Tips
+
+- you will find a `Makefile` in `sampling.300K`. My personal advice is that you create one for each working directory and write down your commands there. Then you execute them via `make TARGET` instead of running directly in the terminal. This way you will always remember how you ran which command in your folder.
 
 
 ## Suggested reading
