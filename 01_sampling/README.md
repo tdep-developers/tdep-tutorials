@@ -3,6 +3,27 @@ Statistical sampling with TDEP
 
 Briefly put, the idea is to generate force constants self-consistently by using them to approximate the atomic displacement distribution in the (harmonic) canonical ensemble, and iteratively improve the approximation by true forces in the system. [Check out the documentation of `canonical_configuration` for some background.](http://ollehellman.github.io/program/canonical_configuration.html)
 
+In the classical case and very simplified mathematical terms, we solve this equation self-consistently for the force constants $\Phi$:
+
+```math
+\begin{align}
+\langle V_2 \rangle
+&= \int {\rm d} R ~ {\rm e}^{- \beta V({\bf R})} V_2 ({\bf R}) \\
+&{\color{red} \approx}
+\int {\rm d} R ~ {\rm e}^{- \beta {\color{red} V_2} ({\bf R}) } V_2 ({\bf R})~,
+\end{align}
+```
+
+where
+
+```math
+\begin{align}
+V_2({\bf R}) = \frac{1}{2} \sum_{ij} \Phi_{i \alpha, j \beta}({\bf R^0})U^{i \alpha} U^{j \beta}~,
+\end{align}
+```
+
+i.e., instead of sampling the true nuclear distribution as it would be obtained with MD simulations (at much higher cost!), we sample the approximate (effective) harmonic distribution and update the force constants self-consistently after each iteration until convergence. The solution will correspond to the (effective) harmonic model that best mimics the true thermodynamic behavior of the system at the given temperature (defined by $1/\beta = k_{\rm B} T$).
+
 ## General scope
 
 This tutorial covers:
