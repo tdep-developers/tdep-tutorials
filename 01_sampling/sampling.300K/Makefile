@@ -8,7 +8,7 @@ fc: input
 	ln -sf outfile.forceconstant infile.forceconstant
 	phonon_dispersion_relations -p
 	gnuplot -p outfile.dispersion_relations.gnuplot_pdf
-	plot_fc_norms
+	tdep_plot_fc_norms
 
 all: fc
 
