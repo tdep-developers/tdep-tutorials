@@ -44,7 +44,7 @@ This tutorial **does not cover**:
 - supercell convergence,
 - convergence of anharmonic properties.
 
-## Steps
+## Basic steps
 
 ### Preparation
 
@@ -146,6 +146,18 @@ This tutorial **does not cover**:
 - repeat the postprocessing steps from above to get new force constants and phonon dispersions.
 - Try to increase your force constants cutoff (`rc2`) and observe if the phonon dispersion changes. Also check the statistics dumped by `extract_forceconstant`. When your R2 does not increase, you're not fitting any new information and should not increase the cutoff further. Also check the range of the cutoff with `tdep_plot_fc_norms`.
 - Repeat with 4, 8, 16, 32, ... samples in `iter.002`, `iter.003`, ...,  until your phonon dispersion does not change noticeably anymore.
+- **Tip:** We can perform a _pre-conditioned_ self-consistent loop by re-using samples from previous iterations:
+
+  - in iteration 2 (`iter.002`), link the samples from iteration 1:
+    ```bash
+    ln -s ../iter.001/samples/ samples_prev
+    ```
+  - then parse _all_ samples before the postprocessing step:
+    ```bash
+    tdep_parse_output samples/*/OUTPUT samples_prev/*/OUTPUT --format FORMAT
+    ```
+  - this will stabilize the self-consistent loop, and increase data efficiency.
+
 
 ## Notes on convergence
 
