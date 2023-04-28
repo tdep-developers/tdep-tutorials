@@ -39,6 +39,11 @@ phonon_dispersion_relations
 
 -Show how to specify path through BZ
 
+### Get a free energy
+
+### Mention Canonical sampling
+
+
 ### Convergence:
 
 -Supercell size+cutoffs, number of samples
