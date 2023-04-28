@@ -58,5 +58,7 @@ lineshape ...
 To show: basic LO-TO splitting? provide Born charges and dielectric tensors
 Relaxation of internal positions? from FC1 or averaged from MD?
 
+# Introducing the stochastic TDEP version? Here or in another tutorial?
+
 ### References:
 - [[1] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
