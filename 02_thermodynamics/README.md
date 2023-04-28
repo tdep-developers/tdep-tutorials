@@ -21,9 +21,9 @@ For a fixed volume, and staying at the second order in the force constants, the 
 \mathcal{F}^{\mathrm{TDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + \lange V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) \range
 ```
 
-Compared to the harmonic approximations, two correctations are to be observed
+Compared to the harmonic approximations, two corrections are to be observed
 * The temperature dependence of the phonons, that will bring a modification of the $\mathcal{F}_0$
-* The $U_0 = \lange V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) \range$ term
+* The $U_0 = < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >$ term
 
 
 
@@ -71,7 +71,7 @@ Otherwise, some reference data will be available in the `references` directory.
         2. The harmonic free energy, in eV/atom
         3. The harmonic entropy, in ev/K/atom
         4. The harmonic heat capacity in eV/K/atom
-    - The second one has been activated with the `--U0` options of `extract_forceconstants` and contains the $U0$ correction to the harmonic free energy
+    - The second one has been activated with the `--U0` options of `extract_forceconstants` and contains the $U_0$ correction to the harmonic free energy
 
 - For this temperature, try to converge the value of the harmonic free energy and its correction. For this, you have several parameters to control
     1. The number of samples
@@ -110,8 +110,8 @@ Otherwise, some reference data will be available in the `references` directory.
 
 ## Beyond the second order
 
--  
-
+- Inclusion of Phi3 + Phi4
+- Comparison to harmonic results
 
 
 ## Suggested reading
@@ -123,3 +123,11 @@ Otherwise, some reference data will be available in the `references` directory.
 - [TDEP tools are installed](https://github.com/flokno/tools.tdep)
 - [gnuplot is installed](http://www.gnuplot.info/)
 
+
+## Notes for myself
+
+- Reference data needed
+    - MD configurations
+    - SCHA configurations
+    - Thermodynamic integrations for comparison
+    - A harmonic results to compare ?
