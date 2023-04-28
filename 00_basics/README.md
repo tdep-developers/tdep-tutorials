@@ -1,7 +1,7 @@
 # TDEP basics
 
 
-[Schematic overview/intro to TDEP method]
+-Schematic overview/intro to TDEP method
 
 ```math
  U_{TDEP} = U_{0} + \frac{1}{2}\sum_{ij\alpha\beta} \Phi_{ij}^{\alpha \beta}  u_{i}^{\alpha}u_{j}^{\beta}  + \frac{1}{3!}\sum_{ijk\alpha\beta\gamma} \Phi_{ijk}^{\alpha \beta \gamma}  u_{i}^{\alpha} u_{j}^{\beta} u_{k}^{\gamma} 
@@ -14,7 +14,7 @@
 
 In this initial tutorial we will cover the basics of the TDEP method, using fcc Al as a simple example. ....
 
-[Describe how to download provided infiles]
+-Describe how to download provided infiles
 
 The following input files are required:
 - **infile.ucposcar**: Defines the primitive cell of your system (lattice vectors and equilibrium positions), in the VASP POSCAR format. 
@@ -31,27 +31,27 @@ extract_forceconstants -rc2 5
 
 ....
 
-[Desribe things to look out for:  R^2, overdetermination ratio, ...]
+-Describe things to look out for:  R^2, overdetermination ratio, ...
 
 ### Plotting dispersion and DOS
 
 phonon_dispersion_relations
 
-[Show how to specify path through BZ]
+-Show how to specify path through BZ
 
 ### Convergence:
 
-[Supercell size+cutoffs, number of samples]
-[plot FC norms]
-[Probable provide data for different supercell sizes? some classical potential?]
+-Supercell size+cutoffs, number of samples
+-plot FC norms
+-Probable provide data for different supercell sizes? some classical potential?
 
 ### Including higher order terms
 
-[Briefly describe the sequential fitting.]
+-Briefly describe the sequential fitting.
 
 extract_forceconstants -rc2 5 -rc3 X
 
-[lineshape ...]
+lineshape ...
 
 # Some second a bit more complicated example. Something with the wurtzite structure?
 
