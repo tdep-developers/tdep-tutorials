@@ -5,7 +5,7 @@ This folder contains a neural network potential for GaN. It was trained on refer
 
 ## Install
 
-**The so3krates potential requires python3.8+.**
+**The so3krates potential requires python3.8, python3.9, or python3.10.** 3.7 and 3.11 are currently not supported by jax.
 
 **Please follow the [detailed instruction](#detailed-instructions) below if you want a working environment that is _not_ optimized for speed.**
 
@@ -18,6 +18,12 @@ Please install the following repositories in this order:
 - https://github.com/flokno/tools.mlff
 
 ### Detailed instructions
+
+- Make sure you are using python 3.8-3.10. If you are on 3.7 or 3.11 you can use `conda` to create a python3.10 environment via
+  ```bash
+  conda create -n py310 python=3.10
+  conda activate py310
+  ```
 
 - Go to the tutorials folder (the folder in which you find this README) and `cd` into the `test` directory:
 
