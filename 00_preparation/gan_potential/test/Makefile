@@ -1,3 +1,5 @@
+all: clean test
+
 test: predictions.nc
 	sokrates_plot_predictions predictions.nc trajectory_test.nc --outfile plot_test.png
 	python verify_predictions.py predictions.nc
