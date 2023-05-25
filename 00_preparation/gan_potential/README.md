@@ -5,6 +5,8 @@ This folder contains a neural network potential for GaN. It was trained on refer
 
 ## Install
 
+**The so3krates potential requires python3.8+.**
+
 **Please follow the [detailed instruction](#detailed-instructions) below if you want a working environment that is _not_ optimized for speed.**
 
 The requirements should be straightforward to install. **We generally recommend  to create a virtual (conda) environment for testing.** Please note that the potential is implemented in [JAX](https://github.com/google/jax) and there are different ways to use hardware acceleration on your platform of interest. [**Please consider the JAX docs.**](https://github.com/google/jax#installation)
