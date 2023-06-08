@@ -1,0 +1,282 @@
+23494094
+mpprun info: Starting impi run on 1 node ( 32 rank X 1 th ) for job ID 23494094
+
+     Program PHONON v.7.1 starts on 20Dec2022 at 17:17:42 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on      32 processor cores
+     Number of MPI processes:                32
+     Threads/MPI process:                     1
+
+     MPI processes distributed on     1 nodes
+     R & G space division:  proc/nbgrp/npool/nimage =      32
+     91326 MiB available memory on the printing compute node when the environment starts
+ 
+     Reading input from ph.in
+
+     Reading xml data from directory:
+
+     ./qe.save/
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBESOL
+                           (   1   4  10   8   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+ 
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min          21      21      6                  758      758     122
+     Max          25      25      7                  766      766     129
+     Sum         703     703    211                24335    24335    3995
+ 
+     Using Slab Decomposition
+ 
+     Reading collected, re-writing distributed wavefunctions
+
+     Calculation of q =    0.0000000   0.0000000   0.0000000
+
+     Phonons                                                                    
+
+     bravais-lattice index     =            0
+     lattice parameter (alat)  =       6.0268  a.u.
+     unit-cell volume          =     308.2301 (a.u.)^3
+     number of atoms/cell      =            4
+     number of atomic types    =            2
+     kinetic-energy cut-off    =      70.0000  Ry
+     charge density cut-off    =     280.0000  Ry
+     convergence threshold     =      1.0E-12
+     beta                      =       0.7000
+     number of iterations used =            4
+     Exchange-correlation= PBESOL
+                           (   1   4  10   8   0   0   0)
+
+
+     celldm(1)=    6.02683  celldm(2)=    0.00000  celldm(3)=    0.00000
+     celldm(4)=    0.00000  celldm(5)=    0.00000  celldm(6)=    0.00000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (  1.0000  0.0000  0.0000 )  
+               a(2) = ( -0.5000  0.8660  0.0000 )  
+               a(3) = (  0.0000  0.0000  1.6258 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.0000  0.5774  0.0000 )  
+               b(2) = (  0.0000  1.1547  0.0000 )  
+               b(3) = (  0.0000  0.0000  0.6151 )  
+
+
+     Atoms inside the unit cell: 
+
+     Cartesian axes
+
+     site n.  atom      mass           positions (alat units)
+        1     Ga  69.7230   tau(    1) = (    0.00000    0.57735    1.62556  )
+        2     Ga  69.7230   tau(    2) = (    0.50000    0.28868    0.81264  )
+        3     N   14.0070   tau(    3) = (    0.00000    0.57735    0.61262  )
+        4     N   14.0070   tau(    4) = (    0.50000    0.28868    1.42554  )
+
+     Computing dynamical matrix for 
+                    q = (   0.0000000   0.0000000   0.0000000 )
+ 
+     13 Sym.Ops. (with q -> -q+G )
+
+
+     G cutoff =  257.6178  (    759 G-vectors)     FFT grid: ( 36, 36, 54)
+     number of k points=   133
+
+     PseudoPot. # 1 for Ga read from file:
+     ./pseudopotentials/Ga_ONCV_PBE-1.2.upf
+     MD5 check sum: 9961a622ff199abf6dfec9a0a10b8555
+     Pseudo is Norm-conserving, Zval = 13.0
+     Generated using ONCVPSP code by D. R. Hamann
+     Using radial grid of  602 points,  6 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+
+     PseudoPot. # 2 for N  read from file:
+     ./pseudopotentials/N_ONCV_PBE-1.2.upf
+     MD5 check sum: c233fa8df51455e992258b7c3dee8a9f
+     Pseudo is Norm-conserving, Zval =  5.0
+     Generated using ONCVPSP code by D. R. Hamann
+     Using radial grid of  602 points,  4 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+
+     Mode symmetry, C_6v (6mm)  point group:
+
+
+     Electric field:
+     Dielectric constant
+     Born effective charges as d Force / d E
+
+
+     Atomic displacements:
+     There are    8 irreducible representations
+
+     Representation     1      1 modes -  To be done
+
+     Representation     2      1 modes -  To be done
+
+     Representation     3      1 modes -  To be done
+
+     Representation     4      1 modes -  To be done
+
+     Representation     5      2 modes -  To be done
+
+     Representation     6      2 modes -  To be done
+
+     Representation     7      2 modes -  To be done
+
+     Representation     8      2 modes -  To be done
+
+
+     PHONON       :      0.78s CPU      5.85s WALL
+
+
+     Electric Fields Calculation
+
+      iter #   1 total cpu time :    46.4 secs   av.it.:   8.7
+      thresh= 1.000E-02 alpha_mix =  0.700 |ddv_scf|^2 =  3.684E-08
+
+      iter #   2 total cpu time :    63.1 secs   av.it.:  16.6
+      thresh= 1.919E-05 alpha_mix =  0.700 |ddv_scf|^2 =  2.534E-09
+
+      iter #   3 total cpu time :    80.0 secs   av.it.:  16.6
+      thresh= 5.034E-06 alpha_mix =  0.700 |ddv_scf|^2 =  2.174E-10
+
+      iter #   4 total cpu time :    96.5 secs   av.it.:  16.3
+      thresh= 1.475E-06 alpha_mix =  0.700 |ddv_scf|^2 =  2.584E-11
+
+      iter #   5 total cpu time :   111.2 secs   av.it.:  14.2
+      thresh= 5.083E-07 alpha_mix =  0.700 |ddv_scf|^2 =  5.095E-12
+
+      iter #   6 total cpu time :   126.4 secs   av.it.:  14.8
+      thresh= 2.257E-07 alpha_mix =  0.700 |ddv_scf|^2 =  5.584E-14
+
+     End of electric fields calculation
+
+          Dielectric constant in cartesian axis 
+
+          (       5.943555652       0.000000000       0.000000000 )
+          (       0.000000000       5.943555652      -0.000000000 )
+          (       0.000000000      -0.000000000       6.104407167 )
+
+          Effective charges (d Force / dE) in cartesian axis without acoustic sum rule applied (asr)
+
+           atom      1   Ga Mean Z*:        2.67494
+      Ex  (        2.62847       -0.00000        0.00000 )
+      Ey  (       -0.00000        2.62847        0.00000 )
+      Ez  (        0.00000       -0.00000        2.76788 )
+           atom      2   Ga Mean Z*:        2.67494
+      Ex  (        2.62847       -0.00000       -0.00000 )
+      Ey  (        0.00000        2.62847        0.00000 )
+      Ez  (        0.00000        0.00000        2.76788 )
+           atom      3   N  Mean Z*:       -2.67321
+      Ex  (       -2.62749       -0.00000        0.00000 )
+      Ey  (       -0.00000       -2.62749       -0.00000 )
+      Ez  (       -0.00000        0.00000       -2.76464 )
+           atom      4   N  Mean Z*:       -2.67321
+      Ex  (       -2.62749        0.00000        0.00000 )
+      Ey  (        0.00000       -2.62749        0.00000 )
+      Ez  (       -0.00000       -0.00000       -2.76464 )
+
+          Effective charges Sum: Mean:        0.00346
+              0.00195        0.00000        0.00000
+             -0.00000        0.00195       -0.00000
+             -0.00000        0.00000        0.00648
+
+          Effective charges (d Force / dE) in cartesian axis with asr applied: 
+           atom      1   Ga Mean Z*:        2.67407
+      E*x (        2.62798       -0.00000        0.00000 )
+      E*y (       -0.00000        2.62798        0.00000 )
+      E*z (        0.00000       -0.00000        2.76626 )
+           atom      2   Ga Mean Z*:        2.67407
+      E*x (        2.62798        0.00000       -0.00000 )
+      E*y (        0.00000        2.62798        0.00000 )
+      E*z (       -0.00000        0.00000        2.76626 )
+           atom      3   N  Mean Z*:       -2.67407
+      E*x (       -2.62798       -0.00000        0.00000 )
+      E*y (       -0.00000       -2.62798       -0.00000 )
+      E*z (       -0.00000        0.00000       -2.76626 )
+           atom      4   N  Mean Z*:       -2.67407
+      E*x (       -2.62798        0.00000        0.00000 )
+      E*y (        0.00000       -2.62798       -0.00000 )
+      E*z (       -0.00000       -0.00000       -2.76626 )
+ 
+     PHONON       :   1m54.86s CPU   2m10.64s WALL
+
+     INITIALIZATION: 
+     phq_setup    :      0.01s CPU      0.01s WALL (       1 calls)
+     phq_init     :      0.04s CPU      0.04s WALL (       1 calls)
+ 
+     phq_init     :      0.04s CPU      0.04s WALL (       1 calls)
+     init_vloc    :      0.00s CPU      0.00s WALL (       1 calls)
+     init_us_1    :      0.01s CPU      0.01s WALL (       1 calls)
+     init_us_2    :      0.06s CPU      0.07s WALL (    1463 calls)
+ 
+     DIELECTRIC CONSTANT AND EFFECTIVE CHARGES:
+     solve_e      :    110.15s CPU    120.57s WALL (       1 calls)
+     dielec       :      0.01s CPU      0.01s WALL (       1 calls)
+     zstar_eu     :      3.91s CPU      4.19s WALL (       1 calls)
+ 
+ 
+ 
+ 
+     dvqpsi_us    :      3.88s CPU      4.16s WALL (    1596 calls)
+     sth_kernel   :     81.19s CPU     89.05s WALL (       6 calls)
+     apply_dpot_b :      3.66s CPU      4.08s WALL (    1995 calls)
+     ortho        :      0.15s CPU      0.17s WALL (    2793 calls)
+     cgsolve      :    101.59s CPU    111.10s WALL (    2793 calls)
+     incdrhoscf   :      4.23s CPU      4.65s WALL (    2394 calls)
+     dv_of_drho   :      0.02s CPU      0.02s WALL (      18 calls)
+     mix_pot      :      0.00s CPU      0.00s WALL (       6 calls)
+ 
+     dvqpsi_us    :      3.88s CPU      4.16s WALL (    1596 calls)
+     dvqpsi_us_on :      0.76s CPU      0.81s WALL (    1596 calls)
+ 
+     cgsolve      :    101.59s CPU    111.10s WALL (    2793 calls)
+     ch_psi       :     99.96s CPU    109.31s WALL (   59150 calls)
+ 
+     ch_psi       :     99.96s CPU    109.31s WALL (   59150 calls)
+     h_psi        :     93.66s CPU    102.43s WALL (   59150 calls)
+     last         :      5.23s CPU      5.72s WALL (   59150 calls)
+ 
+     h_psi        :     93.66s CPU    102.43s WALL (   59150 calls)
+     add_vuspsi   :      1.49s CPU      1.63s WALL (   59150 calls)
+ 
+     incdrhoscf   :      4.23s CPU      4.65s WALL (    2394 calls)
+ 
+ 
+      General routines
+     calbec       :      5.00s CPU      5.46s WALL (  119231 calls)
+     fft          :      0.03s CPU      0.22s WALL (     211 calls)
+     ffts         :      0.15s CPU      0.15s WALL (    1596 calls)
+     fftw         :     89.36s CPU     97.67s WALL ( 2011416 calls)
+ 
+ 
+     PHONON       :   1m54.86s CPU   2m10.64s WALL
+
+ 
+   This run was terminated on:  17:19:52  20Dec2022            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=
+mpprun info: Elapsed time (h:m:s):  0:02:12.160241
