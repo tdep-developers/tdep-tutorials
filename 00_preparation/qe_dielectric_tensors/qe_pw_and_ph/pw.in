@@ -1,0 +1,43 @@
+&CONTROL
+   calculation      = 'scf'
+   tstress          = .true.
+   tprnfor          = .true.
+   outdir           = './'
+   prefix           = 'qe'
+   pseudo_dir       = './pseudopotentials'
+/
+&SYSTEM
+   ecutwfc          = 70.0
+   input_dft        = 'pbesol'
+   ntyp             = 2
+   nat              = 4
+   ibrav            = 0
+/
+&ELECTRONS
+   conv_thr         = 1e-10
+   diagonalization  = 'david'
+   diago_full_acc   = .true.
+/
+&IONS
+/
+&CELL
+/
+
+ATOMIC_SPECIES
+Ga 69.723 Ga_ONCV_PBE-1.2.upf
+N 14.007 N_ONCV_PBE-1.2.upf
+
+K_POINTS automatic
+12 12 12  0 0 0
+
+CELL_PARAMETERS angstrom
+3.18926000000000 0.00000000000000 0.00000000000000
+-1.59463000000000 2.76198017927000 0.00000000000000
+0.00000000000000 0.00000000000000 5.18523000000000
+
+ATOMIC_POSITIONS angstrom
+Ga -0.0000000000 1.8413201195 5.1843430526 
+Ga 1.5946300000 0.9206600598 2.5917280526 
+N -0.0000000000 1.8413201195 1.9538147449 
+N 1.5946300000 0.9206600598 4.5464297449 
+
