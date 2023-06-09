@@ -5,64 +5,27 @@ This folder contains a neural network potential for GaN. It was trained on refer
 
 ## Install
 
-**The so3krates potential requires python3.8, python3.9, or python3.10.** 3.7 and 3.11 are currently not supported by jax.
+See [installation instructions in the root folder.](../README.md#Install)
 
-**Please follow the [detailed instruction](#detailed-instructions) below if you want a working environment that is _not_ optimized for speed.**
+## Test
 
-The requirements should be straightforward to install. **We generally recommend  to create a virtual (conda) environment for testing.** Please note that the potential is implemented in [JAX](https://github.com/google/jax) and there are different ways to use hardware acceleration on your platform of interest. [**Please consider the JAX docs.**](https://github.com/google/jax#installation)
+Run the test:
+```bash
+make test
+```
 
-Please install the following repositories in this order:
+this will take a few minutes.
 
-- https://github.com/sirmarcel/glp
-- https://github.com/thorben-frank/mlff
-- https://github.com/flokno/tools.mlff
+You fill find a report of the errors against the reference values in `predictions_reference.nc` and a plot `plot_test.png` that you can compare against the reference `plot_test_reference.png`
 
-### Detailed instructions
+## Use
 
-- Make sure you are using python 3.8-3.10. If you are on 3.7 or 3.11 you can use `conda` to create a python3.10 environment via
-  ```bash
-  conda create -n py310 python=3.10
-  conda activate py310
-  ```
+You can predict energy, forces, and stress for a set of structures with the command `sokrates_compute`. For example, the command test in the `test` folder runs the command
 
-- Go to the tutorials folder (the folder in which you find this README) and `cd` into the `test` directory:
+```bash
+sokrates_compute --folder-model ../module/ samples/*/*/*/geometry.in
+```
 
-  ```bash
-  cd .../tdep-tutorials/00_preparation/gan_potential/test
-  ```
+which will compute energy, forces, and stress for all samples saved as `geometry.in` files (these could be `POSCAR`, `positions.xyz`', ..., as well), and save them to a dataset `predictions.nc` which is a HDF5 file that can be read easily using , e.g., [`xarray`](https://docs.xarray.dev/en/stable/user-guide/io.html).
 
-- create a virtual environment and activate it:
-  ```bash
-  python -m venv venv
-  # for bash:
-  source venv/bin/activate
-  # in in other shells:
-  # source venv/bin/activate.fish
-  # source venv/bin/activate.csh
-  ```
-
-- install `glp`, `mlff`, `tdeptools`, and `mlfftools`:
-  ```bash
-  pip install https://github.com/sirmarcel/glp/archive/main.zip
-  pip install https://github.com/thorben-frank/mlff/archive/main.zip
-  pip install https://github.com/flokno/tools.tdep/archive/main.zip
-  pip install https://github.com/flokno/tools.mlff/archive/main.zip
-  ```
-  
-- Run the test:
-  ```bash
-  make test
-  ```
-
-  this will take a few minutes.
-
-  - you fill find a report of the errors against the reference values in `predictions_reference.nc` and a plot `plot_test.png` that you can compare against the reference `plot_test_reference.png`
-
-
-
-## References
-
-Background:
-
-- So3krates architecture: https://openreview.net/forum?id=tlUnxtAmcJq
-- forces and stress implementation + benchmark: https://arxiv.org/abs/2305.01401
+`sokrates_compute` can also write TDEP input directly by using the `--tdep` flag.
