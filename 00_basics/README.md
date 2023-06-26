@@ -1,5 +1,18 @@
 # TDEP basics
 
+This tutorial will introduces the basics of the TDEP method. It covers how to obtain effective forceconstants from position-force data from and ab initio molecular dynamics simulation and how to then extract phonon dispersion relations, density of states and the vibrational free energy from these.
+
+The first test case will be Si, and the required input files are provided in the TODO directory.
+
+The se
+- **infile.ucposcar**: Defines the primitive cell of your system (lattice vectors and equilibrium positions), in the VASP POSCAR format. 
+- **infile.ssposcar**: Defines the supercell of your system (lattice vectors and equilibrium positions), for which the position-force dataset was produced, in the VASP POSCAR format. 
+- **infile.positions and infile.forces**: Contains positions and forces of for 
+-  ...
+- **infile.meta**: ...
+
+See https://ollehellman.github.io/page/files.html for a detailed description of the content of these input files. 
+
 
 -Schematic overview/intro to TDEP method
 
