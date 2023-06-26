@@ -1,7 +1,10 @@
-# Thermal Conductivity Tutorial
+# Tutorial for the Thermal Conductivity
+ 
+In this tutorial, you will learn how to compute lattice thermal conductivity in solids. 
 
-This tutorial aims at computing thermal conductivity within TDEP.
-
+#Before running the tutorial:
+* TDEP installed
+* [H5PY](https://docs.h5py.org/en/stable/) for Python installed
 
 # Basic steps
 
@@ -110,6 +113,28 @@ Compare the outputs.
 
 The isotope scattering is known to decrease the thermal conductivity of MgO by 30%-40%. Did you observe that?
 
+
+
+#### Extrapolation for an infinite grid of q-points
+
+Compute the thermal conductivity using different grids. For doing that, you can use a very simple script like the example reported here:
+
+
+```
+#!/bin/sh
+for i in {4..28..4};
+do
+        mkdir q_$i
+        cp infile* q_$i
+        cd q_$i
+        mpirun thermal_conductivity -qg $i $i $i --temperature 300
+        cd ..
+done
+
+```
+Fit the k_xx against 1/qx and extrapolate the value for qx=0. 
+
+
 # Post-processing options
 So far we see how to extract the thermal conductivity tensor using TDEP routine.  Let's have a look at the other output files in may find in the working directory. 
 
@@ -131,6 +156,34 @@ which is a measure which frequencies contribute most to thermal transport.
 ```math
 \kappa_{\alpha\beta}(\omega)=\frac{1}{V} \sum_{\lambda}C_{\lambda} v^{\alpha}_{\lambda} v^{\beta}_{\lambda} \tau_{\lambda} \delta(\omega- \omega_{\lambda})
 ```
+#### Read and analyze the output
+Let's analyze the output file with the following script
+
+```
+import numpy
+import matplotlib.pyplot as plt
+import h5py
+
+
+fn = h5py.File('outfile.cumulative_kappa.hdf5', 'r')
+#plot the spectral thermal conductivity as a function of frequency
+plt.plot(fn['frequencies'][:], fn['temperature_1']['spectral_kappa_vs_frequency_total'][:])
+#add labels, titles etc.
+plt.title('Spectral thermal conductivity of MgO')
+plt.xlabel('Frequency [THz]')
+plt.ylabel(r'$it{\kappa}$ [W/K/m/THz])
+plt.savefig('Spectral_thermal_conductivity_MgO.png')
+
+#plot the cumulative thermal conductivity as a function of the total mean free path
+plt.plot(fn['temperature_1']['mean_free_path_axis'][:], fn['temperature_1']['cumulative_kappa_vs_mean_free_path_total'][:])
+#add labels, titles etc.
+plt.title('Cumulative kappa vs mean free path of MgO')
+plt.xlabel('Mean Free Path [ps]')
+plt.ylabel(r'$it{\kappa}$ [W/K/m])
+plt.savefig('thermal_conductivity_vs_mfp_MgO.png')
+```
+
+
 # Next steps
 
 # Use your material of interest
