@@ -7,6 +7,7 @@ This tutorial covers the lineshape calculation part of the code. The goal will b
 In the perturbation theory approach (see the thermal conductivity lecture), the phonons are well defined quasiparticles, with their frequencies being only slightly shifted and broadened  due to their interactions, keeping a Lorentzian representation by construction. In that case, the phonon self-energy is given by
 
 $$\Sigma_{\lambda} = \Delta_{\lambda} ~+~ i\Gamma_{\lambda},$$
+
 where $\lambda = (\textbf{q}, s_q)$ denotes phonon momentum and mode (in a compact notation), $\Delta$ is a constant frequency shift and $\Gamma$ is a broadening factor evaluated using the Fermi golden rule for a specific level of interaction. If we consider 3-phonon interactions, for example, it is given by
 
 $$\Gamma_{\lambda} = \frac{\hbar \pi}{16} \sum_{\lambda' \lambda''} \left| \Phi_{\lambda \lambda' \lambda''} \right| \left[ \left( n_{\lambda'} + n_{\lambda''} + 1 \right) \delta \left( \omega_{\lambda} - \omega_{\lambda'} - \omega_{\lambda''} \right) + 2 \left( n_{\lambda'} - n_{\lambda''} \right)  \delta \left( \omega_{\lambda} - \omega_{\lambda'} + \omega_{\lambda''} \right) \right] $$
