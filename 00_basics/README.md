@@ -104,7 +104,15 @@ TODO: Just tell them to do everything again + show how to include LO-TO splittin
 
 
 
-## old 
+
+
+
+
+
+
+
+
+## OLD STUFF
 
 -Schematic overview/intro to TDEP method
 
