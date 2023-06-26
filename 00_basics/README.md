@@ -14,7 +14,11 @@ See https://ollehellman.github.io/page/files.html for a detailed description of 
 
 ## Extracting forceconstants
 
-In a directory containing all of the above input files, second order effective force constants can be extracted using the command `extract_forceconstant -rc2 100 -s 50 > fc2.log`. A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Schematically, the program solves for the set IFCs:
+In a directory containing all of the above input files, second order effective force constants can be extracted using the command 
+
+`extract_forceconstant -rc2 100 -s 50 > fc2.log`. 
+
+A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Schematically, the program solves for the set IFCs:
 
 ```math
 \mathbf{\Phi} = argmin_{\Phi} ... TODO
