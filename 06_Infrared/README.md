@@ -27,13 +27,15 @@ A sketch of the scattering geometry copied from [Ref. 1](#Suggested-reading) is 
 	<img src=".assets/figure_infrared_hofmeister_1.png" width="450"/>
   <em>Figure from  <a href=#Suggested-reading>Ref. 1</a> </em>
 </p>
-The incoming light intensity is denoted as $I_0$, and an amount $I_0 R$ is reflected upon incidence on the surface, where $R$ is the _reflectivity_, so that the remaining light has an intensity $I_1 = I_0 (1-R)$ within the sample. While passing through the sample, an amount $I_1 \Omega$ is absorbed, hence $\Omega$ denotes the _absorptivity_ of the sample, and an amount $I_2 = I_1 (1-\Omega) = I_0 (1-R)(1-\Omega)$ remains. When leaving the sample, an amount $I_2 R$ is reflected, leaving and amount $I_\text{measure} = I_2 (1-R)= I_0 (1-R)^2(1-\Omega)$ for measurement.
+
+The incoming light intensity is denoted as $I_0$ , and an amount $I_0 R$ is reflected upon incidence on the surface, where $R$ is the _reflectivity_, so that the remaining light has an intensity $I_1 = I_0 (1-R)$ within the sample. While passing through the sample, an amount $I_1 \Omega$ is absorbed, hence $\Omega$ denotes the _absorptivity_ of the sample, and an amount $I_2 = I_1 (1-\Omega) = I_0 (1-R)(1-\Omega)$ remains. When leaving the sample, an amount $I_2 R$ is reflected, leaving and amount $I_\text{measure} = I_2 (1-R)= I_0 (1-R)^2(1-\Omega)$ for measurement.
 
 The reflectivity $R$ and absorptivity $\Omega$ are intimately related to the _complex refraction index_ $\tilde n (\omega)$, or likewise the _complex dielectric function_ $\epsilon (\omega)$ of the material, and depend on the frequency (or wavelength) of the incident light. It will be our task to determine these functions from which the optical properties can be determined, as further detailed below.
 
 ### Defintions
 
 Reflectivity $R$: Amount of incident light that gets reflected such that $I_\text{reflected} = R I_0$. Related to the complex _index of refraction_ or _optical function_
+
 $$
 \tilde n = n + \mathrm{i} k~,
 $$
@@ -45,10 +47,13 @@ R=\frac{\left(n-1\right)^2+k^2}{\left(n+1\right)^2+k^2}~.
 $$
 
 The complex index of refraction is related to the complex _dielectric function_ $\epsilon$ through
+
 $$
 \epsilon = \epsilon_1 + \mathrm{i} \epsilon_2
 $$
+
 via
+
 $$
 \begin{align}
 \epsilon_1 &= n^2 - k^2 \\
