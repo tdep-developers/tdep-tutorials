@@ -32,21 +32,25 @@ The incoming light intensity is denoted as $I_0$ , and an amount $I_0 R$ is refl
 
 The reflectivity $R$ and absorptivity $\Omega$ are intimately related to the _complex refraction index_ $\tilde n (\omega)$, or likewise the _complex dielectric function_ $\epsilon (\omega)$ of the material, and depend on the frequency (or wavelength) of the incident light. It will be our task to determine these functions from which the optical properties can be determined, as further detailed below.
 
+Note that the intensity of the transmitted as well as the reflected beam will depend on both $R$ and $\Omega$, a full description of the scattering experiment therefore needs both quantities.
+
 ### Defintions
 
-Reflectivity $R$: Amount of incident light that gets reflected such that $I_\text{reflected} = R I_0$. Related to the complex _index of refraction_ or _optical function_
+**Reflectivity $R$:** Amount of incident light that gets reflected such that $I_\text{reflected} = R I_0$. It is related to the
+
+**Complex _index of refraction_ $\tilde n$**:
 
 $$
-\tilde n = n + \mathrm{i} k~,
+\tilde n = n + \mathrm{i} \kappa~,
 $$
 
 with real component $n$ and complex component $k$:
 
 $$
-R=\frac{\left(n-1\right)^2+k^2}{\left(n+1\right)^2+k^2}~.
+R=\frac{\left(n-1\right)^2+\kappa^2}{\left(n+1\right)^2+\kappa^2}~.
 $$
 
-The complex index of refraction is related to the complex _dielectric function_ $\epsilon$ through
+**Dielectric function $\epsilon$**: The complex index of refraction $\tilde n$ is related to the complex _dielectric function_ $\epsilon$ through
 
 $$
 \epsilon = \epsilon_1 + \mathrm{i} \epsilon_2
@@ -56,11 +60,58 @@ via
 
 $$
 \begin{align}
-\epsilon_1 &= n^2 - k^2 \\
-\epsilon_2 &= 2nk
+\epsilon_1 &= n^2 - \kappa^2 \\
+\epsilon_2 &= 2n\kappa
 \end{align}
 $$
 
+This can be solved for $n$ and $\kappa$ to yield
+
+$$
+\begin{align}
+n^2 
+&= \frac{1}{2} \left[ \left( \epsilon_1^2 + \epsilon_2^2 \right)^{1/2} + \epsilon_1 \right] \\
+\kappa^2 
+&= \frac{1}{2} \left[ \left( \epsilon_1^2 + \epsilon_2^2 \right)^{1/2} - \epsilon_1 \right]
+\end{align}
+$$
+
+This can be used to express the reflectivity $R$ in terms of the dielectric function,
+
+$$
+R 
+=\left|\frac{\sqrt{\epsilon}-1}{\sqrt{\epsilon}+1}\right|^2~.
+$$
+
+**Absorptivity $\Omega$**: Amount of light that gets absorbed such that $I_\text{absorbed} = \Omega I_0$. This intensity is related to the
+
+**absorption coefficient $A$** and depends exponentially on the _sample thickness_ $d$ (Beer–Lamber law) via
+
+$$
+\Omega 
+= 1 - \mathrm{e}^{- Ad}
+= 1 - \mathrm{e}^{- a}~,
+$$
+
+where $a$ is the _absorbance_ of the sample.
+
+The absorption coefficient is directly related to the imaginary part of the dielectric function $\epsilon_2$, the (real) index of refraction $n$, and speed of light $c$ via
+
+$$
+A (\omega) = \frac{\omega \epsilon_2 (\omega)}{c n(\omega)}~,
+$$
+
+now making the frequency dependence explicit.
+
+### Model dielectric function
+
+As a first step, we take the damped harmonic oscillator model for the complex dielectric function,
+
+$$
+{\epsilon}(\omega)=\epsilon_{\infty}+\frac{S \omega_0^2}{\omega_0^2-\omega^2-i \omega \gamma}~,
+$$
+
+which describes the dielectric response of a damped harmonic oscillator with _oscillator strength_ $S$, _eigenfrequency_ $\omega_0$, and _damping constant_ $\gamma$.
 
 ## Steps
 
