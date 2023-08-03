@@ -113,6 +113,67 @@ $$
 
 which describes the dielectric response of a damped harmonic oscillator with _oscillator strength_ $S$, _eigenfrequency_ $\omega_0$, and _damping constant_ $\gamma$.
 
+### Microscopic derivation (sketch)
+
+**We use a simplified notation to illustrate the derivation, for details see [Ref. 3](#Suggested-reading)!**
+
+Dielectric function as polarization-polarization response:
+$$
+\epsilon (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle P(t) P \right\rangle \mathrm d t
+$$
+
+Polarization to first order in atomic displacements $u_i$ with Born effective charge $Z_i$:
+$$
+P(t) = \sum_i Z_i u_i(t)
+$$
+
+Therefore we get
+
+$$
+\begin{align}
+\epsilon (\omega) 
+&= \sum_{ij} Z_i Z_j \int \mathrm{e}^{- \mathrm i \omega t} \left\langle u_i(t) u_j \right\rangle \mathrm d t \\
+&= \sum_{qq'} Z_q Z_{q'} \int \mathrm{e}^{- \mathrm i \omega t} \left\langle u_q(t) u_{q'} \right\rangle \mathrm d t~,
+\end{align}
+$$
+
+where $q$ is a mode label and $u_q = \sum_i e_{iq} u_i$ transform the real-space displacement $u_i$ to the mode displacement $u_q$. Then, by assuming that cross correlations $q, q'$ are small when $q \neq q'$ so that $\left\langle u_q(t) u_{q'} \right\rangle \approx \left\langle u_q(t) u_{q} \right\rangle \delta_{qq'}$, and introducing the _phonon Green's function_ $G_q(\omega)$ as
+
+$$
+\begin{align}
+G_q (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle u_q(t) u_{q} \right\rangle \mathrm d t~,
+\end{align}
+$$
+
+we can write
+
+$$
+\epsilon (\omega) = \sum_q \left\lvert Z_q \right\rvert^2 G_q (\omega)
+\equiv \sum_q S_q G_q (\omega)~,
+$$
+
+and identify $S_q = \left\lvert Z_q \right\rvert^2$ as the *oscillator strength* of mode $q$. Non-diagonal mode correlations and higher-order phonon effects are neglected here.
+
+### Alternative with spectral function
+
+[…] where $q$ is a mode label and $u_q = \sum_i e_{iq} u_i$ transform the real-space displacement $u_i$ to the mode displacement $u_q$, then, by assuming that cross correlations $q, q'$ are small when $q \neq q'$ so that $\left\langle u_q(t) u_{q'} \right\rangle \approx \left\langle u_q(t) u_{q} \right\rangle \delta_{qq'}$, and introducing the _phonon spectral function_ $J_q(\omega)$ as
+
+$$
+\begin{align}
+n (\omega_q, T) J_q (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle u_q(t) u_{q} \right\rangle \mathrm d t~,
+\end{align}
+$$
+
+where $n (\omega_q, T)$ is the Bose weight of mode $q$ at temperature $T$, we can write
+
+$$
+\epsilon (\omega) = \sum_q \left\lvert Z_q \right\rvert^2 n (\omega_q, T) J_q (\omega)
+\equiv \sum_q S_q n (\omega_q, T) J_q (\omega)~,
+$$
+
+and identify $S_q = \left\lvert Z_q \right\rvert^2$ as the *oscillator strength* of mode $q$.
+
+
 ## Steps
 
 ### Start: Inspect phonon dispersion and selection rules
@@ -123,7 +184,7 @@ which describes the dielectric response of a damped harmonic oscillator with _os
   FILL COMMAND
   ```
 
-- Check you many Raman active modes you have
+- Check you many Infrared active modes you have
   ```
   FILL SHELL OUTPUT
   ```
@@ -164,7 +225,7 @@ which describes the dielectric response of a damped harmonic oscillator with _os
 
 - Plot that file
 
-## Raman scattering cross section including temperature effects
+## Infrared scattering cross section including temperature effects
 
 - We need the `lineshape` for the Gamma point. To get it, run
   ```
