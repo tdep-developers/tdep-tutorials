@@ -118,6 +118,7 @@ which describes the dielectric response of a damped harmonic oscillator with _os
 **We use a simplified notation to illustrate the derivation, for details see [Ref. 3](#Suggested-reading)!**
 
 Dielectric function as polarization-polarization response:
+
 $$
 \epsilon (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle P(t) P \right\rangle \mathrm d t
 $$
