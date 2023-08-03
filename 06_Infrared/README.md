@@ -124,6 +124,7 @@ $$
 $$
 
 Polarization to first order in atomic displacements $u_i$ with Born effective charge $Z_i$:
+
 $$
 P(t) = \sum_i Z_i u_i(t)
 $$
@@ -155,24 +156,15 @@ $$
 
 and identify $S_q = \left\lvert Z_q \right\rvert^2$ as the *oscillator strength* of mode $q$. Non-diagonal mode correlations and higher-order phonon effects are neglected here.
 
-### Alternative with spectral function
-
-[…] where $q$ is a mode label and $u_q = \sum_i e_{iq} u_i$ transform the real-space displacement $u_i$ to the mode displacement $u_q$, then, by assuming that cross correlations $q, q'$ are small when $q \neq q'$ so that $\left\langle u_q(t) u_{q'} \right\rangle \approx \left\langle u_q(t) u_{q} \right\rangle \delta_{qq'}$, and introducing the _phonon spectral function_ $J_q(\omega)$ as
+Note that the Green's function $G_q (\omega)$ is tightly connected to the *phonon spectral functions* $J_q(\omega)$ via
 
 $$
 \begin{align}
-n (\omega_q, T) J_q (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle u_q(t) u_{q} \right\rangle \mathrm d t~,
+\left[ n (\omega_q, T) + 1 \right] J_q (\omega) = G_q (\omega)~,
 \end{align}
 $$
 
-where $n (\omega_q, T)$ is the Bose weight of mode $q$ at temperature $T$, we can write
-
-$$
-\epsilon (\omega) = \sum_q \left\lvert Z_q \right\rvert^2 n (\omega_q, T) J_q (\omega)
-\equiv \sum_q S_q n (\omega_q, T) J_q (\omega)~,
-$$
-
-and identify $S_q = \left\lvert Z_q \right\rvert^2$ as the *oscillator strength* of mode $q$.
+where $n (\omega_q, T)$ is the Bose weight of mode $q$ at temperature $T$.
 
 
 ## Steps
