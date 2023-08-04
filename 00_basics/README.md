@@ -19,12 +19,7 @@ In a directory containing all of the above input files, second order effective f
 
 `extract_forceconstant -rc2 100 -s 50 > fc2.log`. 
 
-A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Schematically, the program solves for the set IFCs:
-
-```math
-\mathbf{\Phi} = argmin_{\Phi} ... TODO
-```
-Before the fit is performed, the number of indepedent IFCs are reduced by enforcing the appropriate symmetries. These include the symmetries of the crystal being considered, as well as general translational and rotational invariances. This typically drastically reduces the number of IFCs that need to be fit. See https://ollehellman.github.io/program/extract_forceconstants.html or Refs. [TODO] for more details on how this is practically done.
+A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Before the fit is performed, the number of indepedent IFCs are reduced by enforcing the appropriate symmetries. These include the symmetries of the crystal being considered, as well as general translational and rotational invariances. This typically drastically reduces the number of IFCs that need to be fit. See https://ollehellman.github.io/program/extract_forceconstants.html or Ref. [1] for more details on how this is practically done.
 
 A few notes:
 - The option `-rc2 X` specfies the interaction cutoff for the second order IFCs, i.e. only interactions between pairs of atoms less than a distance X apart will be considered.
@@ -115,4 +110,5 @@ Repeat the procedure you performed for Si to obtain phonon dispersion relations 
 
 
 ### References:
-- [[1] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
+- [[1]] Olle Hellman, Peter Steneteg, Igor A Abrikosov, Sergei I Simak Phys. Rev. B **87** 104111 (2013) (https://journals.aps.org/prb/abstract/10.1103/PhysRevB.87.104111)
+- [[2] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
