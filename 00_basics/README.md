@@ -110,5 +110,5 @@ Repeat the procedure you performed for Si to obtain phonon dispersion relations 
 
 
 ### References:
-- [[1]] Olle Hellman, Peter Steneteg, Igor A Abrikosov, Sergei I Simak Phys. Rev. B **87** 104111 (2013) (https://journals.aps.org/prb/abstract/10.1103/PhysRevB.87.104111)
+- [[1] O. Hellman, P. Steneteg, I.A. Abrikosov and S.I. Simak, Phys. Rev. B **87** 104111 (2013)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.87.104111)
 - [[2] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
