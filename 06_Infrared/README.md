@@ -25,8 +25,9 @@ A sketch of the scattering geometry copied from [Ref. 1](#Suggested-reading) is 
 
 <p>
 	<img src=".assets/figure_infrared_hofmeister_1.png" width="450"/>
-  <em>Figure from  <a href=#Suggested-reading>Ref. 1</a> </em>
+  <figcaption><center><em>Figure from  <a href=#Suggested-reading>Ref. 1</a></em></center></figcaption>
 </p>
+
 
 The incoming light intensity is denoted as $I_0$ , and an amount $I_0 R$ is reflected upon incidence on the surface, where $R$ is the _reflectivity_, so that the remaining light has an intensity $I_1 = I_0 (1-R)$ within the sample. While passing through the sample, an amount $I_1 \Omega$ is absorbed, hence $\Omega$ denotes the _absorptivity_ of the sample, and an amount $I_2 = I_1 (1-\Omega) = I_0 (1-R)(1-\Omega)$ remains. When leaving the sample, an amount $I_2 R$ is reflected, leaving and amount $I_\text{measure} = I_2 (1-R)= I_0 (1-R)^2(1-\Omega)$ for measurement.
 
@@ -165,6 +166,16 @@ $$
 $$
 
 where $n (\omega_q, T)$ is the Bose weight of mode $q$ at temperature $T$.
+
+### Transverse field
+
+One more important aspect to consider is the transverse nature of light propagating as an electromagnetic wave in vacuum or air.
+
+<p>
+	<img src=".assets/figure_scattering_geometry.jpeg" width="450"/>
+  <figcaption><center><em>Scattering geometry: (Transverse) E field propagating in z direction perpendicular to slab.</em></center></figcaption>
+</p>
+
 
 
 ## Steps
