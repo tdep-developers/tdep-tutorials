@@ -103,7 +103,7 @@ To include long-range electrostatics in the fit, simply add the `--polar` option
 `extract_forceconstants -rc2 100 --polar -s 50 > fc2_polar.log`
 
 
-Full details on how the the long-range electrostatic interactions are included in the TDEP fit can be found in Ref. [1].
+Full details on how the the long-range electrostatic interactions are included in the TDEP fit can be found in Ref. [2].
 
 Repeat the procedure you performed for Si to obtain phonon dispersion relations and DOS for GaN and compare the obtained results to the litterature to confirm they are what you would expect. 
 
