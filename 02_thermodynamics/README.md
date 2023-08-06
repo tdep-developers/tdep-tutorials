@@ -15,8 +15,8 @@ For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integratin
 Consequently, the free energy of the system at a given temperature can be obtained using this formula with a given set of phonons.
 However, by definition, the harmonic approach is missing the anharmonic contribution, which can dramatically modify the thermodynamic of the sytem.
 
-Fortunately TDEP is able to bring some correction that include part of the anharmonicity.
-For a fixed volume, and staying at the second order in the force constants, the TDEP free energy is given by
+Fortunately TDEP is able to bring some correction that include part of the anharmonicity [Ref. 2].
+For given volume and temperature, and staying at the second order in the force constants, the TDEP free energy is given by
 ```math
 \mathcal{F}^{\mathrm{TDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + \lange V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) \range
 ```
@@ -25,6 +25,14 @@ Compared to the harmonic approximations, two corrections are to be observed
 * The temperature dependence of the phonons, that will bring a modification of the $\mathcal{F}_0$
 * The $U_0 = < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >$ term
 
+```math
+\mathcal{F}^{\mathrm{sTDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + \lange V(\vec{R}) - V^{\mathrm{sTDEP}}(\vec{R}) \range_{\mathrm{sTDEP}}
+```
+
+
+```math
+\mathcal{F}^{\mathrm{MD-TDEP}} \leq \mathcal{F} \leq \mathcal{F}^{\mathrm{sTDEP}}
+```
 
 ## General scope
 
@@ -43,8 +51,12 @@ This tutorial **does not cover**:
 
 For this tutorial, we will compute the equilibrium lattice parameter of bcc zirconium at 1300K.
 According to the harmonic approximation, the bcc phase of zirconium present several imaginary modes, which indicates the unstability of the phase.
+<p align="center">
+	<img src="reference/Zr_bcc_harmonic.png" width="450"/>
+  <figcaption><center><em>Phonons in bcc Zr in the harmonic approximation.</a></em></center></figcaption>
+</p>
 However, it is well documented that zirconium is in a bcc phase at high temperature and ambient pressure, showing thus a limitation of the harmonic approximation.
-The stabilization of zirconium can be explained through explicit temperature effects that can be caputred by the TDEP approach.
+The stabilization of zirconium can be explained through explicit temperature effects that can be caputred by the TDEP approach [Ref. 1].
 
 We will need to perform simulations for several volumes, with reference data will be available in the `references` directory.
 
@@ -87,33 +99,26 @@ Note that the configurations were generated using the self-consistent stochastic
 ## Getting the equilibrium volume
 
 When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
-When workin at 0K, the ground state can be computed using a model equation of state to fit energy vs volume data.
+When workin at 0K, the ground state can be computed using a model equation of state to fit potential energy vs volume data.
+For example, here is the equation of state of bcc Zirconium fitted with the Vinet model.
+<p align="center">
+	<img src="reference/EOS_0K.png" width="450"/>
+  <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
+</p>
+
 Here, we will use a similar approach, but instead of using the energy to fit our equation of state, we will use the free energy computed at the desired temperature.
 
 In the reference folder, you will find a subdirectory `equation_of_state` which contains sufolder `aX`, where X is a number giving the lattice parameter.
 In these subfolder, you will find some input files with data computed at 1300K with the corresponding lattice parameter.
 - For each lattice parameter, compute the free energy. Look carefuly at the convergence for `U0` and the harmonic free energy.
-- Fit an equation of state using the Birch-Murnhagan formula on the free energy. As an example, you can find the script `fit_equation_of_state.py` in the `equation_of_state` folder, which uses ASE functionalities.
-- Extract the lattice parameter of bcc Zr at this temperature from your fit. Compare it with the lattice parameter obtained from the minimization of the energy.
-
-
-## Beyond the second order
-
-In the previous exercises, we only used the second order correction U0 to the free energy $\langle V(R) - V_2(R)\rangle$.
-This is an approximation that can have drastic effect on the accuracy on the computed free energy.
-With TDEP, we can expand the effective potential to fourth order, which means that we can add a further correction to the free energy.
-```math
-\mathcal{F}^{\mathrm{TDEP}} = \mathcal{\Fe}_0 + \Delta \mathcal{\Fe}_3 + \Delta \mathcal{\Fe}_4 + \langle V(R) - V_2(R) - V_3(R) - V_4(R) \rangle
-```
-
-- Go into a folder with all the necessary files to compute interatomic force constants
-- Use `extract_force_constants` to compute 2nd, 3rd and 4th order IFC.
-- Run `???`
-- MAGIC
+- Fit an equation of state using the Vinet equations on the free energy. As an example, you can find the script `fit_equation_of_state.py` in the `reference` folder, that fit a Vinet equation of state if provided with a file `eos_data.dat` containing volumes (in $\mathring{a}$/at) and energies/free energies (in eV/at).
+- Extract the lattice parameter of bcc Zr at this temperature from your fit. Compare it with the lattice parameter obtained from the minimization of the potential energy (a = 3.58$~\mathring{a}$).
 
 
 ## Suggested reading
 
+- [[1] O. Hellman, I. A. Abrikosov, and S. I. Simak Phys. Rev. B **84**, 180301\(R\) (2011)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.180301)
+- [[2] O. Hellman, P. Steneteg, I. A. Abrikosov, and S. Simak, Phys. Rev. B **87**, 104111 (2013)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.87.104111)
 
 ## Prerequisites
 
