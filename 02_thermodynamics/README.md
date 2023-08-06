@@ -1,9 +1,7 @@
 Thermodynamics with TDEP
 ========================
 
-The goal of this tutorial is to show how to compute thermodynamic properties with TDEP.
 In the harmonic approximation, the free energy, as well as all every other thermodynamic properties, can computed exactly using the phonon density of states defined as:
-
 ```math
 g(\omega) = \sum_\lambda \delta(\omega - \omega_\lambda)
 ```
@@ -12,27 +10,44 @@ For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integratin
 ```math
 \mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT}\big] 
 ```
-Consequently, the free energy of the system at a given temperature can be obtained using this formula with a given set of phonons.
-However, by definition, the harmonic approach is missing the anharmonic contribution, which can dramatically modify the thermodynamic of the sytem.
+Consequently, the free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
+However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamic of the sytem.
 
 Fortunately TDEP is able to bring some correction that include part of the anharmonicity [Ref. 2].
-For given volume and temperature, and staying at the second order in the force constants, the TDEP free energy is given by
+For given volume and temperature, and staying at the second order in the force constants, the TDEP free energy $\mathcal{F}^{\mathrm{TDEP}}$ is given by
 ```math
-\mathcal{F}^{\mathrm{TDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >
+\mathcal{F}^{\mathrm{TDEP}}(T) = \mathcal{F}_0^{\mathrm{TDEP}}(T) + < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >_T
 ```
+In this equation
+- $\mathcal{F}_0^{\mathrm{TDEP}}$ is the effective harmonic free energy.
+- $V(\vec{R})$ is the potential energy of the system (given for example by DFT).
+- $V^{\mathrm{TDEP}}(\vec{R})$ is the potential energy of the effective harmonic model.
+- $< O >_T$ indicate an average of $O$ computed at a temperature T.
 
 Compared to the harmonic approximations, two corrections are to be observed
-* The temperature dependence of the phonons, that will bring a modification of the $\mathcal{F}_0$
-* The $U_0 = < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >$ term
+* The temperature dependence of the phonons -> that will bring a modification of the $\mathcal{F}_0$
+* The $U_0 = < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >_T$ term -> a anharmonic correction
 
-```math
-\mathcal{F}^{\mathrm{sTDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + \lange V(\vec{R}) - V^{\mathrm{sTDEP}}(\vec{R}) \range_{\mathrm{sTDEP}}
-```
+It should be noted that the free energy computed this way is still an approximation.
 
 
+**Important Note**
+
+To generate configurations used in TDEP, we are two approaches :
+- Using molecular dynamics to sample the true (but classical) distribution (MD-TDEP)
+- Using the self-consistent stochastic approach (sTDEP)
+
+sTDEP is an application of the self-consistent harmonic approximation, constructed on an inequality called the Gibbs-Bogoliubov.
+This inequality tells us that the sTDEP free energy is an **upper-bound** to the free energy : $\mathcal{F} \leq \mathcal{F}^{\mathrm{sTDEP}}$
+
+On the contrary, using the real distribution, MD-TDEP gives a **lower-bound** to the free energy : $\mathcal{F} \geq \mathcal{F}^{\mathrm{MD-TDEP}}$
+
+In the end, the real free energy is framed by the approximated free energy computed with each approach
 ```math
 \mathcal{F}^{\mathrm{MD-TDEP}} \leq \mathcal{F} \leq \mathcal{F}^{\mathrm{sTDEP}}
 ```
+
+But be careful ! When comparing the free energy of two phases, to compute phase diagram for example, you have to use **the same approximation** for both phase !
 
 ## General scope
 
@@ -99,19 +114,20 @@ Note that the configurations were generated using the self-consistent stochastic
 ## Getting the equilibrium volume
 
 When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
-When workin at 0K, the ground state can be computed using a model equation of state to fit potential energy vs volume data.
+When working at 0K, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
 For example, here is the equation of state of bcc Zirconium fitted with the Vinet model.
 <p align="center">
 	<img src="reference/EOS_0K.png" width="450"/>
   <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
 </p>
 
-Here, we will use a similar approach, but instead of using the energy to fit our equation of state, we will use the free energy computed at the desired temperature.
+To include the effects of temperature, we can use the same approach, but replacing the energy by the free energy in the fitting of the equation of state.
 
-In the reference folder, you will find a subdirectory `equation_of_state` which contains sufolder `aX`, where X is a number giving the lattice parameter.
+
+In the `reference` folder, you will find a subdirectory `equation_of_state` which contains subfolders `aX`, where X is a number giving the lattice parameter.
 In these subfolder, you will find some input files with data computed at 1300K with the corresponding lattice parameter.
 - For each lattice parameter, compute the free energy. Look carefuly at the convergence for `U0` and the harmonic free energy.
-- Fit an equation of state using the Vinet equations on the free energy. As an example, you can find the script `fit_equation_of_state.py` in the `reference` folder, that fit a Vinet equation of state if provided with a file `eos_data.dat` containing volumes (in $\mathring{a}$/at) and energies/free energies (in eV/at).
+- Fit an equation of state using the Vinet equations on the free energy. For help, you can find the script `fit_equation_of_state.py` in the `reference` folder, that fit a Vinet equation of state if provided with a file `eos_data.dat` containing volumes (in $\mathring{a}$/at) and energies/free energies (in eV/at).
 - Extract the lattice parameter of bcc Zr at this temperature from your fit. Compare it with the lattice parameter obtained from the minimization of the potential energy (a = 3.58$~\mathring{a}$).
 
 
@@ -124,4 +140,3 @@ In these subfolder, you will find some input files with data computed at 1300K w
 
 - [TDEP is installed](http://ollehellman.github.io/page/0_installation.html)
 - [TDEP tools are installed](https://github.com/flokno/tools.tdep)
-- [gnuplot is installed](http://www.gnuplot.info/)
