@@ -18,7 +18,7 @@ However, by definition, the harmonic approach is missing the anharmonic contribu
 Fortunately TDEP is able to bring some correction that include part of the anharmonicity [Ref. 2].
 For given volume and temperature, and staying at the second order in the force constants, the TDEP free energy is given by
 ```math
-\mathcal{F}^{\mathrm{TDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + \lange V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) \range
+\mathcal{F}^{\mathrm{TDEP}} = \mathcal{F}_0^{\mathrm{TDEP}} + < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >
 ```
 
 Compared to the harmonic approximations, two corrections are to be observed
