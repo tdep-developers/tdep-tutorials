@@ -1,7 +1,10 @@
 Thermodynamics with TDEP
 ========================
 
-In the harmonic approximation, the free energy, as well as all every other thermodynamic properties, can computed exactly using the phonon density of states defined as:
+The free energy is a central property in statistical physics that allows to access to the stability of a structure, find its equilibrium volume, compute phase diagrams and many other things.
+For an arbitrary system with a potential $V(\vec{R})$, the free energy is very difficult to compute and requires complex and expensive method.
+
+Fortunately, in the harmonic approximation, the free energy can computed exactly using the phonon density of states defined as:
 ```math
 g(\omega) = \sum_\lambda \delta(\omega - \omega_\lambda)
 ```
@@ -13,7 +16,7 @@ For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integratin
 Consequently, the free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
 However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamic of the sytem.
 
-Fortunately TDEP is able to bring some correction that include part of the anharmonicity [Ref. 2].
+Fortunately TDEP is able to bring some corrections that include part of the anharmonicity [Ref. 2].
 For given volume and temperature, and staying at the second order in the force constants, the TDEP free energy $\mathcal{F}^{\mathrm{TDEP}}$ is given by
 ```math
 \mathcal{F}^{\mathrm{TDEP}}(T) = \mathcal{F}_0^{\mathrm{TDEP}}(T) + < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >_T
@@ -25,10 +28,12 @@ In this equation
 - $< O >_T$ indicate an average of $O$ computed at a temperature T.
 
 Compared to the harmonic approximations, two corrections are to be observed
-* The temperature dependence of the phonons -> that will bring a modification of the $\mathcal{F}_0$
+* The temperature dependence of the phonons -> that will bring a modification of the $\mathcal{F}_0(T)$
 * The $U_0 = < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >_T$ term -> a anharmonic correction
 
 It should be noted that the free energy computed this way is still an approximation.
+However, compared to the harmonic approximation, explicit temperature effect are included.
+Moreover, if using the self-consistent stochating sampling with a Bose-Einstein distribution (see tutorial on stochastic sampling) this approach allows to include nuclear quantum effects.
 
 
 **Important Note**
@@ -78,6 +83,7 @@ We will need to perform simulations for several volumes, with reference data wil
 
 - You will find informations concerning free energy on [`extract_forceconsants`](http://ollehellman.github.io/program/extract_forceconstants.html) and [`phonon_dispersions`](https://ollehellman.github.io/program/phonon_dispersion_relations.html#sec_tdepthermo)
 
+
 ## Computing the free energy
 
 As a start, we will compute the free energy of bcc zirconium at the equilibrium volume obtained from a minimization of the energy.
@@ -121,14 +127,15 @@ For example, here is the equation of state of bcc Zirconium fitted with the Vine
   <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
 </p>
 
-To include the effects of temperature, we can use the same approach, but replacing the energy by the free energy in the fitting of the equation of state.
+To include the effects of temperature, we can use the equation of state method, but replacing the energy by the free energy in the fitting.
 
 
 In the `reference` folder, you will find a subdirectory `equation_of_state` which contains subfolders `aX`, where X is a number giving the lattice parameter.
 In these subfolder, you will find some input files with data computed at 1300K with the corresponding lattice parameter.
 - For each lattice parameter, compute the free energy. Look carefuly at the convergence for `U0` and the harmonic free energy.
-- Fit an equation of state using the Vinet equations on the free energy. For help, you can find the script `fit_equation_of_state.py` in the `reference` folder, that fit a Vinet equation of state if provided with a file `eos_data.dat` containing volumes (in $\mathring{a}$/at) and energies/free energies (in eV/at).
-- Extract the lattice parameter of bcc Zr at this temperature from your fit. Compare it with the lattice parameter obtained from the minimization of the potential energy (a = 3.58$~\mathring{a}$).
+- Put volume/energy data (in $\mathring{a}^3/at$ and eV/at) in a file `eos_data.dat` to allow for the fitting.
+- Fit an equation of state using the Vinet equations on the free energy. For this, you can use the script `fit_equation_of_state.py` in the `reference` folder, that can fit a Vinet equation of state from the file `eos_data.dat`.
+- Extract the lattice parameter of bcc Zr at this temperature from your fit. Compare it with the lattice parameter obtained from the minimization of the potential energy (a = 3.58$~\mathring{a}$. Note : for a monoatomic bcc crystal, the lattice parameter is given by $a = (2 V)^{1/3}$).
 
 
 ## Suggested reading
@@ -139,4 +146,3 @@ In these subfolder, you will find some input files with data computed at 1300K w
 ## Prerequisites
 
 - [TDEP is installed](http://ollehellman.github.io/page/0_installation.html)
-- [TDEP tools are installed](https://github.com/flokno/tools.tdep)
