@@ -5,22 +5,22 @@ Briefly put, the idea is to generate force constants self-consistently by using 
 
 In the classical case and very simplified mathematical terms, we solve this equation self-consistently for the force constants $\Phi$:
 
-```math
+$$
 \begin{align}
 \langle V_2 \rangle
 &= \int {\rm d} R ~ {\rm e}^{- \beta V({\bf R})} V_2 ({\bf R}) \\
 &{\color{red} \approx}
 \int {\rm d} R ~ {\rm e}^{- \beta {\color{red} V_2} ({\bf R}) } V_2 ({\bf R})~,
 \end{align}
-```
+$$
 
 where
 
-```math
+$$
 \begin{align}
 V_2({\bf R}) = \frac{1}{2} \sum_{ij} \Phi_{i \alpha, j \beta}({\bf R^0})U^{i \alpha} U^{j \beta}~,
 \end{align}
-```
+$$
 
 i.e., instead of sampling the true nuclear distribution as it would be obtained with MD simulations (at much higher cost!), we sample the approximate (effective) harmonic distribution and update the force constants self-consistently after each iteration until convergence. The solution will correspond to the (effective) harmonic model that best mimics the true thermodynamic behavior of the system at the given temperature (defined by $1/\beta = k_{\rm B} T$).
 
@@ -49,7 +49,7 @@ This tutorial **does not cover**:
 ### Preparation
 
 - Read the documentation of [`generature_structure`](http://ollehellman.github.io/program/generate_structure.html)
-- prepare a primitive cell for the material of your interest. This should be a POSCAR file called `infile.ucposcar`. An example of such a file is located in `sampling.300K` for MgO.
+- prepare a primitive cell for the material of your interest. This should be a POSCAR file called `infile.ucposcar`. An example of such a file is located in `example_MgO/sampling.300K` for MgO.
 - Generate a supercell of at least 200 atoms (for testing you might choose a smaller one)
   - e.g. `generate_structure -na 64` for 64 atoms, this will create `outfile.ssposcar`
   - copy `outfile.ssposcar` to `infile.ssposcar`. 
