@@ -1,4 +1,4 @@
-Statistical sampling with TDEP: Zirconium
+Stochastic TDEP (sTDEP) for Zirconium
 ===
 
 This example shows how to perform statistical sampling for bcc zirconium, and how to obtain a positive definite spectrum at high temperatures.
@@ -33,4 +33,3 @@ This example shows how to perform statistical sampling for bcc zirconium, and ho
 - [TDEP tools are installed](https://github.com/flokno/tools.tdep)
 - [gnuplot is installed](http://www.gnuplot.info/)
 - [you are familiar with using the so3krates force field (or have your own potential at hand)](https://github.com/tdep-developers/tdep-tutorials/tree/main/00_preparation/potential_energy_surfaces)
-
