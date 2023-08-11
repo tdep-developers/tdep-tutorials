@@ -1,7 +1,7 @@
 Infrared spectra with TDEP
 ===
 
-This tutorial covers the basics to compute first-order Infrared spectra with TDEP. What we need to compute is the Infrared scattering cross section.
+This tutorial covers the basics to compute first-order Infrared spectra with TDEP. We will cover the case of 3ph scattering in magnesium oxide similar to Ref. [[Fugallo2018]](#Suggested-reading), and connect it to the TDEP response formalism described in [[Benshalom2022]](#Suggested-reading).
 
 ## Preparation
 
@@ -22,6 +22,8 @@ This tutorial covers the basics to compute first-order Infrared spectra with TDE
 Infrared absorption describes the phenomenon of a polar insulator or semiconductor absorbing light at infrared wavelengths (few $\text{cm}^{-1}$ to few thousand $\mathrm{cm}^{-1}$), i.e., well below the bandgap. The simplest explanation is that the incident light drives certain phonon modes which couple to electromagnetic radiation (optical modes) and therefore loses energy. The energy loss can be measured as a function of wavelength or frequency, and from the resulting spectrum we can learn which phonons were excited.
 
 A sketch of the scattering geometry copied from [Ref. 1](#Suggested-reading) is shown below. Note that the incident angle is typically (very close to) perpendicular to the sample surface and the angle is exaggerated for visualization.
+
+**TODO: Update Figure and use notation from Fugallo2018**
 
 <p>
 	<img src=".assets/figure_infrared_hofmeister_1.png" width="450"/>
@@ -110,9 +112,12 @@ As a first step, we take the damped harmonic oscillator model for the complex di
 
 $$
 {\epsilon}(\omega)=\epsilon_{\infty}+\frac{S \omega_0^2}{\omega_0^2-\omega^2-i \omega \gamma}~,
+\tag{1}
 $$
 
 which describes the dielectric response of a damped harmonic oscillator with _oscillator strength_ $S$, _eigenfrequency_ $\omega_0$, and _damping constant_ $\gamma$.
+
+**Bonus points: Figure out the value of $S$ in [[Fugallo2018]](#Suggested-reading).**
 
 ### Microscopic derivation (sketch)
 
@@ -161,89 +166,62 @@ Note that the Green's function $G_q (\omega)$ is tightly connected to the *phono
 
 $$
 \begin{align}
-\left[ n (\omega_q, T) + 1 \right] J_q (\omega) = G_q (\omega)~,
+J_q (\omega) 
+	&= - \frac{1}{\pi} \mathrm{Im} \, G_q (\omega) \\
+\implies
+\mathrm{Im} \, G_q (\omega) 
+	&= -\pi J_q (\omega)~.
 \end{align}
 $$
 
-where $n (\omega_q, T)$ is the Bose weight of mode $q$ at temperature $T$.
+The spectral function $J_q (\omega)$ is the quantity that the `lineshape` code in TDEP computes.
+
+We can reconstruct the full Green's function (cf. Eq. (14) in [[Benshalom2022]](#Suggested-reading)) by obtained the real part of $G_q$ via the Kramers-Kronig transformation that relates real and imaginary parts of an analytic function $\chi = \chi_1 + \mathrm i \chi_2$:
+
+$$
+\begin{align}
+\chi_1(\omega)=\frac{1}{\pi} \mathcal{P} \int_{-\infty}^{\infty} \frac{\chi_2\left(\omega^{\prime}\right)}{\omega^{\prime}-\omega} d \omega^{\prime}~.
+\end{align}
+$$
+
+Therefore we can construct the full Green's function from the spectral function.
+
+Note that Eq. (14) in [[Benshalom2022]](#Suggested-reading)) reads
+
+$$
+G_s(Z)=\frac{2 \omega_s}{\omega_s^2-2 \omega_s \Sigma_s(Z)-Z^2}
+\tag{2}~,
+$$
+
+so there is a factor $\omega_s/2$ to be considered when comparing this to Eq. (1) above or Eq. (3) in [[Fugallo2018]](#Suggested-reading).
 
 ### Transverse field
 
-One more important aspect to consider is the transverse nature of light propagating as an electromagnetic wave in vacuum or air.
+One more important aspect to consider is the transverse nature of light propagating as an electromagnetic wave in vacuum or air:
 
 <p>
 	<img src=".assets/figure_scattering_geometry.jpeg" width="450"/>
   <figcaption><center><em>Scattering geometry: (Transverse) E field propagating in z direction perpendicular to slab.</em></center></figcaption>
 </p>
+**Question:** Imagine the experimental setup to be as depicted above. In what direction does the polarization $\mathbf P$ need to point so that the $\mathbf E$ field can interact with it?
+
+**Question:** Which phonon wave vectors $\{ \mathbf q \}$ are we probing in this setup?
+
+**Question:** What is the consequence for the oscillator strength? Do all modes contribute to the dielectric function? Which do?
 
 
 
 ## Steps
 
-### Start: Inspect phonon dispersion and selection rules
-
-- Create the phonon dispersion for your forceconstants
-
-  ```
-  FILL COMMAND
-  ```
-
-- Check you many Infrared active modes you have
-  ```
-  FILL SHELL OUTPUT
-  ```
-
-- Check the file `outfile.mode_activity.csv` which contains the mode frequencies at the Gamma point, and whether they are Raman active (1) or not (0). (Same for IR activity).
-
-- Plot this file.
-
-### Compute mode intensities
-
-- Displacements for each phonon mode with the command
-
-  ```
-  FILL COMMAND
-  ```
-
-  This will create 2 displacement (+ and -) for each mode.
-
-- Filter out modes that are not Raman active with the command
-
-  ```
-  FILL COMMAND
-  ```
-
-- Move the files to folders and compute the dielectric tensor, e.g., with Quantum Espresso.
-
-- Parse the outputs with the command
-  ```
-  FILL COMMAND
-  ```
-
-- Now we can compute the mode intensities (Eq. (9) in [2]) by running
-  ```
-  FILL COMMAND
-  ```
-
-- This will return `outfile.mode_intensity.csv`
-
-- Plot that file
-
-## Infrared scattering cross section including temperature effects
-
-- We need the `lineshape` for the Gamma point. To get it, run
-  ```
-  FILL COMMAND
-  ```
-
-  this will create the output file `FILE`
-
-- We can now get the full spectrum by combining the intensities with the spectral function
-  ```
-  FILL COMMAND
-  ```
-
-- Inspect the output
+- Go to the folder `example_MgO`
+- Perform sTDEP sampling for MgO at 300K until you reach convergence
+- Extract 2nd and 3rd order force constants
+- Copy `infile.ucposcar`, `infile.lotosplitting` and the `infile.forceconstant` + `infile.forceconstant_thirdorder` into a new folder
+- Run `lineshape` with `lineshape --temperature TEMPERATURE --qpoint Q1 Q2 Q3 --qdirin Q1 Q2 Q3` where you fill the numbers according to the considerations above. This will produce the phonon spectral function and write it to `outfile.phonon_self_energy.hdf5`
+- Copy `infile.ucposcar`, `infile.lotosplitting`, and `outfile.phonon_self_energy.hdf5` to the `example_MgO/IR` folder
+- Run `tdep_compute_ir_intensities` which will compute the oscillator strength $S_q$ for each mode
+- Now put everything together! Open the Jupyter notebook `example_MgO/IR/notebook_get_ir.ipynb` and follow the steps to compute the optical functions defined in [[Fugallo2018]](#Suggested-reading)
+- Compare the results to the experimental study in Ref. [[Hofmeister2003]](#Suggested-reading)
 
 
 ## Suggested reading
@@ -252,8 +230,3 @@ One more important aspect to consider is the transverse nature of light propagat
 - [[1] A. M. Hofmeister, E. Keppel, and A. K. Speck, Mon. Not. R. Astron. Soc. **345**, 16 (2003)](https://academic.oup.com/mnras/article/345/1/16/984419)
 - [[2] G. Fugallo, B. Rousseau, and M. Lazzeri, Phys Rev B **98**, 184307 (2018)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.184307)
 - [[3] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
-
-## Prerequisites
-
-- [TDEP is installed](http://ollehellman.github.io/page/0_installation.html)
-- [TDEP tools are installed](https://github.com/flokno/tools.tdep)
