@@ -14,7 +14,7 @@ $$\Gamma_{\lambda} = \frac{\hbar \pi}{16} \sum_{\lambda' \lambda''} \left| \Phi_
 
 i.e. it's evaluated at the harmonic phonon frequencies, with the 3-phonon matrix elements
 
-$$\Phi_{\lambda, \lambda', \lambda''} = \sum_{ijk} \sum_{\alpha \beta \gamma} \frac{\epsilon^{i \alpha}_{\lambda} \epsilon^{j \beta}_{\lambda'} \epsilon^{k \gamma}_{\lambda''}}{\sqrt{m_i m_j m_k} \sqrt{\omega_{\lambda} \omega_{\lambda'} \omega_{\lambda''}}} \Phi^{\alpha \beta \gamma}_{ijk} \exp(i \textbf{q}\cdot\textbf{r}_i +  \textbf{q'}\cdot\textbf{r}_j + i \textbf{q''}\cdot\textbf{r}_k )$$
+<p>$$\Phi_{\lambda, \lambda', \lambda''} = \sum_{ijk} \sum_{\alpha \beta \gamma} \frac{\epsilon^{i \alpha}_{\lambda} \epsilon^{j \beta}_{\lambda'} \epsilon^{k \gamma}_{\lambda''}}{\sqrt{m_i m_j m_k} \sqrt{\omega_{\lambda} \omega_{\lambda'} \omega_{\lambda''}}} \Phi^{\alpha \beta \gamma}_{ijk} \exp(i \textbf{q}\cdot\textbf{r}_i +  \textbf{q'}\cdot\textbf{r}_j + i \textbf{q''}\cdot\textbf{r}_k )$$<p>
 
 dictating the strength of the interaction. We therefore only need the second and third order interatomic force constants to calculate it. 
 
@@ -53,7 +53,7 @@ $$g_s(\Omega) = \frac{(2\pi)^3}{V} \int_{BZ} \sigma_{\textbf{q} s}(\Omega) d\tex
 
 To obtain the thermal conductivity outside of a well-defined phonon picture, we start by considering the Green-Kubo formula for linear response:
 
-$$\kappa_{\alpha \beta} = \frac{V}{k_B T^2} \int^{\infty}_0 \langle J_{\alpha}(t)J_{\beta}(0)\rangle dt $$
+<p>$$\kappa_{\alpha \beta} = \frac{V}{k_B T^2} \int^{\infty}_0 \langle J_{\alpha}(t)J_{\beta}(0)\rangle dt$$<p>
 
 where V is the system's volume (in the formal sense we take the limit to infinite volume, in practice it's the converged supercell volume), $k_B$ is Boltzmann's constant, T is the temperature and J is the heat current, representing the energy flux through the system due to the phonons. This represents a fluctuation-dissipation relationship, where the system's macroscopic ability to carry heat is determined by the fluctuations of the heat current at a microscopic level.
 
@@ -61,19 +61,19 @@ The first thing to consider is the meaning behind the thermal average $\langle .
 
 A half-way compromise between the two is also possible to obtain, by performing classical level simulations but considering quantum phonon occupations (Bose-Einstein instead of Boltzmann distribution). In that case, $\langle ... \rangle$ represents what is usually called a greater Green's function, defined as 
 
-$$G^{>}(X,Y) = -i \langle X(t) Y^{\dagger}(0) \rangle$$
+<p>$$G^{>}(X,Y) = -i \langle X(t) Y^{\dagger}(0) \rangle$$<p>
 
 where X and Y are two operators in the Heisenberg representation and the dagger represents hermitian conjugation. In this representation of the heat current autocorrelation, some of the quantum character of the fluctuations can be recovered via the occupations despite the usage of classical simulations.
 
 In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [3] :
 
-$$\textbf{J}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$
+<p>$$\textbf{J}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
 
 Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [4] for the definition of these operators in terms of phonon creation and annihilation operators).
 
 Substituting J(t) into the Green-Kubo equation we obtain
 
-$$\kappa = \frac{1}{4k_BT^2V} \sum_{\textbf{q} s_1 s_2} \sum_{\textbf{q'} s_3 s_4} \omega_{\textbf{q} s_1} \omega_{\textbf{q'} s_2} \textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q'} s_3 s_4} \int^{\infty}_0 \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{q}'} s_4} \rangle ~dt$$
+<p>$$\kappa = \frac{1}{4k_BT^2V} \sum_{\textbf{q} s_1 s_2} \sum_{\textbf{q'} s_3 s_4} \omega_{\textbf{q} s_1} \omega_{\textbf{q'} s_2} \textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q'} s_3 s_4} \int^{\infty}_0 \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{q}'} s_4} \rangle ~dt$$<p>
 
 where the phonon displacement and momentum operators without time argument are at t=0. 
 
@@ -81,23 +81,26 @@ Just as in the Peierls-Boltzmann formulation of thermal conductivity, the phonon
 
 The correlation function shown above corresponds to a 2-phonon correlation function. In order to make its calculation manageable, we use the thermal average's version of the famous Wick's theorem, which tells us that if our anharmonicity/phonon-interaction is weak (more strictly, if the ensemble is Gaussian or very close to it) we can decouple the correlation function as 
 
-$$
+<p>$$
 \begin{aligned}
 \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{{q}}}' s_4} \rangle &\simeq \langle B_{\textbf{q} s_1}(t) B_{\textbf{q'} s_3} \rangle \langle A_{\bar{\textbf{q}} s_2}(t) A_{\bar{\textbf{q}}' s_4} \rangle \delta \left( \textbf{q} ~+~ \textbf{q'} \right) \\
 & + \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}}' s_4} \rangle \langle A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} \rangle \delta \left( \textbf{q} ~-~ \textbf{q'} \right)
 \end{aligned}
-$$ 
+$$<p>
+	
 This decoupling scheme lends itself very obviously to be used when stochastic sampling is performed, since in that case the ensemble is Gaussian by definition, though it will not necessarily mean the results will be closer to experiment if that approximation is not viable for the selected system.
 
 If we now convert our correlation functions into spectral functions via the relation
 
-$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$
+<p>$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$<p>
+	
 where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [4] for more on this applied to Raman scattering), we can obtain (after some math)
 
-$$\kappa = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2 s_3 s_4} \mathfrak{Re}(\textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q} s_3 s_4}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_4} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_4} (\Omega) ~ c_v(\Omega) ~ d\Omega$$
+<p>$$\kappa = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2 s_3 s_4} \mathfrak{Re}(\textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q} s_3 s_4}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_4} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_4} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
+	
 with $c_v(\Omega)$ the system's heat capacity in its frequency dependent form, defined as 
 
-$$c_v(\Omega) = \frac{\Omega^2}{k_B T^2} n(\Omega) (n(\Omega)+1)$$
+<p>$$c_v(\Omega) = \frac{\Omega^2}{k_B T^2} n(\Omega) (n(\Omega)+1)$$<p>
 
 With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
 
@@ -158,7 +161,9 @@ plt.show()
 
 This should result in a plot similar to this one:
 
-![[T100K_gamma_333.png| center | 500x400]]
+<p align="center">
+  <img src="Figures/T100K_gamma_333.png" width="500" height="400">
+</p>
 
 Here we choose to just plot one of the optical modes but in general you must be careful to check how all modes will evolve with changing the q-point grid.
 
@@ -166,7 +171,9 @@ Here we choose to just plot one of the optical modes but in general you must be 
 
 - After doing this for a couple of different sets of q-point grids, we can now re-do the same plot as above but now plotting all of the spectral functions at the same time. You will notice that after some threshold it will stop changing, and that's when we can consider it as converged. It is the q-point grid at which the spectral function is converged that you should use for your calculations at this temperature. An example of this spectral function changing with the q-point grid can be seen below:
 
-![[T100K_gamma_all.png]]
+<p align="center">
+  <img src="Figures/T100K_gamma_all.png" width="500" height="400">
+</p>
 
 Here the spectral functions' centers are displaced from each other merely for increased visibility purposes, and we see that the 12x12x12 grid is converged.
 
@@ -186,8 +193,9 @@ where again start with our lowest temperature, add our path to the TDEP binaries
 
 - This mode allows us to define a specific path along the Brillouin zone, with the default being the same one as in the phonon dispersion relations (along the high symmetry points of the crystal). 
 
-![[Brillouin_Zone_(1st,_FCC).svg.png | center |  256x256]]
-
+<p align="center">
+  <img src="Figures/Brillouin_Zone_(1st,_FCC).svg.png" width="256" height="256">
+</p>
 
 
 - A different path can be specified using the flag --readpath, which will make TDEP read the q-point path from an infile.qpoints_dispersion file. The number of q-points between each high-symmetry point can be tuned via the flag -nq (--nq_on_path, default is 100) for a denser grid. An example file would be
@@ -252,7 +260,9 @@ plt.show()
 
 This will result in a plot like the following:
 
-![[T1100K_anh_bands_151515.png]]
+<p align="center">
+  <img src="Figures/T1100K_anh_bands_151515.png" width="625" height="500">
+</p>
 
 - We can now proceed by repeating the calculation for an increasing q-point grid as before, and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg and simply seeing when it stops changing. Again, the converged value of -qg is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
 
@@ -299,13 +309,15 @@ plt.show()
 
 This will produce a plot like the following:
 
-![[Lineshape Introduction TDEP School/DOS_T100K.png]]
-
+<p align="center">
+  <img src="Figures/DOS_T100K.png" width="500" height="400">
+</p>
 
 If we look at the corresponding (same sampling, same q-point grid) anharmonic band structure, we can clearly see that the peaks in the phonon DOS correspond to the densest parts of the dispersion plot:
 
-![[T100K_anh_bands_333.png]]
-
+<p align="center">
+  <img src="Figures/T100K_anh_bands_333.png" width="625" height="500">
+</p>
 
 
 - Next, we will look at the `outfile.thermal_conductivity.hdf5` file. This file contains not only the spectral thermal conductivity per mode per direction of the tensor, but also information pertaining to the thermal conductivity in the RTA approximation like the lifetimes, mean free path, etc. For the purposes of this tutorial we'll be focusing in the spectral thermal conductivity only, but make sure you explore the rest of the file as well.
@@ -314,9 +326,9 @@ If we look at the corresponding (same sampling, same q-point grid) anharmonic ba
 
 - Contrary to the other cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely converged q-point grid. As for an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$ , to converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [6]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
 
-![[kappavsq.png]]
-
-
+<p align="center">
+  <img src="Figures/kappavsq.png" width="500" height="400">
+</p>
 
 - After having converged our integrated thermal conductivity we can now finally look at what our frequency dependent thermal conductivity looks like. To do this, we can use the following snippet (note that to have some peak resolution in this plot you'll have to run --grid with a denser q-point grid than the one in the example above):
 
@@ -351,7 +363,9 @@ plt.show()
 
 This should result in a plot like the following:
 
-![[spectral_kappa.png]]
+<p align="center">
+  <img src="Figures/spectral_kappa.png" width="500" height="400">
+</p>
 
 
 In this plot we see that all of the heat is carried by the lower frequency acoustic modes and none by the optical ones. Why is that the case? Should this be the case in general? What is the influence of temperature here?
@@ -362,8 +376,13 @@ In this plot we see that all of the heat is carried by the lower frequency acous
 # References
 
 [1] Li, C.W. et al., Physical review letters 112 (17), 175501 (2014)
+
 [2] A. Castellano et. al., arXiv:2303.10621 (2023)
-[3] 
+
+[3] L. Isaeva et al. Nature Communications, 10(1):3853, (2019)
+
 [4] N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
+
 [5]  Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
+
 [6] T Tadano et al 2014 J. Phys.: Condens. Matter 26 225402
