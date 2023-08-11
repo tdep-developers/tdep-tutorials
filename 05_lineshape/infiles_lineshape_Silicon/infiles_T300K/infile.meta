@@ -1,0 +1,4 @@
+   216  # N atoms
+   961  # N timesteps
+  1.00  # dt in fs
+300.00  # T in K
