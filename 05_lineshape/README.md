@@ -375,14 +375,14 @@ In this plot we see that all of the heat is carried by the lower frequency acous
 
 # References
 
-[1] Li, C.W. et al., Physical review letters 112 (17), 175501 (2014)
+[1](https://doi.org/10.1103/PhysRevLett.112.175501) Li, C.W. et al., Physical review letters 112 (17), 175501 (2014)
 
-[2] A. Castellano et. al., arXiv:2303.10621 (2023)
+[2](https://doi.org/10.48550/arXiv.2303.10621) A. Castellano et. al., arXiv:2303.10621 (2023)
 
-[3] L. Isaeva et al. Nature Communications, 10(1):3853, (2019)
+[3](https://doi.org/10.1038/s41467-019-11572-4) L. Isaeva et al. Nature Communications, 10(1):3853, (2019)
 
-[4] N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
+[4](https://doi.org/10.1103/PhysRevMaterials.6.033607) N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
 
-[5]  Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
+[5](https://doi.org/10.1073/pnas.170774511) Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
 
-[6] T Tadano et al 2014 J. Phys.: Condens. Matter 26 225402
+[6](https://doi.org/10.1088/0953-8984/26/22/225402) T Tadano et al 2014 J. Phys.: Condens. Matter 26 225402
