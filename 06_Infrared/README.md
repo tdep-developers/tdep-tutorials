@@ -112,30 +112,45 @@ As a first step, we take the damped harmonic oscillator model for the complex di
 
 $$
 {\epsilon}(\omega)=\epsilon_{\infty}+\frac{S \omega_0^2}{\omega_0^2-\omega^2-i \omega \gamma}~,
-\tag{1}
 $$
 
 which describes the dielectric response of a damped harmonic oscillator with _oscillator strength_ $S$, _eigenfrequency_ $\omega_0$, and _damping constant_ $\gamma$.
 
 **Bonus points: Figure out the value of $S$ in [[Fugallo2018]](#Suggested-reading).**
 
+**_IMPORTANT NOTE:_** The oscillator function is sometimes with defined as
+
+$$
+{\epsilon}(\omega)=\epsilon_{\infty}+\frac{S}{\omega_0^2-\omega^2-i \omega \gamma}~,
+\tag{1}
+$$
+
+e.g. in [[Gonze1997]](#Suggested-reading), i.e., with $S$ instead of $S \omega^2_0$ in the nominator. From a computational point of view it is a bit more natural to use this definition because then $S$ will be independent of the eigenfrequency $\omega_0$, so we are adopting this convention in the following.
+
 ### Microscopic derivation (sketch)
 
 **We use a simplified notation to illustrate the derivation, for details see [Ref. 3](#Suggested-reading)!**
 
-Dielectric function as polarization-polarization response:
+The dielectric function in optics relates the electric field $\mathbf E$ and polarization $\mathbf P$ via
 
 $$
-\epsilon (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle P(t) P \right\rangle \mathrm d t
+\mathbf P (\omega) = \epsilon (\omega) \mathbf E (\omega)~,
 $$
 
-Polarization to first order in atomic displacements $u_i$ with Born effective charge $Z_i$:
+where retardation effects are neglected. In the case of light absorption, we are interested in the induced polarization that the solid develops in response to incoming light (= electric field). In the limit of weak fields, we can leverage the fluctuation-dissipation theorem and obtain the dielectric function as the polarization-polarization response in equilibrium:
 
 $$
-P(t) = \sum_i Z_i u_i(t)
+\epsilon (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle P(t) P \right\rangle \mathrm d t~.
+\tag{2}
 $$
 
-Therefore we get
+Expanding the polarization to first order in atomic displacements $u_i$, we get
+
+$$
+\mathbf P(t) = \sum_i Z_i \mathbf u_i(t)~,
+$$
+
+with *Born effective charge* $Z_i$. Using this in Eq. (2), we get
 
 $$
 \begin{align}
@@ -184,16 +199,37 @@ $$
 \end{align}
 $$
 
-Therefore we can construct the full Green's function from the spectral function.
+Therefore we can construct the full Green's function from the spectral function (= imaginary part) alone.
 
 Note that Eq. (14) in [[Benshalom2022]](#Suggested-reading)) reads
 
 $$
 G_s(Z)=\frac{2 \omega_s}{\omega_s^2-2 \omega_s \Sigma_s(Z)-Z^2}
-\tag{2}~,
+\tag{3}~,
 $$
 
 so there is a factor $\omega_s/2$ to be considered when comparing this to Eq. (1) above or Eq. (3) in [[Fugallo2018]](#Suggested-reading).
+
+### Anisotropy
+
+Taking anisotropy of the medium into account, Eq. (1) generalizes to
+
+$$
+\begin{align}
+{\epsilon}^{\alpha \beta}(\omega)
+	& = \epsilon^{\alpha \beta}_{\infty}
+		+ \sum_q \frac{S_q^{\alpha \beta}}{\omega_0^2-\omega^2-i \omega \gamma}~,
+\end{align}
+$$
+
+where $S_q^{\alpha \beta}$ is given in the microscopic theory as
+
+$$
+S^{\alpha \beta}_q = \frac{4 \pi}{V} Z_q^\alpha Z_q^\beta~.
+$$
+
+
+
 
 ### Transverse field
 
@@ -230,3 +266,4 @@ One more important aspect to consider is the transverse nature of light propagat
 - [[1] A. M. Hofmeister, E. Keppel, and A. K. Speck, Mon. Not. R. Astron. Soc. **345**, 16 (2003)](https://academic.oup.com/mnras/article/345/1/16/984419)
 - [[2] G. Fugallo, B. Rousseau, and M. Lazzeri, Phys Rev B **98**, 184307 (2018)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.184307)
 - [[3] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
+- [[4] X. Gonze and C. Lee, Phys Rev B **55**, 10355 (1997)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.10355)
