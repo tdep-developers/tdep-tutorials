@@ -3,6 +3,10 @@ Raman spectra with TDEP
 
 This tutorial covers the basics to compute first-order Raman spectra with TDEP. What we need to compute is the Raman scattering cross section, Eq. (7) in Ref. [1], with the first-order dielectric response, Eq. (10) in [1], which we compute here by finite differences similar to Eq. (9) in Ref. [2]. By including anharmonicity, we can study the temperature dependence of the Raman spectrum as well.
 
+## Intuition
+
+We have seen in [the infrared tutorial](../06_Infrared/) that light can couple to the motion of atoms (phonons) in the frequency range corresponding to the spectral range of phonons, which is typically several THz. Light in the visible range (>400 THz) will not directly couple to the phonons. However, it can still exchange quanta of energy with the phonons through variations in the permittivity/
+
 ## Preparation
 
 - Have a converged set of 2nd and 3rd order force constants.

@@ -267,3 +267,4 @@ One more important aspect to consider is the transverse nature of light propagat
 - [[2] G. Fugallo, B. Rousseau, and M. Lazzeri, Phys Rev B **98**, 184307 (2018)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.184307)
 - [[3] N. Benshalom, G. Reuveni, R. Korobko, O. Yaffe, and O. Hellman, Phys Rev Mater **6**, 033607 (2022)](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607)
 - [[4] X. Gonze and C. Lee, Phys Rev B **55**, 10355 (1997)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.10355)
+- [[5] C. Klingshirn, _Semiconductor Optics_ (Springer, 2005), Chp. 4, 11](https://link.springer.com/book/10.1007/b138175) ← excellent book
