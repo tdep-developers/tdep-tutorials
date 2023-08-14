@@ -44,7 +44,7 @@ Please install the following repositories in this order:
 - install `glp`, `mlff`, `tdeptools`, and `mlfftools`:
   ```bash
   pip install https://github.com/sirmarcel/glp/archive/main.zip
-  pip install https://github.com/thorben-frank/mlff/archive/main.zip
+  pip install https://github.com/flokno/mlff/archive/v0.2.1.zip
   pip install https://github.com/flokno/tools.tdep/archive/main.zip
   pip install https://github.com/flokno/tools.mlff/archive/main.zip
   ```
