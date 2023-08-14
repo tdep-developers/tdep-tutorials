@@ -5,7 +5,7 @@ This folder contains a neural network potentials for several material. They were
 
 ## Install
 
-**The so3krates potential requires python3.8, python3.9, or python3.10.** 3.7 and 3.11 are currently not supported by jax.
+**The so3krates potential requires python >=3.8.** Older versions are not supported by jax.
 
 **Please follow the [detailed instruction](#detailed-instructions) below if you want a working environment that is _not_ optimized for speed.**
 
@@ -19,7 +19,7 @@ Please install the following repositories in this order:
 
 ### Detailed instructions
 
-- Make sure you are using python 3.8-3.10. If you are on 3.7 or 3.11 you can use `conda` to create a python3.10 environment via
+- Make sure you are using python 3.8-3.11. If you are on older versions, you can use `conda` to create e.g. a python3.10 environment via
   ```bash
   conda create -n py310 python=3.10
   conda activate py310
