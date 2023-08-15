@@ -21,8 +21,11 @@ def main(file: Path, file_reference: Path = "predictions_reference.nc"):
         if np.linalg.norm(x) < 1e-5:
             continue
         err = np.linalg.norm(x - y) / np.linalg.norm(x)
-        echo(f"... error for {key:30} = {err}")
+        echo(f"... error for {key:25} = {err}")
         assert err < 1e-5
+        echo("  \u2713 good")
+
+    echo("... all tests passed, good to go 🚀")
 
 
 if __name__ == "__main__":
