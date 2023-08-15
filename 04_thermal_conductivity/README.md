@@ -28,7 +28,7 @@ The tutorial **does not cover**:
 * Convergence of the results
 
   
-There are three test cases: Al, MgO and Si. 
+There are two test cases: Al and MgO. 
 The data provided includes the IFCs and the unitcell obtained from previous DFT calculations. This data is not meant to produce converged results. 
 
 # Before running the tutorial:
@@ -365,8 +365,6 @@ The script should give you the plots reported below.
 You may now use your own structure to calculate the thermal conductivity. 
 
 Copy your primitive structure and the forceconstants in your work folder and repeat the previous steps.
-
-Alternatively, you will find the needed input files for Si, that will be used as example in the next tutorial. 
 
 
 
