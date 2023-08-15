@@ -114,7 +114,7 @@ Note that the configurations were generated using the self-consistent stochastic
     2. The cutoff for the force constants
     3. The q-point grid used to compute the harmonic properties. The grid can be controlled with the `--qg` option of the `phonon_dispersions` binary. For example, you can try
     `phonon_dispersion_relation --dos --temperature 1210 --unit mev -qg 10 10 10`
-    - Each of these parameters will have a different influence on the free energy. For instance, the $U_0$ value is computed using the potential energy of each configuration. This means that contrary to the force constants, which benefit from $3 \times N_{\mathrm{at}}$ values per configurations, only one data point is added to the average per configurations. Try to observe the effect of each of the parameter on the convergence of the $U_0$ and the harmonic free energy. (To change the number of configurations used in the fit, you can change the number of step in the infile.meta file for example.)
+    - Each of these parameters will have a different influence on the free energy. For instance, the $U_0$ value is computed using the potential energy of each configuration. This means that contrary to the force constants, which benefit from $3 \times N_{\mathrm{at}}$ values per configurations, only one data point is added to the average per configurations. **Try to observe the effect of each of the parameter on the convergence of the $U_0$ and the harmonic free energy**. 
     Remember to rename the outfile.X before launching tdep again !
 
 ## Getting the equilibrium volume
@@ -131,12 +131,14 @@ To include the effects of temperature, we can use the equation of state method, 
 
 
 In the `reference` folder, you will find a subdirectory `equation_of_state` which contains subfolders `aX`, where X is a number giving the lattice parameter.
-In these subfolder, you will find some input files with data computed at 1300K with the corresponding lattice parameter.
-- For each lattice parameter, compute the free energy. Look carefuly at the convergence for `U0` and the harmonic free energy.
-- Put volume/energy data (in $\mathring{a}^3/at$ and eV/at) in a file `eos_data.dat` to allow for the fitting.
+In these subfolders, you will find some `infile.ucposcar` containing unitcells with different lattice parameters.
+- For each lattice parameter, compute the free energy using the self-consistent sampling method. For bcc Zr, you will find a potential in the `00_preparation/potential_energy_surfaces/pes_zr/` folder.
+- Put volume/energy data (in $\mathring{a}^3/at$ and eV/at) in a file `eos_data.dat` to allow for the fitting. You can look at the `eos_data_0K.dat` file in the `reference` folder to see how this file should look like.
 - Fit an equation of state using the Vinet equations on the free energy. For this, you can use the script `fit_equation_of_state.py` in the `reference` folder, that can fit a Vinet equation of state from the file `eos_data.dat`.
 - Extract the lattice parameter of bcc Zr at this temperature from your fit. Compare it with the lattice parameter obtained from the minimization of the potential energy (a = 3.58$~\mathring{a}$. Note : for a monoatomic bcc crystal, the lattice parameter is given by $a = (2 V)^{1/3}$).
 
+
+Now, you can repeat this procedure at a different temperature to predict the thermal expansion of the system.
 
 ## Suggested reading
 
