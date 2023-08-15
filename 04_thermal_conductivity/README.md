@@ -189,7 +189,7 @@ gnuplot outfile.thermal conducitivity.gnuplot -persist
 ```
 and study the plot. 
 
-![here you can see how the plot should look like](https://github.com/RobertaFarris93/personal/blob/main/Al_kappa.png)
+![here you can see how the plot should look like](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/Al_kappa.png)
 
 ## Understand the results
 
@@ -219,7 +219,7 @@ Where you can specify the minimum, the maximum and the number of points.
 What is a good grid for the thermal conductivity of Al? 
 
 The calculation of thermal conductivity, being a integrated quantity, requires its evaluation under the assumption of an infinitely refined q-point grid. Unfortunately, this is impossible from a computational point of view, but using progressively finer grids, the behavior of thermal conductivity should scale linearly with q. Thus, in order to converge the thermal conductivity value, we could perform the calculation for a set of q-grids and then evaluating then studing the convergence by plotting the thermal conductivity against 1/q and extrapolating the value for 1/q at 0.  The point of intersection on the y-axis resulting from this regression corresponds to the thermal conductivity within the hypothetical context of an infinitely dense q-point grid. 
-![Here the convergence test for thermal conductivity of aluminum](https://github.com/RobertaFarris93/personal/blob/main/Al_convergence.png)
+![Here the convergence test for thermal conductivity of aluminum](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/Al_convergence.png)
 
 ### Thermal conductivity of MgO
 
@@ -257,7 +257,7 @@ mpirun thermal_conductivity -qg 10 10 10 --temperature 300 --noisotope
 
 Compare the outputs. 
 
-![MgO: comparison betweeen natural isotope distribution and pure cases](https://github.com/RobertaFarris93/personal/blob/main/MgO_isotope.png)
+![MgO: comparison betweeen natural isotope distribution and pure cases](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/MgO_isotope.png)
 The isotope scattering is known to decrease the thermal conductivity of MgO by 30%-40% at 300K. Did you observe that?
 
 #### Extrapolation for an infinite grid of q-points
@@ -277,7 +277,7 @@ do
 done
 
 ```
-![Fit the k_xx against 1/qx and extrapolate the value for qx=0](https://github.com/RobertaFarris93/personal/blob/main/MgO_convergence.png). 
+![Fit the k_xx against 1/qx and extrapolate the value for qx=0](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/MgO_convergence.png). 
 
 In order to reach convergence, you will need access to a cluster/HPC. 
 
@@ -353,10 +353,10 @@ plt.xlim(1E-9,1E-5)
 plt.savefig('thermal_conductivity_vs_mfp_MgO.png')
 ```
 The script should give you the plots reported below. 
-![Spectral thermal conductivity of MgO](https://github.com/RobertaFarris93/personal/blob/main/Spectral_thermal_conductivity_MgO.png)
+![Spectral thermal conductivity of MgO](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/Spectral_thermal_conductivity_MgO.png)
 
 
-![Cumulative kappa vs mean free path of MgO](https://github.com/RobertaFarris93/personal/blob/main/thermal_conductivity_vs_mfp_MgO.png)
+![Cumulative kappa vs mean free path of MgO](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/thermal_conductivity_vs_mfp_MgO.png)
 # Next steps
  
 
