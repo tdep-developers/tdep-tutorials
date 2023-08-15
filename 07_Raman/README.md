@@ -2,25 +2,32 @@ Raman spectra with TDEP
 ===
 
 This tutorial covers the basics to compute first-order Raman spectra with TDEP. What we need to compute is the Raman scattering cross section, Eq. (7) in Ref. [1], 
+
 $$
 \sigma(\Omega) \propto \sum_{\mu \nu \xi \rho} E_\mu^{\text {out }} E_{\xi}^{\text {out }} I_{\mu \nu, \xi \rho}(\Omega) E_\nu^{\text {in }} E_\rho^{\text {in }}
 $$
+
 which relates the intensity of incoming with with E-field vector ${\mathbf E}^\mathrm{in}$ to the intensity of the outgoing light with E-field vector ${\mathbf E}^\mathrm{out}$, where $\mu$, $\xi$, $\nu$, $\rho$ are Cartesian indices, and $I_{\mu \nu, \xi \rho}$ is the _Raman tensor_.
 
 The Raman tensor is given by the susceptibility-susceptibility response function
+
 $$
 I_{\mu \nu, \xi \rho} (\Omega)
 = \int \langle \chi_{\mu \nu} \chi_{\xi \rho} \rangle {\mathrm e}^{- \mathrm i \Omega t} \mathrm d t~,
 $$
+
 with the polarizability also known from the dielectric tensor
+
 $$
 \epsilon = \epsilon_0 ( 1 + \chi )
 $$
 
 in SI units, or
+
 $$
 \epsilon = 1 + 4 \pi \chi
 $$
+
 in atomic units.
 
 In this tutorial, we will compute the Raman tensor by expanding the susceptibility to first order in the atomic displacements, i.e., the first-order dielectric response, Eq. (10) in [1], which we compute here by finite differences similar to Eq. (9) in Ref. [2]. By including anharmonicity, we can study the temperature dependence of the Raman spectrum as well.
