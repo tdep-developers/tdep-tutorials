@@ -26,7 +26,7 @@ where $\Delta_{\lambda}(\Omega)$ and $\Gamma_{\lambda}(\Omega)$ are the now the 
 
 This generalization is necessary since for cases with strong interactions (large anharmonic effects) phonons can substantially deviate from the harmonic picture and are no longer a well defined quasiparticle. An example of this is the fact that in inelastic neutron scattering experiments this deviation from the Lorentzian behaviour is sometimes observed (see [1] for an example on PbTe). In that case, the one-phonon neutron cross section $\sigma_{\lambda}$ takes on a more general form, and we no longer talk about a linewidth (since the phonon distribution is no longer a single peaked and broadened one) but instead of a lineshape. 
 
-To see what's happening (make sure to check [] and [] for the details), we start by noting that $\sigma_{\lambda}$ is written in general as 
+To see what's happening (make sure to check [2] and [3] for the details), we start by noting that $\sigma_{\lambda}$ is written in general as 
 
 $$\sigma_{\lambda} \propto \int dt ~ e^{i \omega t} \langle u(t) u(0) \rangle$$
 
@@ -36,7 +36,7 @@ $$\sigma_{\lambda} \propto \frac{2 \omega_{\lambda} \Gamma_{\lambda}(\Omega)}{\l
 
 where $\hbar\Omega$ is the energy of the probing neutron. In short, it represents the probability of exciting a phonon with energy $\hbar\Omega$ and momentum $\textbf{q}$ in band s given a perturbing neutron of same energy and momentum. By probing through an energy range, what we obtain can be seen as the one-phonon spectral function $J(\Omega)$, a distribution that is peaked at certain frequencies that correspond to the phonon frequencies. In fact, since the Fourier tranformed phonon Green's function can be directly related to $J(\Omega)$ via the fluctuation-dissipation theorem
 
-$$\J(\Omega) = \frac{\Omega}{2 k_B T} G(\Omega)$$
+$$J(\Omega) = \frac{\Omega}{2 k_B T} G(\Omega)$$
 
 the calculation of the phonon spectral function leads us directly to the one-phonon neutron scattering cross-section from inelastic neutron scattering experiments.
 
@@ -46,7 +46,7 @@ In the case where anharmonicity is induced by 3-phonon interactions, the imagina
 
 $$\Gamma_{\lambda}(\Omega) = \frac{\hbar \pi}{16} \sum_{\lambda' \lambda''} \left| \Phi_{\lambda \lambda' \lambda''} \right|^2 \lbrace \left( n_{\lambda'} + n_{\lambda''} + 1 \right)\delta\left( \Omega - \omega_{\lambda'} - \omega_{\lambda''} \right) + \left( n_{\lambda'} - n_{\lambda''} \right) \left[ \delta\left( \Omega - \omega_{\lambda'} + \omega_{\lambda''} \right) - \delta\left( \Omega + \omega_{\lambda'} - \omega_{\lambda''} \right)\right] \rbrace ~, $$
 
-i.e. it's now a frequency dependent quantity. This is the main quantity calculated by the lineshape part of TDEP. For more details on this approach and on how it relates to phonon's Green's function theory, see e.g. [2].
+i.e. it's now a frequency dependent quantity. For more details on this approach and on how it relates to phonon's Green's function theory, see e.g. [2].
 
 The real part of the self-energy can then be easily calculated via Kramers-Kronig transforming the imaginary part:
 
@@ -73,11 +73,11 @@ A half-way compromise between the two is also possible to obtain, by performing 
 
 where X and Y are two operators in the Heisenberg representation and the dagger represents hermitian conjugation. In this representation of the heat current autocorrelation, some of the quantum character of the fluctuations can be recovered via the occupations despite the usage of classical simulations.
 
-In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [3] :
+In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [5] :
 
 <p>$$\textbf{S}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
 
-Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [4] for the definition of these operators in terms of phonon creation and annihilation operators).
+Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [5] for the definition of these operators in terms of phonon creation and annihilation operators).
 
 Substituting S(t) into the Green-Kubo equation we obtain
 
@@ -102,7 +102,7 @@ If we now convert our correlation functions into spectral functions via the rela
 
 <p>$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$<p>
 	
-where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [4] for more on this applied to Raman scattering), we can obtain (after some math)
+where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [5] for more on this applied to Raman scattering), we can obtain (after some math)
 
 <p>$$\kappa = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2 s_3 s_4} \mathfrak{Re}(\textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q} s_3 s_4}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_4} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_4} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
 	
@@ -274,7 +274,7 @@ This will result in a plot like the following:
 
 - We can now proceed by repeating the calculation for an increasing q-point grid as before, and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg and simply seeing when it stops changing. Again, the converged value of -qg is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
 
-- Once convergence is achieved for this temperature, we can now repeat this procedure for our full temperature range (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? Do you expect quantum effects to change anything? (Hint: see [5])
+- Once convergence is achieved for this temperature, we can now repeat this procedure for our full temperature range (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? Do you expect quantum effects to change anything? (Hint: see [6])
 
 
 ## Grid
@@ -332,7 +332,7 @@ If we look at the corresponding (same sampling, same q-point grid) anharmonic ba
 
 - We'll start this section by looking at the output of the command we executed earlier, which should be stored in the `grid.log` file. After calculating the spectral function for each point of the q-point grid, TDEP calculates and prints the results for the total thermal conductivity calculated with the Green-Kubo formalism first as well as its separation into the diagonal and off-diagonal directions of the tensor.  Afterwards, the raw normalization of the phonon DOS is returned, where the closer the number is to 1 the more converged the calculation is. Finally, the thermal conductivity calculated within the RTA approximation is returned. Since in RTA approximation there is no mode-mixing involved, the comparison between it and the Green-Kubo result works as a measure of how much importance these processes hold for the thermal conductivity calculation, i.e. how anharmonic the material is.
 
-- Contrary to the other cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely converged q-point grid. As for an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$ , to converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [6]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
+- Contrary to the other cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely converged q-point grid. As for an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$ , to converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [7]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
 
 <p align="center">
   <img src="Figures/kappavsq.png" width="500" height="400">
@@ -387,10 +387,12 @@ In this plot we see that all of the heat is carried by the lower frequency acous
 
 [2](https://doi.org/10.48550/arXiv.2303.10621) A. Castellano et. al., arXiv:2303.10621 (2023)
 
-[3](https://doi.org/10.1038/s41467-019-11572-4) L. Isaeva et al. Nature Communications, 10(1):3853, (2019)
+[3](https://journals.aps.org/pr/abstract/10.1103/PhysRev.128.2589) A.A. Maradudin et. al., Phys. Rev. 128, 2589 (1962)
 
-[4](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607) N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
+[4](https://doi.org/10.1038/s41467-019-11572-4) L. Isaeva et al. Nature Communications, 10(1):3853, (2019)
 
-[5](https://www.pnas.org/doi/full/10.1073/pnas.1707745115) Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
+[5](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607) N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
 
-[6](https://doi.org/10.1088/0953-8984/26/22/225402) T Tadano et al 2014 J. Phys.: Condens. Matter 26 225402
+[6](https://www.pnas.org/doi/full/10.1073/pnas.1707745115) Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
+
+[7](https://doi.org/10.1088/0953-8984/26/22/225402) T Tadano et al 2014 J. Phys.: Condens. Matter 26 225402
