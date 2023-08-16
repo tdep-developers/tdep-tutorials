@@ -26,11 +26,19 @@ where $\Delta_{\lambda}(\Omega)$ and $\Gamma_{\lambda}(\Omega)$ are the now the 
 
 This generalization is necessary since for cases with strong interactions (large anharmonic effects) phonons can substantially deviate from the harmonic picture and are no longer a well defined quasiparticle. An example of this is the fact that in inelastic neutron scattering experiments this deviation from the Lorentzian behaviour is sometimes observed (see [1] for an example on PbTe). In that case, the one-phonon neutron cross section $\sigma_{\lambda}$ takes on a more general form, and we no longer talk about a linewidth (since the phonon distribution is no longer a single peaked and broadened one) but instead of a lineshape. 
 
-To see what's happening, we start by noting that $\sigma_{\lambda}$ is written in general as
+To see what's happening (make sure to check [] and [] for the details), we start by noting that $\sigma_{\lambda}$ is written in general as 
+
+$$\sigma_{\lambda} \propto \int dt ~ e^{i \omega t} \langle u(t) u(0) \rangle$$
+
+i.e., it's proportional to the Fourier transform of the time autocorrelation of the displacements of the system. This integral is simply the Fourier transformed version of the phonon's Green's function $G(\Omega)$, and after working it out we can therefore write $\sigma_{\lambda}$ as
 
 $$\sigma_{\lambda} \propto \frac{2 \omega_{\lambda} \Gamma_{\lambda}(\Omega)}{\left[ \Omega^2 - \omega^2_{\lambda} - 2 \omega_{\lambda} \Delta_{\lambda}(\Omega) \right]^2 + 4 \omega^2_{\lambda} \Gamma^2_{\lambda}(\Omega)}$$
 
-where $\hbar\Omega$ is the energy of the probing neutron. In short, it represents the probability of exciting a phonon with energy $\hbar\Omega$ and momentum $\textbf{q}$ in band s given a perturbing neutron of same energy and momentum. By probing through an energy range, what we obtain can be seen as the one-phonon spectral function, a distribution that is peaked at certain frequencies that correspond to the phonon frequencies. 
+where $\hbar\Omega$ is the energy of the probing neutron. In short, it represents the probability of exciting a phonon with energy $\hbar\Omega$ and momentum $\textbf{q}$ in band s given a perturbing neutron of same energy and momentum. By probing through an energy range, what we obtain can be seen as the one-phonon spectral function $J(\Omega)$, a distribution that is peaked at certain frequencies that correspond to the phonon frequencies. In fact, since the Fourier tranformed phonon Green's function can be directly related to $J(\Omega)$ via the fluctuation-dissipation theorem
+
+$$\J(\Omega) = \frac{\Omega}{2 k_B T} G(\Omega)$$
+
+the calculation of the phonon spectral function leads us directly to the one-phonon neutron scattering cross-section from inelastic neutron scattering experiments.
 
 In the case of non-interacting phonons this distribution reduces to a Dirac delta function and is therefore unbroadened (the phonons have infinite lifetime and once excited keep propagating forever), while for cases with weak interactions it reduces to the Lorentzian distribution as one would expect. In general, however, this distribution can have multiple satellite peaks besides the main phonon frequency one, and it is in those cases that the phonon picture is broken - the phonon is no longer a well defined quasiparticle, despite us being able to still write all wanted quantities in terms of phonons. Calculating this cross-section can therefore be used as a means to check for strong anharmonic effects by observing how much it deviates from a Lorentzian distribution.
 
@@ -44,18 +52,18 @@ The real part of the self-energy can then be easily calculated via Kramers-Kroni
 
 $$\Delta_{\lambda}(\Omega) = \frac{1}{\pi} \int \frac{\Gamma_{\lambda}(\omega)}{\omega - \Omega} d\omega~.$$
 
-With these two quantities in hand we can therefore build the phonon spectral representation $\sigma_{\lambda}$. The phonon density of states (DOS) can be then obtained from $\sigma_{\lambda}$ by integrating over the full Brillouin zone:
+With these two quantities in hand we can therefore build the phonon spectral function $J(\Omega)$. The phonon density of states (DOS) can be then obtained from $J(\Omega)$ by integrating over the full Brillouin zone:
 
-$$g_s(\Omega) = \frac{(2\pi)^3}{V} \int_{BZ} \sigma_{\textbf{q} s}(\Omega) d\textbf{q}~.$$
+$$g(\Omega) = \frac{(2\pi)^3}{V} \int_{BZ} J(\Omega)~.$$
 
 
 # Spectral Thermal Conductivity Introduction
 
 To obtain the thermal conductivity outside of a well-defined phonon picture, we start by considering the Green-Kubo formula for linear response:
 
-<p>$$\kappa_{\alpha \beta} = \frac{V}{k_B T^2} \int^{\infty}_0 \langle J_{\alpha}(t)J_{\beta}(0)\rangle dt$$<p>
+<p>$$\kappa_{\alpha \beta} = \frac{V}{k_B T^2} \int^{\infty}_0 \langle S_{\alpha}(t)S_{\beta}(0)\rangle dt$$<p>
 
-where V is the system's volume (in the formal sense we take the limit to infinite volume, in practice it's the converged supercell volume), $k_B$ is Boltzmann's constant, T is the temperature and J is the heat current, representing the energy flux through the system due to the phonons. This represents a fluctuation-dissipation relationship, where the system's macroscopic ability to carry heat is determined by the fluctuations of the heat current at a microscopic level.
+where V is the system's volume (in the formal sense we take the limit to infinite volume, in practice it's the converged supercell volume), $k_B$ is Boltzmann's constant, T is the temperature and S is the heat current, representing the energy flux through the system due to the phonons. This represents a fluctuation-dissipation relationship, where the system's macroscopic ability to carry heat is determined by the fluctuations of the heat current at a microscopic level.
 
 The first thing to consider is the meaning behind the thermal average $\langle ... \rangle$, the key quantity to calculate $\kappa_{\alpha \beta}$. As this thermal average depends on which ensemble is being considered, it is very tightly related to which kind of simulations are being performed in order to calculate it. If we can, for example, perform simulations in a way where the ensemble is the full quantum one (e.g. using PI-MD), then $\langle ... \rangle$ is a Kubo correlation-function and has encoded in it the full quantum behaviour of the fluctuations. If, on the other hand, our simulations realize a classical ensemble (e.g., using classical MD), then $\langle ... \rangle$ represents a classical correlation function and the quantum behaviour of the fluctuations is not accessible. For more information on this topic, see e.g. [2].
 
@@ -67,11 +75,11 @@ where X and Y are two operators in the Heisenberg representation and the dagger 
 
 In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [3] :
 
-<p>$$\textbf{J}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
+<p>$$\textbf{S}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
 
 Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [4] for the definition of these operators in terms of phonon creation and annihilation operators).
 
-Substituting J(t) into the Green-Kubo equation we obtain
+Substituting S(t) into the Green-Kubo equation we obtain
 
 <p>$$\kappa = \frac{1}{4k_BT^2V} \sum_{\textbf{q} s_1 s_2} \sum_{\textbf{q'} s_3 s_4} \omega_{\textbf{q} s_1} \omega_{\textbf{q'} s_2} \textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q'} s_3 s_4} \int^{\infty}_0 \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{q}'} s_4} \rangle ~dt$$<p>
 
