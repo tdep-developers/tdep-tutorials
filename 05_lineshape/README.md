@@ -131,7 +131,7 @@ The lineshape executable is composed by 4 different calculation modes, of which 
 -  One of the most common uses for the --highsymmetry point calculation mode are Raman applications, where the lineshape at the Gamma point of the crystal is the only one necessary. In order to calculate it, we run the command
 
 ```
-mpirun /path/to/TDEP/bin/lineshape --highsymmetrypoint GM -qg 3 3 3     --temperature 100 >hsp.log
+mpirun /path/to/TDEP/bin/lineshape --highsymmetrypoint GM -qg 3 3 3 --temperature 100 >hsp.log
 ```
 
 Here the temperature can be replaced by the one from your sampling and the proper path to the TDEP binaries needs to be added. The flag -qg (standing for --qpoint_grid) defines the density of the q-point mesh for Brillouin zone integrations, therefore needs to be converged. We can start, however, by examining what we got from this calculation.
