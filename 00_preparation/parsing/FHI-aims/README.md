@@ -16,6 +16,8 @@ The output should be:
 ```
 Parse 2 file(s)
 ... empty forces will be ignored: False
+*** SIMULATION TEMPERATURE IS NOT GIVEN
+--> set to -314.15K to remind you
 ... parse file   1: samples/sample.00001/aims.out
 ... parse file   2: samples/sample.00002/aims.out
 ... found 2 samples
@@ -26,4 +28,8 @@ Parse 2 file(s)
 ... meta info written to infile.meta
 ```
 
-Inspect these input files. That's it.
+Inspect these input files.
+
+Note that you can optioncally add the simulation temperature by using e.g. `--temperature 300` to specify 300K.
+
+That's it.
