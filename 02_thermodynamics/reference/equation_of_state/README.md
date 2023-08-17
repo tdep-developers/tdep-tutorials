@@ -15,7 +15,7 @@ For this, harmonic free energy and U0 computed with sTDEP are provided (in the `
 
 - Observe how the fitted volume (and lattice parameter) evolve with the number of iterations.
 - How many iterations are necessary to converge the volume of this system at this temperature ?
-- Compare your result to the lattice parameter computed at 0K (3.58 angstrom). (Note : the lattice parameter for a bcc crystal is given by $a = (2 V)^(1/3)$.)
+- Compare your result to the lattice parameter computed at 0K (3.58 angstrom). (Note : the lattice parameter for a bcc crystal is given by $a = (2 V)^{1/3}$.)
 
 
 ## Suggested reading
