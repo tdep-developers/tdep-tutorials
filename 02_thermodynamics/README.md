@@ -175,7 +175,7 @@ In each of these subfolders, you will find 12 iterations of stochastic TDEP with
 Things to look out for
 - Observe how the fitted volume (and lattice parameter) evolve with the number of iterations.
 - How many iterations are necessary to converge the volume of this system at this temperature ?
-- Compare your result to the lattice parameter computed at 0K (3.58 angstrom). (Note : the lattice parameter for a bcc crystal is given by $a = (2 V)^(1/3)$.)
+- Compare your result to the lattice parameter computed at 0K (3.58 angstrom). (Note : the lattice parameter for a bcc crystal is given by $a = (2 V)^{1/3}$.)
 
 ## Suggested reading
 
