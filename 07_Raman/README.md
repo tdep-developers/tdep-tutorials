@@ -6,6 +6,7 @@ We have seen in [the infrared tutorial](../06_Infrared/) that light can couple t
 This tutorial covers the basics to compute temperature-dependent first-order Raman spectra with TDEP. 
 
 What we need to compute is the Raman scattering cross section, Eq. (7) in Ref. [1], 
+
 $$
 \sigma(\Omega) \propto \sum_{\mu \nu \xi \rho} E_\mu^{\text {out }} E_{\xi}^{\text {out }} I_{\mu \nu, \xi \rho}(\Omega) E_\nu^{\text {in }} E_\rho^{\text {in }}
 $$
@@ -36,19 +37,25 @@ in atomic units.
 In this tutorial, we will compute the Raman tensor by expanding the susceptibility to first order in the atomic displacements, i.e., the first-order dielectric response, Eq. (10) in [1], which we compute here by finite differences similar to Eq. (9) in Ref. [2]. By including anharmonicity, we can study the temperature dependence of the Raman spectrum as well, as well as polarization dependence.
 
 In first order Raman, we only deal with 
+
 $$
 I^{\alpha \beta}_s = \frac{\partial \chi^{\alpha \beta}}{\partial u_s}~,
 $$
+
 i.e., the change of the susceptibility with _mode displacement_ $u_s$. The intensity contribution of mode $s$ at frequency $\omega$ for given polarization $\mathbf e_{\mathrm i}$ of incoming and $\mathbf e_\mathrm{o}$ for outgoing light will be given by
+
 $$
 \sigma_{s; \mathbf e_\mathrm{i}, \mathbf e_\mathrm{o}} (\omega) = \lvert \mathbf e_\mathrm{i} \cdot I_s \mathbf e_\mathrm{o} \rvert^2 J_s(\omega)~,
 $$
+
 with the spectral function $J_s$, which, of course, depends on temperature. There are a couple of approximations here that we go over, I refer to [[Benshalom2022, Benshalom2023]](#Suggested-reading) for a more complete treating. The full intensity will be given as a sum over modes:
+
 $$
 \sigma_{\mathbf e_\mathrm{i}, \mathbf e_\mathrm{o}} (\omega) 
 = \sum_s \lvert \mathbf e_\mathrm{i} \cdot I_s \mathbf e_\mathrm{o} \rvert^2 J_s(\omega)~,
 \tag{1}
 $$
+
 and this will be what experimentalists can measure. Mapping out the full dependency of the intensity as a function of the incoming/outgoing polarization is called _polarization-orientation (PO) Raman_. Eq. (1) is the topic of this tutorial.
 
 ### Note on orientation
