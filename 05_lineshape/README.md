@@ -1,6 +1,18 @@
 
 This tutorial covers the lineshape calculation part of the code. The goal will be to go beyond simple perturbation theory and understanding what changes in the phonon spectral quantities when anharmonicity is taken into account. We'll start by generalizing the phonon lineshape beyond the weakly interacting approximation, and then go into the calculation of the thermal conductivity from a spectral function approach.
 
+# Preparation 
+
+Before starting with the tutorial, make sure that you:
+
+- Have a system for which you can generate the required data for a wide enough set of temperatures (choose somewhere between 100K and 1300K, as long as it includes one temperature on the lower end and another on the higher end). If you cannot generate this data, an example is provided for Silicon between 100K and 1100K from classical Molecular Dynamics simulations.
+- Can parse files in hdf5 format (h5py for example, if you're using Python) and you have access to a plotting tool (matplotlib for example, if you're using Python).
+- Read the introduction texts (and go through the recommended material) beforehand.
+
+
+# Steps
+
+The lineshape executable is composed by 4 different calculation modes, of which we'll explore 3: --highsymmetrypoint, for which the phonon spectral function is calculated for a single high-symmetry point of the crystal; --path, for which this is done now for a path in reciprocal-space along the first Brillouin zone of the crystal; and --grid, in which an equally spaced FFT grid is generated for the full Brillouin zone which allows us to get integrated quantities like the system's spectral thermal conductivity. The first two will be covered in the lineshape tutorial, while the --grid mode will be covered in the spectral thermal conductivity tutorial.
 
 # Lineshape Introduction
 
@@ -55,76 +67,6 @@ $$\Delta_{\lambda}(\Omega) = \frac{1}{\pi} \int \frac{\Gamma_{\lambda}(\omega)}{
 With these two quantities in hand we can therefore build the phonon spectral function $J(\Omega)$. The phonon density of states (DOS) can be then obtained from $J(\Omega)$ by integrating over the full Brillouin zone:
 
 $$g(\Omega) = \frac{(2\pi)^3}{V} \int_{BZ} J(\Omega)~.$$
-
-
-# Spectral Thermal Conductivity Introduction
-
-To obtain the thermal conductivity outside of a well-defined phonon picture, we start by considering the Green-Kubo formula for linear response:
-
-<p>$$\kappa_{\alpha \beta} = \frac{V}{k_B T^2} \int^{\infty}_0 \langle S_{\alpha}(t)S_{\beta}(0)\rangle dt$$<p>
-
-where V is the system's volume (in the formal sense we take the limit to infinite volume, in practice it's the converged supercell volume), $k_B$ is Boltzmann's constant, T is the temperature and S is the heat current, representing the energy flux through the system due to the phonons. This represents a fluctuation-dissipation relationship, where the system's macroscopic ability to carry heat is determined by the fluctuations of the heat current at a microscopic level.
-
-The first thing to consider is the meaning behind the thermal average $\langle ... \rangle$, the key quantity to calculate $\kappa_{\alpha \beta}$. As this thermal average depends on which ensemble is being considered, it is very tightly related to which kind of simulations are being performed in order to calculate it. If we can, for example, perform simulations in a way where the ensemble is the full quantum one (e.g. using PI-MD), then $\langle ... \rangle$ is a Kubo correlation-function and has encoded in it the full quantum behaviour of the fluctuations. If, on the other hand, our simulations realize a classical ensemble (e.g., using classical MD), then $\langle ... \rangle$ represents a classical correlation function and the quantum behaviour of the fluctuations is not accessible. For more information on this topic, see e.g. [2].
-
-A half-way compromise between the two is also possible to obtain, by performing classical level simulations but considering quantum phonon occupations (Bose-Einstein instead of Boltzmann distribution). In that case, $\langle ... \rangle$ represents what is usually called a greater Green's function, defined as 
-
-<p>$$G^{>}(X,Y) = -i \langle X(t) Y^{\dagger}(0) \rangle$$<p>
-
-where X and Y are two operators in the Heisenberg representation and the dagger represents hermitian conjugation. In this representation of the heat current autocorrelation, some of the quantum character of the fluctuations can be recovered via the occupations despite the usage of classical simulations.
-
-In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [5] :
-
-<p>$$\textbf{S}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
-
-Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [5] for the definition of these operators in terms of phonon creation and annihilation operators).
-
-Substituting S(t) into the Green-Kubo equation we obtain
-
-<p>$$\kappa = \frac{1}{4k_BT^2V} \sum_{\textbf{q} s_1 s_2} \sum_{\textbf{q'} s_3 s_4} \omega_{\textbf{q} s_1} \omega_{\textbf{q'} s_2} \textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q'} s_3 s_4} \int^{\infty}_0 \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{q}'} s_4} \rangle ~dt$$<p>
-
-where the phonon displacement and momentum operators without time argument are at t=0. 
-
-Just as in the Peierls-Boltzmann formulation of thermal conductivity, the phonon frequencies and group velocities are directly related to the second-order force constants, and can therefore be calculated immediately once these have been determined. The thermal conductivity problem is then reduced to the evaluation of the correlation function $\langle ... \rangle$.
-
-The correlation function shown above corresponds to a 2-phonon correlation function. In order to make its calculation manageable, we use the thermal average's version of the famous Wick's theorem, which tells us that if our anharmonicity/phonon-interaction is weak (more strictly, if the ensemble is Gaussian or very close to it) we can decouple the correlation function as 
-
-<p>$$
-\begin{aligned}
-\langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{{q}}}' s_4} \rangle &\simeq \langle B_{\textbf{q} s_1}(t) B_{\textbf{q'} s_3} \rangle \langle A_{\bar{\textbf{q}} s_2}(t) A_{\bar{\textbf{q}}' s_4} \rangle \delta \left( \textbf{q} ~+~ \textbf{q'} \right) \\
-& + \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}}' s_4} \rangle \langle A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} \rangle \delta \left( \textbf{q} ~-~ \textbf{q'} \right)
-\end{aligned}
-$$<p>
-	
-This decoupling scheme lends itself very obviously to be used when stochastic sampling is performed, since in that case the ensemble is Gaussian by definition, though it will not necessarily mean the results will be closer to experiment if that approximation is not viable for the selected system.
-
-If we now convert our correlation functions into spectral functions via the relation
-
-<p>$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$<p>
-	
-where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [5] for more on this applied to Raman scattering), we can obtain (after some math)
-
-<p>$$\kappa = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2 s_3 s_4} \mathfrak{Re}(\textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q} s_3 s_4}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_4} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_4} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
-	
-with $c_v(\Omega)$ the system's heat capacity in its frequency dependent form, defined as 
-
-<p>$$c_v(\Omega) = \frac{\Omega^2}{k_B T^2} n(\Omega) (n(\Omega)+1)$$<p>
-
-With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
-
-
-# Preparation 
-
-Before starting with the tutorial, make sure that you:
-
-- Have a converged set of 2nd and 3rd order force constants and all related files (if you've just finished an example of this calculation, renaming or soft-linking the forceconstant files from outfile to infile is sufficient).
-- Have this data for a wide enough set of temperatures (choose somewhere between 100K and 1300K, as long as it includes one temperature on the lower end and another on the higher end). If you cannot generate this data, an example is provided for Silicon between 100K and 1100K from classical Molecular Dynamics simulations.
-- Can parse files in hdf5 format (h5py for example, if you're using Python) and you have access to a plotting tool (matplotlib for example, if you're using Python).
-
-
-# Steps
-
-The lineshape executable is composed by 4 different calculation modes, of which we'll explore 3: --highsymmetrypoint, for which the phonon spectral function is calculated for a single high-symmetry point of the crystal; --path, for which this is done now for a path in reciprocal-space along the first Brillouin zone of the crystal; and --grid, in which an equally spaced FFT grid is generated for the full Brillouin zone which allows us to get integrated quantities like the system's spectral thermal conductivity.
 
 ## Highsymmetrypoint
 
@@ -275,6 +217,61 @@ This will result in a plot like the following:
 - We can now proceed by repeating the calculation for an increasing q-point grid as before, and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg and simply seeing when it stops changing. Again, the converged value of -qg is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
 
 - Once convergence is achieved for this temperature, we can now repeat this procedure for our full temperature range (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? Do you expect quantum effects to change anything? (Hint: see [6])
+
+# Spectral Thermal Conductivity Introduction
+
+To obtain the thermal conductivity outside of a well-defined phonon picture, we start by considering the Green-Kubo formula for linear response:
+
+<p>$$\kappa_{\alpha \beta} = \frac{V}{k_B T^2} \int^{\infty}_0 \langle S_{\alpha}(t)S_{\beta}(0)\rangle dt$$<p>
+
+where V is the system's volume (in the formal sense we take the limit to infinite volume, in practice it's the converged supercell volume), $k_B$ is Boltzmann's constant, T is the temperature and S is the heat current, representing the energy flux through the system due to the phonons. This represents a fluctuation-dissipation relationship, where the system's macroscopic ability to carry heat is determined by the fluctuations of the heat current at a microscopic level.
+
+The first thing to consider is the meaning behind the thermal average $\langle ... \rangle$, the key quantity to calculate $\kappa_{\alpha \beta}$. As this thermal average depends on which ensemble is being considered, it is very tightly related to which kind of simulations are being performed in order to calculate it. If we can, for example, perform simulations in a way where the ensemble is the full quantum one (e.g. using PI-MD), then $\langle ... \rangle$ is a Kubo correlation-function and has encoded in it the full quantum behaviour of the fluctuations. If, on the other hand, our simulations realize a classical ensemble (e.g., using classical MD), then $\langle ... \rangle$ represents a classical correlation function and the quantum behaviour of the fluctuations is not accessible. For more information on this topic, see e.g. [2].
+
+A half-way compromise between the two is also possible to obtain, by performing classical level simulations but considering quantum phonon occupations (Bose-Einstein instead of Boltzmann distribution). In that case, $\langle ... \rangle$ represents what is usually called a greater Green's function, defined as 
+
+<p>$$G^{>}(X,Y) = -i \langle X(t) Y^{\dagger}(0) \rangle$$<p>
+
+where X and Y are two operators in the Heisenberg representation and the dagger represents hermitian conjugation. In this representation of the heat current autocorrelation, some of the quantum character of the fluctuations can be recovered via the occupations despite the usage of classical simulations.
+
+In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [5] :
+
+<p>$$\textbf{S}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
+
+Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [5] for the definition of these operators in terms of phonon creation and annihilation operators).
+
+Substituting S(t) into the Green-Kubo equation we obtain
+
+<p>$$\kappa = \frac{1}{4k_BT^2V} \sum_{\textbf{q} s_1 s_2} \sum_{\textbf{q'} s_3 s_4} \omega_{\textbf{q} s_1} \omega_{\textbf{q'} s_2} \textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q'} s_3 s_4} \int^{\infty}_0 \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{q}'} s_4} \rangle ~dt$$<p>
+
+where the phonon displacement and momentum operators without time argument are at t=0. 
+
+Just as in the Peierls-Boltzmann formulation of thermal conductivity, the phonon frequencies and group velocities are directly related to the second-order force constants, and can therefore be calculated immediately once these have been determined. The thermal conductivity problem is then reduced to the evaluation of the correlation function $\langle ... \rangle$.
+
+The correlation function shown above corresponds to a 2-phonon correlation function. In order to make its calculation manageable, we use the thermal average's version of the famous Wick's theorem, which tells us that if our anharmonicity/phonon-interaction is weak (more strictly, if the ensemble is Gaussian or very close to it) we can decouple the correlation function as 
+
+<p>$$
+\begin{aligned}
+\langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} A_{\bar{\textbf{{q}}}' s_4} \rangle &\simeq \langle B_{\textbf{q} s_1}(t) B_{\textbf{q'} s_3} \rangle \langle A_{\bar{\textbf{q}} s_2}(t) A_{\bar{\textbf{q}}' s_4} \rangle \delta \left( \textbf{q} ~+~ \textbf{q'} \right) \\
+& + \langle B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}}' s_4} \rangle \langle A_{\bar{\textbf{q}} s_2}(t) B_{\textbf{q'} s_3} \rangle \delta \left( \textbf{q} ~-~ \textbf{q'} \right)
+\end{aligned}
+$$<p>
+	
+This decoupling scheme lends itself very obviously to be used when stochastic sampling is performed, since in that case the ensemble is Gaussian by definition, though it will not necessarily mean the results will be closer to experiment if that approximation is not viable for the selected system.
+
+If we now convert our correlation functions into spectral functions via the relation
+
+<p>$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$<p>
+	
+where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [5] for more on this applied to Raman scattering), we can obtain (after some math)
+
+<p>$$\kappa = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2 s_3 s_4} \mathfrak{Re}(\textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q} s_3 s_4}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_4} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_4} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
+	
+with $c_v(\Omega)$ the system's heat capacity in its frequency dependent form, defined as 
+
+<p>$$c_v(\Omega) = \frac{\Omega^2}{k_B T^2} n(\Omega) (n(\Omega)+1)$$<p>
+
+With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
 
 
 ## Grid
