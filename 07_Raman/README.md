@@ -199,10 +199,10 @@ This is hopefully self-explanatory:
   - `angle`: PO orientation angle in 1 degree steps from 0 to 360
   - `frequency`: probing frequncy in THz
 - Data variables:
-  - `parallel`: Intensity for  $\mathbf{e}_{\mathrm i} \parallel \mathbf{e}_{\mathrm o}$
-  - `perpendicular`: Intensity for  $\mathbf{e}_{\mathrm i} \perp \mathbf{e}_{\mathrm o}$
+  - `parallel`: Intensity for  $\mathbf e_{\mathrm i} \parallel \mathbf e_{\mathrm o}$
+  - `perpendicular`: Intensity for  $\mathbf e_{\mathrm i} \perp \mathbf e_{\mathrm o}$
 - Attributes:
-  - the coordinate system, i.e. $\{ \mathbf{k}_\mathrm{i},  \mathbf{e}_{\mathrm i}, \mathbf{e}_{\mathrm o}\}$
+  - the coordinate system, i.e. $\{ \mathbf k_\mathrm{i},  \mathbf e_{\mathrm i}, \mathbf e_{\mathrm o}\}$
 
 **Task:** Plot the equivalent of the first 4 plots of Fig. 2b in [[Siegle1995]](#Suggested-reading) and discuss your findings.
 
