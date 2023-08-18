@@ -336,7 +336,9 @@ If we look at the corresponding (same sampling, same q-point grid) anharmonic ba
 
 - Just like for other quantities, there are parameters that need to be converged before continuing (forceconstant cutoffs, number of configurations in the sampling and q-point grid). The procedure is the same as before, and you should therefore make sure that the density of states is converged relative to all of them before proceeding. For the sampling, for example, you'll obtain something like this
 
-
+<p align="center">
+  <img src="Figures/samples_dos.png" width="500" height="400">
+</p>
 
 where we can see that by iteration 5 (32 configurations) we are converged.
 
