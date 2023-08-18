@@ -377,7 +377,7 @@ you can test the size of the supercells used by following the steps explained in
 
 In order to converge the thermal conductivity, we should test it against the sampling in a iterative way. For doing that, we should repeat the steps explained in the Tutorial 01 and test the goodness of our fit for the desired property, in this case the thermal conductivity (sTDEP scheme). 
 
-To do so, with the data provided in the folder ``convergence_tests/input_MgO/self_consistent_loop``` we can:
+To do so, with the data provided in the folder ``convergence_tests/input_MgO/``` we can:
 
 
 * Create a set of canonical configurations using:
