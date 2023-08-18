@@ -125,6 +125,8 @@ Here we choose to just plot one of the optical modes but in general you must be 
   <img src="Figures/T900K_samples_hsm.png" width="500" height="400">
 </p>
 
+In this figure we can see that by iteration 7 (128 samples) the spectral function is converged, and this is the number of configurations one should use from now on!
+
 - Now that we converged the number of configurations , we can now proceed and converge the q-point grid. To do this, re-run the same binary as above (with the now converged sampling) and change the 3 numbers in front of the -qg flag (i.e. to 5 5 5, 7 7 7, etc.). Note that you should change the name of the output files you want to save in order for them not to be re-written! 
 
 - After doing this for a couple of different sets of q-point grids, we can now re-do the same plot as the first one but now plotting all of the spectral functions at the same time.  It is the q-point grid at which the spectral function is converged that you should use for your calculations at this temperature. An example of this spectral function changing with the q-point grid can be seen below:
@@ -135,7 +137,7 @@ Here we choose to just plot one of the optical modes but in general you must be 
 
 Here the spectral functions' centers are displaced from each other merely for increased visibility purposes, and we see that the 12x12x12 grid is converged.
 
-- You can now re-do this procedure for all of your temperatures. What do you notice as temperature increases? Is the phonon picture preserved in all cases? Do you expect this to be the same for all systems?
+- You can now re-do this procedure for the forceconstant cutoffs and for a much higher temperature. What do you notice as temperature increases? Is the phonon picture preserved in all cases? Do you expect this to be the same for all systems?
 
 ## Path
 
@@ -222,9 +224,9 @@ This will result in a plot like the following:
   <img src="Figures/T1100K_anh_bands_151515.png" width="625" height="500">
 </p>
 
-- We can now proceed by repeating the calculation for an increasing q-point grid as before, and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg and simply seeing when it stops changing. Again, the converged value of -qg is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
+- We can now proceed by repeating the calculation for an increasing q-point grid as before (as well as converge the forceconstant cutoffs and number of samples), and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg (or the other parameters) and simply seeing when it stops changing. Again, the converged value of -qg (-rc2, -rc3 and number of configurations) is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
 
-- Once convergence is achieved for this temperature, we can now repeat this procedure for our full temperature range (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? Do you expect quantum effects to change anything? (Hint: see [6])
+- Once convergence is achieved for this temperature, we can now repeat this procedure for a much higher temperature (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? Do you expect quantum effects to change anything? (Hint: see [6])
 
 # Spectral Thermal Conductivity Introduction
 
@@ -332,7 +334,13 @@ If we look at the corresponding (same sampling, same q-point grid) anharmonic ba
   <img src="Figures/T100K_anh_bands_333.png" width="625" height="500">
 </p>
 
+- Just like for other quantities, there are parameters that need to be converged before continuing (forceconstant cutoffs, number of configurations in the sampling and q-point grid). The procedure is the same as before, and you should therefore make sure that the density of states is converged relative to all of them before proceeding. For the sampling, for example, you'll obtain something like this
 
+
+
+where we can see that by iteration 5 (32 configurations) we are converged.
+
+  
 - Next, we will look at the `outfile.thermal_conductivity.hdf5` file. This file contains not only the spectral thermal conductivity per mode per direction of the tensor, but also information pertaining to the thermal conductivity in the RTA approximation like the lifetimes, mean free path, etc. For the purposes of this tutorial we'll be focusing in the spectral thermal conductivity only, but make sure you explore the rest of the file as well.
 
 - We'll start this section by looking at the output of the command we executed earlier, which should be stored in the `grid.log` file. After calculating the spectral function for each point of the q-point grid, TDEP calculates and prints the results for the total thermal conductivity calculated with the Green-Kubo formalism first as well as its separation into the diagonal and off-diagonal directions of the tensor.  Afterwards, the raw normalization of the phonon DOS is returned, where the closer the number is to 1 the more converged the calculation is. Finally, the thermal conductivity calculated within the RTA approximation is returned. Since in RTA approximation there is no mode-mixing involved, the comparison between it and the Green-Kubo result works as a measure of how much importance these processes hold for the thermal conductivity calculation, i.e. how anharmonic the material is.
@@ -383,7 +391,7 @@ This should result in a plot like the following:
 
 In this plot we see that all of the heat is carried by the lower frequency acoustic modes and none by the optical ones. Why is that the case? Should this be the case in general? What is the influence of temperature here?
 
-- You should now re-do this process for other temperatures from your sampling. How do you see the DOS evolving? What happens to the total and spectral thermal conductivity?
+- You should now re-do this process for a higher temperature. How do you see the DOS evolving? What happens to the total and spectral thermal conductivity?
 
 
 # References
