@@ -2,11 +2,11 @@
 
 This tutorial covers how to produce TDEP input files from VASP ouput data. It requires the `tdeptools` package ( https://github.com/flokno/tools.tdep )
 
-## Molecular Dynamics run
+## Molecular Dynamics
 
 Given a `vasprun.xml` file produced from a VASP MD run, you may simply run:
 
-`tdep_parse_output vasprun.xml`
+`tdep_parse_output vasprun.xml --temperature 300`
 
 This will produce the following set of infiles: infile.forces, infile.meta, infile.positions, infile.stat.
 
