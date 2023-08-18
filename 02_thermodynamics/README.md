@@ -11,7 +11,7 @@ g(\omega) = \sum_\lambda \delta(\omega - \omega_\lambda)
 
 For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integrating this density of states with the free energy of each phonons modes
 ```math
-\mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT}\big] 
+\mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT})\big] 
 ```
 Consequently, the free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
 However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamic of the sytem.
