@@ -68,6 +68,8 @@ With these two quantities in hand we can therefore build the phonon spectral fun
 
 $$g(\Omega) = \frac{(2\pi)^3}{V} \int_{BZ} J(\Omega)~.$$
 
+With this, we are now ready to go through the --highsymmetrypoint and --path tutorials!
+
 ## Highsymmetrypoint
 
 -  One of the most common uses for the --highsymmetry point calculation mode are Raman applications, where the lineshape at the Gamma point of the crystal is the only one necessary. In order to calculate it, we run the command
@@ -76,7 +78,7 @@ $$g(\Omega) = \frac{(2\pi)^3}{V} \int_{BZ} J(\Omega)~.$$
 mpirun /path/to/TDEP/bin/lineshape --highsymmetrypoint GM -qg 3 3 3 --temperature 100 >hsp.log
 ```
 
-Here the temperature can be replaced by the one from your sampling and the proper path to the TDEP binaries needs to be added. The flag -qg (standing for --qpoint_grid) defines the density of the q-point mesh for Brillouin zone integrations, therefore needs to be converged. We can start, however, by examining what we got from this calculation.
+Here the temperature can be replaced by the one from your sampling and the proper path to the TDEP binaries needs to be added. The flag -qg (standing for --qpoint_grid) defines the density of the q-point mesh for Brillouin zone integrations, therefore needs to be converged, as well as the number of samples and cutoffs for the forceconstants just like in other tutorials. For now we can just use some reasonable value for the cutoffs (in case you're using Silicon like in the examples, an -rc2 of 6 and -rc3 of 3 should work fine) and number of configurations (you can use, for example, 32 configurations for now) and start by examining what we got from this calculation.
 
 -  After running, a file named `outfile.phonon_self_energy.hdf5` will be created. This file contains all the information pertaining not only to the real and imaginary parts of the self-energy, but also contains the computed values for the spectral function for each phonon mode. In order to access this, we have to be able to read hdf5 format files. A snippet for Python with hdf5 is provided below:
 ```
@@ -98,7 +100,7 @@ spectralfunction_per_mode = np.array(anharmonic.get("spectralfunction_per_mode")
 
 -  We now have access to the spectral function for each of the phonon modes and the frequency grid. Before proceeding to the plotting, we can first inspect these objects. Start by looking at the first 3 arrays inside spectralfunction_per_mode. What do you see? Is this a general feature? Why? What would happen if instead we ran the calculation at the X point? (Try it out!)
 
-- Now that we saw how to access the spectral function, we can start to learn how to converge this object with respect to the q-point grid. To do it, we can start by plotting our spectral function from the previous example. This can be done very simply using the following (continuing from the previous snippet):
+- Now that we saw how to access the spectral function, we can start to learn how to converge this object with respect to the number of configurations in our sampling and the q-point grid. To do it, we can start by plotting our spectral function from the previous example. This can be done very simply using the following (continuing from the previous snippet):
 
 ```
 # Set the limits of the plot to the limits of the data. Can be changed to values closer to the peak in case we want to see the spectra function in more detail
@@ -109,17 +111,23 @@ plt.plot(frequency, spectralfunction_per_mode[3])
 plt.show()
 ```
 
-This should result in a plot similar to this one:
+This should result in a plot like this one:
 
 <p align="center">
   <img src="Figures/T100K_gamma_333.png" width="500" height="400">
 </p>
 
-Here we choose to just plot one of the optical modes but in general you must be careful to check how all modes will evolve with changing the q-point grid.
+Here we choose to just plot one of the optical modes but in general you must be careful to check how all modes will evolve!
 
-- Once we have seen how to do this, we can now proceed by re-running the same tdep binary as above, changing only the 3 numbers in front of the -qg flag (i.e. to 5 5 5, 7 7 7, etc.). Note that you should change the name of the output files you want to save in order for them not to be re-written! 
+- Once we have seen how to do this, we can now proceed to converge the necessary values, in this case forceconstant cutoffs, number of configurations in the sampling and q-point grid. By re-running the same tdep binary as above, changing only first the number of configurations in the sampling and the q-point grid (we choose -qg 10 10 10 just to make sure the convergence isn't affected by having a sparse q-point grid like the first one, this doesn't mean -qg is converged yet!) we can inspect how the spectral function at the Gamma point evolves with this parameter. You will notice that after some threshold it will stop changing significantly, and that's when we can consider it as converged.
 
-- After doing this for a couple of different sets of q-point grids, we can now re-do the same plot as above but now plotting all of the spectral functions at the same time. You will notice that after some threshold it will stop changing, and that's when we can consider it as converged. It is the q-point grid at which the spectral function is converged that you should use for your calculations at this temperature. An example of this spectral function changing with the q-point grid can be seen below:
+<p align="center">
+  <img src="Figures/T100K_gamma_333.png" width="500" height="400">
+</p>
+
+- Now that we converged the number of configurations , we can now proceed and converge the q-point grid. To do this, re-run the same binary as above (with the now converged sampling) and change the 3 numbers in front of the -qg flag (i.e. to 5 5 5, 7 7 7, etc.). Note that you should change the name of the output files you want to save in order for them not to be re-written! 
+
+- After doing this for a couple of different sets of q-point grids, we can now re-do the same plot as the first one but now plotting all of the spectral functions at the same time.  It is the q-point grid at which the spectral function is converged that you should use for your calculations at this temperature. An example of this spectral function changing with the q-point grid can be seen below:
 
 <p align="center">
   <img src="Figures/T100K_gamma_all.png" width="500" height="400">
@@ -234,7 +242,7 @@ A half-way compromise between the two is also possible to obtain, by performing 
 
 where X and Y are two operators in the Heisenberg representation and the dagger represents hermitian conjugation. In this representation of the heat current autocorrelation, some of the quantum character of the fluctuations can be recovered via the occupations despite the usage of classical simulations.
 
-In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [5] :
+In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [4] :
 
 <p>$$\textbf{S}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
 
