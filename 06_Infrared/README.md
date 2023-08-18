@@ -239,6 +239,7 @@ One more important aspect to consider is the transverse nature of light propagat
 	<img src=".assets/figure_scattering_geometry.jpeg" width="450"/>
   <figcaption><center><em>Scattering geometry: (Transverse) E field propagating in z direction perpendicular to slab.</em></center></figcaption>
 </p>
+
 **Question:** Imagine the experimental setup to be as depicted above. In what direction does the polarization $\mathbf P$ need to point so that the $\mathbf E$ field can interact with it?
 
 **Question:** Which phonon wave vectors $\{ \mathbf q \}$ are we probing in this setup?
