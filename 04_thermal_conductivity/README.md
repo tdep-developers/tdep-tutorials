@@ -357,6 +357,90 @@ The script should give you the plots reported below.
 
 
 ![Cumulative kappa vs mean free path of MgO](https://github.com/RobertaFarris93/tdep-tutorials/tree/thermal_conductivity/04_thermal_conductivity/Plots/thermal_conductivity_vs_mfp_MgO.png)
+
+
+# Convergence of thermal conductivity 
+
+So far we consider converged the forces used for the thermal conductivity. As for the other physical quantities, the thermal conductivity needs to be tested against all the parameters used in the calculations. In particular:
+
+* supercell size
+* number of configurations used
+* range of the forces cutoffs (number of neighbours used included in the integral)
+* number of iterations in the self-consistent loop 
+
+## Supercell size convergence
+
+you can test the size of the supercells used by following the steps explained in Tutorial 01 for the case of MgO.
+
+
+## Self-consistent loop
+
+In order to converge the thermal conductivity, we should test it against the sampling in a iterative way. For doing that, we should repeat the steps explained in the Tutorial 01 and test the goodness of our fit for the desired property, in this case the thermal conductivity (sTDEP scheme). 
+
+To do so, with the data provided in the folder ``convergence_tests/input_MgO/self_consistent_loop``` we can:
+
+
+* Create a set of canonical configurations using:
+  ```
+  canonical_configuration --quantum  --temperature 300 -n 3
+   ```
+  Here, we are using an initial set of IFCs in order to create a set of configurations, in case you want to start from scratch without an initial set of forceconstants, you can use two flags ```--debye_temperature ``` and  ``` --maximum_frequency```. For the details, read the documentation on the [canonical_configuration](https://ollehellman.github.io/program/canonical_configuration.html) .
+  
+  You should see now three configurations in your folder: `
+  ``contcar_conf0001```
+  
+   ```contcar_conf0002```
+  
+  ```contcar_conf0003```
+
+* Compute the atomic forces using a DFT code of your choice.
+* 
+  **Tip**: in order to avoid this step, that could require a significant amount of time, we provided a potential for MgO. You can download that from the first Tutorial. Create a folder "iter0" and copy your input files and the potential there.
+
+  Then run:
+  ```
+  sokrates_compute --folder-model module/ --format vasp contcar* --tdep
+  ```
+  You should see now the forces, energies and statistical information of your sample.  
+* Fit the forces using:
+  ```
+  mpirun extract_forceconstants  -rc2 8 -rc3 4
+  ```
+  And inspect the outfile carefully.
+  
+  **Remember** Your R2 should be > 0.5 at least, otherwise the effective harmonic potential is extremely bad at describing your forces.
+  
+*Link the output IFCs 
+    ```
+    $ln -s outfile.forceconstant_thirdorder infile.forceconstant_thirdorder
+    ```
+    
+* Compute the thermal conductivty by using
+  ```
+  mpirun thermal_conductivity -qg 8 8 8 --temperature 300
+  ```
+* create a new folder and copy your ```infile.ucposcar``` ```infile.ssposcar``` and ```infile.forceconstant```.
+* Use the updated forceconstants to generate a new sample, and repeat all the previous steps in a new folder (iter_1).
+* Check the thermal conductivity as a function of the iterative_step. 
+
+How many steps did you need to reach convergence?
+
+## Cutoffs of IFcs
+
+In the data provided, you will find a directory named ```convergence_tests/input_MgO```.
+
+Inspect the folder. It contains the tdep input files needed for fitting the forceconstant and calculated the related properties. 
+
+In Tutorial 01, you learnt how to increase your force constants cutoff (rc2) and observe how the phonon dispersion changes. 
+
+Repeat the same steps, but this time keep fixed rc2 and change rc3. 
+
+```
+mpirun extract_forceconstants  -rc2 8 -rc3 4
+```
+
+How the thermal conductivity changes with the 3rd order IFCs cutoff?
+
 # Next steps
  
 
@@ -365,6 +449,8 @@ The script should give you the plots reported below.
 You may now use your own structure to calculate the thermal conductivity. 
 
 Copy your primitive structure and the forceconstants in your work folder and repeat the previous steps.
+
+Alternatively, you will find the needed input files for Si, that will be used as example in the next tutorial. 
 
 
 
