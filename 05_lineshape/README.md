@@ -281,7 +281,7 @@ with $c_v(\Omega)$ the system's heat capacity in its frequency dependent form, d
 
 <p>$$c_v(\Omega) = \frac{\Omega^2}{k_B T^2} n(\Omega) (n(\Omega)+1)$$<p>
 
-This corresponds to equation (6) in [] and it is what TDEP returns when it calculates the spectral thermal conductivity. With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
+This corresponds to equation (6) in [7] and it is what TDEP returns when it calculates the spectral thermal conductivity, as well as the spectrally and mode decomposed $\kappa^{\alpha \beta}_{s_1 s_2}(\Omega)$ where the integral over the frequency and sum over modes aren't performed but the sum over q is. With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
 
 
 ## Grid
@@ -347,7 +347,7 @@ where we can see that by iteration 5 (32 configurations) we are converged.
 
 - We'll start this section by looking at the output of the command we executed earlier, which should be stored in the `grid.log` file. After calculating the spectral function for each point of the q-point grid, TDEP calculates and prints the results for the total thermal conductivity calculated with the Green-Kubo formalism first as well as its separation into the diagonal and off-diagonal directions of the tensor.  Afterwards, the raw normalization of the phonon DOS is returned, where the closer the number is to 1 the more converged the calculation is. Finally, the thermal conductivity calculated within the RTA approximation is returned. Since in RTA approximation there is no mode-mixing involved, the comparison between it and the Green-Kubo result works as a measure of how much importance these processes hold for the thermal conductivity calculation, i.e. how anharmonic the material is.
 
-- Contrary to the other cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely converged q-point grid. For an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$. To converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [7]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
+- Contrary to the other cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely converged q-point grid. For an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$. To converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [8]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
 
 <p align="center">
   <img src="Figures/kappavsq.png" width="500" height="400">
@@ -410,4 +410,6 @@ In this plot we see that all of the heat is carried by the lower frequency acous
 
 [6](https://www.pnas.org/doi/full/10.1073/pnas.1707745115) Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
 
-[7](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.085204) Esfarjani, K. et. al., Phys. Rev. B 84, 085204 (2011)
+[7](https://www.nature.com/articles/s41524-021-00523-7) Dangic, D. et. al., npj Computational Materials volume 7:57 (2021) 
+
+[8](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.085204) Esfarjani, K. et. al., Phys. Rev. B 84, 085204 (2011)
