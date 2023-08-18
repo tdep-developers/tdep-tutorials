@@ -169,11 +169,49 @@ Now we have several files:
 
   **Compare the resulting peak positions with the pure harmonic intensities from `outfile.mode_intensity.csv`:** What has changed? Why?
 
-TODO:
+### Polarization orientation
 
-- explain PO
-- compare Fig. 2b in Siegle
-- run x direction
+You might have noticed that `tdep_compute_raman_intensities` dumps another file, `outfile.intensity_raman_po.h5`. This HDF5 file contains 2 PO maps. Read with `xarray`, you get
+
+```python
+ds_po = xr.load_dataset("outfile.intensity_raman_po.h5")
+print(ds_po)
+```
+
+```
+<xarray.Dataset>
+Dimensions:        (angle: 361, frequency: 1200)
+Coordinates:
+  * angle          (angle) float64 0.0 1.0 2.0 3.0 ... 357.0 358.0 359.0 360.0
+  * frequency      (frequency) float64 0.0 0.0426 0.0852 ... 50.99 51.03 51.08
+Data variables:
+    parallel       (angle, frequency) float64 0.0 1.797e-10 ... 0.0 0.0
+    perpendicular  (angle, frequency) float64 0.0 1.463e-10 ... 0.0 0.0
+Attributes:
+    direction1:  [0. 0. 1.]
+    direction2:  [1. 0. 0.]
+    direction3:  [0. 1. 0.]
+```
+
+This is hopefully self-explanatory:
+
+- Coordinates:
+  - `angle`: PO orientation angle in 1 degree steps from 0 to 360
+  - `frequency`: probing frequncy in THz
+- Data variables:
+  - `parallel`: Intensity for  $\mathbf{e}_{\mathrm i} \parallel \mathbf{e}_{\mathrm o}$
+  - `perpendicular`: Intensity for  $\mathbf{e}_{\mathrm i} \perp \mathbf{e}_{\mathrm o}$
+- Attributes:
+  - the coordinate system, i.e. $\{ \mathbf{k}_\mathrm{i},  \mathbf{e}_{\mathrm i}, \mathbf{e}_{\mathrm o}\}$
+
+**Task:** Plot the equivalent of the first 4 plots of Fig. 2b in [[Siegle1995]](#Suggested-reading) and discuss your findings.
+
+## More things to do
+
+- Rerun the Raman calculation for the x direction
+- Plot the remaining 4 intensities of Fig. 2b in [Siegle1995].
+
+Congratulations, you have performed a complete description of first-order Raman scattering in wurtzite GaN at room temperature from first principles.
 
 
 ## Suggested reading
