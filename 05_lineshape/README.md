@@ -273,15 +273,15 @@ If we now convert our correlation functions into spectral functions via the rela
 
 <p>$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$<p>
 	
-where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [5] for more on this applied to Raman scattering), we can obtain (after some math)
+where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [5] for more on this applied to Raman scattering), we can obtain (after some math and doing $s_1=s_4$ and $s_2=s_3$)
 
-<p>$$\kappa = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2 s_3 s_4} \mathfrak{Re}(\textbf{v}_{\textbf{q} s_1 s_2} \otimes \textbf{v}_{\textbf{q} s_3 s_4}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_4} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_4} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
+<p>$$\kappa^{\alpha \beta} = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2} \mathfrak{Re}(\textbf{v}^{\alpha}_{\textbf{q} s_1 s_2} \textbf{v}^{\beta}_{\textbf{q} s_1 s_2}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_1} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_2} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
 	
 with $c_v(\Omega)$ the system's heat capacity in its frequency dependent form, defined as 
 
 <p>$$c_v(\Omega) = \frac{\Omega^2}{k_B T^2} n(\Omega) (n(\Omega)+1)$$<p>
 
-With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
+This corresponds to equation (6) in [] and it is what TDEP returns when it calculates the spectral thermal conductivity. With this result, are now able to calculate the spectral thermal conductivity of our system as long as we are able to perform the frequency integral above.
 
 
 ## Grid
