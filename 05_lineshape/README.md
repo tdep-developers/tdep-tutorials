@@ -122,7 +122,7 @@ Here we choose to just plot one of the optical modes but in general you must be 
 - Once we have seen how to do this, we can now proceed to converge the necessary values, in this case forceconstant cutoffs, number of configurations in the sampling and q-point grid. By re-running the same tdep binary as above, changing only first the number of configurations in the sampling and the q-point grid (we choose -qg 10 10 10 just to make sure the convergence isn't affected by having a sparse q-point grid like the first one, this doesn't mean -qg is converged yet!) we can inspect how the spectral function at the Gamma point evolves with this parameter. You will notice that after some threshold it will stop changing significantly, and that's when we can consider it as converged.
 
 <p align="center">
-  <img src="Figures/T100K_gamma_333.png" width="500" height="400">
+  <img src="Figures/T900K_samples_hsm.png" width="500" height="400">
 </p>
 
 - Now that we converged the number of configurations , we can now proceed and converge the q-point grid. To do this, re-run the same binary as above (with the now converged sampling) and change the 3 numbers in front of the -qg flag (i.e. to 5 5 5, 7 7 7, etc.). Note that you should change the name of the output files you want to save in order for them not to be re-written! 
