@@ -331,7 +331,7 @@ This will produce a plot like the following:
 If we look at the corresponding (same sampling, same q-point grid) anharmonic band structure, we can clearly see that the peaks in the phonon DOS correspond to the densest parts of the dispersion plot:
 
 <p align="center">
-  <img src="Figures/T100K_anh_bands_333.png" width="500" height="400">
+  <img src="Figures/T100K_anh_bands_333.png" width="625" height="500">
 </p>
 
 - Just like for other quantities, there are parameters that need to be converged before continuing (forceconstant cutoffs, number of configurations in the sampling and q-point grid). The procedure is the same as before, and you should therefore make sure that the density of states is converged relative to all of them before proceeding. For the sampling, for example, you'll obtain something like this
