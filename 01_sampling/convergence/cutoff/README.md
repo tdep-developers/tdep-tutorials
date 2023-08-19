@@ -22,6 +22,8 @@ The current folder has a supercell with 512 atoms. We will create a set of sampl
             second order + polar:  0.96439        0.0881981
   ```
 
+  **This cross-validation R2 is bit different from the pure fit R2 that is written towards the end of the output. Its purpose is to tell you about the robustness of the fit against variation.**
+  
 - Plot the R2 **for the `second order`** as function of the cutoff. Ignore the **`second order + polar` here** (why?)
 
 - After what cutoff does it not increase anymore? → **This is the converged cutoff! Increasing the cutoff further does not improve the model, on the contrary.**
@@ -36,4 +38,5 @@ The current folder has a supercell with 512 atoms. We will create a set of sampl
 
 ## More practical advice
 
-- In practice, one should be mostly concerned with the observables of interest. These should be robust against changes in the cutoff(s, when going to higher orders), as with any numerical parameter. If your results change a lot with the choice of the cutoff, there might be something wrong elsewhere.
+- The R2 is only one things to look at. It is a good hint for when all significant interactions are captured.This range is typically reached when the R2 is not increasing anymore with cutoff.
+- In practice, one should be more concerned with the observables of interest. These should be robust against changes in the cutoff(s, when going to higher orders), as with any numerical parameter. If your results change a lot with the choice of the cutoff, there might be something wrong elsewhere.

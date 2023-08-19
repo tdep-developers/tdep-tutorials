@@ -7,12 +7,8 @@ samples:
 infile.forces: samples
 	sokrates_compute --float32 --tdep --folder-model ../../module/ samples*/sample.*/geometry.in
 
-folders: stride_001
-
-stride_001: infile.forces
+run: infile.forces
 	bash 00-prepare_folders.sh
-
-run: stride_001
 	bash 01-run_folders.sh
 
 clean:

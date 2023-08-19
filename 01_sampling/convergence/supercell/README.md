@@ -1,7 +1,7 @@
 TDEP: Supercell convergence
 ===
 
-Study supercell size convergence.
+This tutorial is supposed to help you with finding the right supercell size. In practice this is determined several things, your potential or DFT level you are using
 
 ## Prerequisite:
 
