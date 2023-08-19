@@ -6,4 +6,4 @@ Converging things is annoying, but what can we do. These tutorials are supposed 
 ## Tutorials
 
 - [How to converge the realspace cutoff for the forceconstants](./cutoff/README.md)
-- [Study supercell size convergence](./supercell/README.md)
+- [Study convergence with number of samples](./sampling/README.md)

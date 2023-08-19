@@ -30,7 +30,7 @@ The current folder has a supercell with 512 atoms. We will create a set of sampl
 
 - Compare with the real-space range of the force constants that you can compute and plot with `tdep_plot_fc_norms`.
 
-**Warning: Using the neural network potential, you will begin to see some artifacts after going to cutoffs >8A. Why could that be?** 
+In the current case, the optimal cutoff should be around 6A. This cutoff would also fit in a supercell with 216 atoms. Good to know.
 
 ## Hints
 

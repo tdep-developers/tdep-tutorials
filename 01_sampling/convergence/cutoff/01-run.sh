@@ -7,8 +7,9 @@ do
 	mpirun extract_forceconstants --polar --stride 1 -rc2 $rc2 | tee extract_forceconstants.log
 	# mpirun extract_forceconstants --stride 1 -rc2 $rc2 | tee extract_forceconstants.log
 	ln -sf outfile.forceconstant infile.forceconstant
+	tdep_plot_fc_norms
 	phonon_dispersion_relations -p --dos && gnuplot -p outfile.dispersion_relations.gnuplot_pdf
-	mv outfile.forceconstant outfile.phonon_dos outfile.U0 outfile.dispersion_relations.pdf extract_forceconstants.log $folder
+	mv fc_norms.pdf outfile.forceconstant outfile.phonon_dos outfile.U0 outfile.dispersion_relations.pdf extract_forceconstants.log $folder
 	# restore reference forceconstants
 	ln -sf ../infile.forceconstant
 done
