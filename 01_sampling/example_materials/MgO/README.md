@@ -1,7 +1,7 @@
 sTDEP for MgO
 ===
 
-This example shows how to perform statistical sampling for rock salt MgO at 0K to get harmonic phonons.
+This example shows how to perform statistical sampling for rock salt MgO at 300K.
 
 This tutorial assumes that you are already familiar with the [sTDEP sampling scheme](../../sTDEP/README.md).
 
@@ -15,19 +15,17 @@ To speed up things we provide a machine-learning potential so calculate forces. 
 
 ## Steps
 
-1. Go to the folder `sampling.000K/iter.000` to start the sampling
+1. Go to the folder `sampling.300K/iter.000` to start the sampling
 
 2. Check the `Makefile` and the target `init`
 
-3. `make init` to create the first 4 samples at target temperature of 1300K:
+3. `make init` to create the first 4 samples at target temperature of 300K:
 
    ```bash
-   canonical_configuration -n 4 -t 0 -mf 20 --quantum
+   canonical_configuration -n 4 -t 300 -mf 20 --quantum
    ```
 
    this will create 4 samples at a temperature of 0K assuming a maximum frequency (`-mf`) of 20 THz – just a rough guess. This could also be just a single sample in the beginning, it should not matter too much.
-
-   **Note that `--quantum` is necesary in this case to account for zero point motion at 0K.**
 
 4. To keep things organized, we move everything into a folder `samples`, there's a script in `tdeptools` to do that:
    ```bash

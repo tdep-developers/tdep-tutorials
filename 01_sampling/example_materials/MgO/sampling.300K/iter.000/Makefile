@@ -1,4 +1,4 @@
-temp=0
+temp=300
 
 fc: infile.forceconstant
 compute: infile.forces
