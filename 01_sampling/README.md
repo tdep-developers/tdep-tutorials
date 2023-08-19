@@ -30,6 +30,7 @@ i.e., instead of sampling the true nuclear distribution as it would be obtained 
 - Some practical examples:
   - [Magnesium oxide at 0K using a neural network potential](./example_materials/MgO/README.md)
   - [Zirconium at 1300K: dynamical stabilization](./example_materials/Zr/README.md)
+- [**Most importantly: Convergence tutorials!**](./convergence/README.md)
 
 ## General comment on Convergence
 
