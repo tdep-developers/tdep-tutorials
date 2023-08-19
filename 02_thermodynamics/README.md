@@ -78,13 +78,24 @@ This tutorial covers:
 The end goal of this tutorial is to compute the lattice parameter of bcc Zr at 1300K.
 According to the harmonic approximation, the bcc phase of zirconium present several imaginary modes, which indicates the unstability of the phase.
 <p align="center">
-	<img src="reference/.Zr_bcc_harmonic.png" width="450"/>
+	<img src="example_Zr/.Zr_bcc_harmonic.png" width="450"/>
   <figcaption><center><em>Phonons in bcc Zr in the harmonic approximation.</a></em></center></figcaption>
 </p>
 However, it is well documented that zirconium is in a bcc phase at high temperature and ambient pressure, showing thus a limitation of the harmonic approximation.
 The stabilization of zirconium can be explained through explicit temperature effects that can be caputred by the TDEP approach [Ref. 1].
 
-We will need to perform simulations for several volumes, with reference data that will be available in the `references` directory.
+When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
+When working at 0K, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
+For example, here is the equation of state of bcc Zirconium fitted with the Vinet model.
+<p align="center">
+	<img src="example_Zr/.EOS_0K.png" width="450"/>
+  <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
+</p>
+
+To include the effects of temperature, we can use the equation of state method, but replacing the energy by the free energy in the fitting.
+This is the final goal of this tutorial.
+
+We will need to perform simulations for several volumes, with reference data that will be available in the `example_Zr` directory.
 
 
 - You will find informations concerning free energy on [`extract_forceconsants`](http://ollehellman.github.io/program/extract_forceconstants.html) and [`phonon_dispersions`](https://ollehellman.github.io/program/phonon_dispersion_relations.html#sec_tdepthermo)
@@ -92,13 +103,12 @@ We will need to perform simulations for several volumes, with reference data tha
 
 ## Computing the free energy
 
-As a start, we will compute the free energy of bcc zirconium at the equilibrium volume obtained from a minimization of the energy.
-In the `reference` folder, you will find a subdirectory `V0K`.
-This directory contains all the input files necessary to compute the free energy with TDEP.
+As a start, we will compute the free energy of bcc zirconium with a lattice parameter of 3.61 $\mathring{a}$.
+In the `example_Zr` folder, you will find a subdirectory `sampling.1300K` which contains subfolders `aX`, where X is a number giving the lattice parameter.
+For the 12th iteration of the `a3.61` folder, all the input files necessary to compute the free energy with TDEP.
 Note that the configurations were generated using the self-consistent stochastic approach using the `generate_configuration` binary at a temperature of 1300 K.
 
-
-- Go into the `V0K` folder or copy the data in a new folder.
+- Go into the `example_Zr/sampling.1300K/a3.61/iter.012` folder or copy the data in a new folder.
 - Compute the force constants using the command: `extract_forceconstants -rc2 10.0 -U0`
 - Compute the phonon dispersion with the command: `phonon_dispersions --dos --temperature 1300`. This command will compute the phonon dispersion, the density of state and compute thermodynamic properties at a temperature of 1300 K. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
     - In the directory, you should find two files related to thermodynamic properites: `outfile.free_energy` and `outfile.U0` 
@@ -124,11 +134,13 @@ Note that the configurations were generated using the self-consistent stochastic
     - To simplify the convergence, it's a good idea to start with the number of samples. Indeed, this step is the most computationaly demanding (as it demand calculation of energy and forces !). Once this is done, you can look at the cutoff convergence and finish with q-point grid. 
 
 Remember to rename the outfile.X before launching tdep again !
+**Note** For the final steps of this tutorial, we will need the `outfile.U0` and `outfile.free_energy` files inside this folder. Don't erase them !
 
 ## Practical example on the free energy convergence
 
 To grasp a better idea on how to converge the free energy, let's have a look at its computation from the start, using stochastic sampling.
-In the `reference/sampling.1100K` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1100K at the same volume as before.
+For the lattice parameter of 3.63 $\mathring{a}$, the self-consistent sampling have not been done, and we will do it now.
+In the `example_Zr/sampling.1300K/a3.63` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1300K.
 If you need help on how to do so, don't hesitate to look back at the 01_sampling tutorial.
 
 When doing the iterations, look at the evolution of the harmonic free energy, $U_0$ correction term and the total free energy.
@@ -139,7 +151,7 @@ With this, you can bypass the first iterations and already start with a larger n
 For this example, since you've already computed force constants at 1300K, you can use them to start your sampling at 1100K.
 
 The steps to do the stochastic sampling are :
-1. Go to the folder `reference/sampling.1100K/iter.005` to start the sampling
+1. Go to the folder `example_Zr/sampling.1300K/a3.63/iter.005` to start the sampling
 2. Copy the `infile.forceconstant` file from your previous calculation to the folder.
 3. Check the `Makefile` and the target `init`. You should see the absence of the `-mf` variable since you are already starting with a `infile.forceconstant`.
 4. `make init` to create the first 128 samples
@@ -155,21 +167,12 @@ Things to look out for
 - At each iteration, the harmonic free energy and the U0 correction term are computed. Plot their evolution with the number of configurations !
 - After how many iteration does the total free energy stabilize ? Is it the same as for the phonon dispersion stabilization ?
 
+
+**Note** For the final steps of this tutorial, we will need the `outfile.U0` and `outfile.free_energy` files inside the folder `iter.XXX`. Don't erase them !
+
 ## Getting the equilibrium volume
 
-When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
-When working at 0K, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
-For example, here is the equation of state of bcc Zirconium fitted with the Vinet model.
-<p align="center">
-	<img src="reference/.EOS_0K.png" width="450"/>
-  <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
-</p>
-
-To include the effects of temperature, we can use the equation of state method, but replacing the energy by the free energy in the fitting.
-
-
-In the `reference` folder, you will find a subdirectory `sampling.1300K` which contains subfolders `aX`, where X is a number giving the lattice parameter.
-In each of these subfolders, you will find 12 iterations of stochastic TDEP with `outfile.free_energy` and `outfile.U0` files.
+Now that the free energy for every volume has been computed, we can finally compute the equilibrium volume.
 
 1. Choose an iteration
 2. Extract the total free energy of each volume at this iteration, and put it in a `eos_data.dat` file. For this, you can modify and use the `get_eos_data.py` script.
@@ -180,7 +183,7 @@ In each of these subfolders, you will find 12 iterations of stochastic TDEP with
 Things to look out for
 - Observe how the fitted volume (and lattice parameter) evolve with the number of iterations.
 - How many iterations are necessary to converge the volume of this system at this temperature ?
-- Compare your result to the lattice parameter computed at 0K (3.58 angstrom). (Note : the lattice parameter for a bcc crystal is given by $a = (2 V)^{1/3}$.)
+- Compare your result to the lattice parameter computed at 0K (3.58 angstrom). (Note : the lattice parameter for a bcc crystal is given by $a = (2 V)^{1/3}$ with $V$ the volume.)
 
 ## Suggested reading
 
