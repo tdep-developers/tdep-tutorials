@@ -1,4 +1,4 @@
-for rc2 in $(seq -f %04.1f 3.0 0.5 9)
+for rc2 in $(seq -f %04.1f 2.5 0.5 9)
 do
 	echo $rc2
 	folder=rc_polar_$rc2
@@ -9,5 +9,7 @@ do
 	ln -sf outfile.forceconstant infile.forceconstant
 	phonon_dispersion_relations -p --dos && gnuplot -p outfile.dispersion_relations.gnuplot_pdf
 	mv outfile.forceconstant outfile.phonon_dos outfile.U0 outfile.dispersion_relations.pdf extract_forceconstants.log $folder
+	# restore reference forceconstants
+	ln -sf ../infile.forceconstant
 done
 

@@ -23,8 +23,7 @@ Study supercell size convergence.
 - Create the forces using the potential.
 - extract forceconstants with a step size (`--stride`) of 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 and create phonon dispersions.
 - Plot the convergence of the phonon dispersion as function of number of samples.
-- Repeat for a different supercell size.
-- Check the convergence of phonon frequencies as function of supercell size.
+- Repeat for a different supercell size. Check the convergence of phonon frequencies. How does supercell size influence the dispersion, in particular when going to smaller supercells that artificially truncate their range?
 
 ## Hints
 
