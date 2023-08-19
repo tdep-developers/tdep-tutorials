@@ -5,7 +5,7 @@ infile.forces: samples
 	sokrates_compute --float32 --tdep --folder-model ../module/ samples*/sample.*/geometry.in
 
 samples:
-	canonical_configuration --temperature 300 --quantum -n 32
+	canonical_configuration --temperature 300 --quantum -n 128
 	tdep_create_sample_folders contcar_conf*
 
 clean:

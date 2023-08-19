@@ -26,7 +26,7 @@ i.e., instead of sampling the true nuclear distribution as it would be obtained 
 
 ## Outline
 
-- [General sampling sTDEP sampling tutorial](./sTDEP/README.md)
+- [General sTDEP sampling tutorial](./sTDEP/README.md)
 - Some practical examples:
   - [Magnesium oxide at 0K using a neural network potential](./example_materials/MgO/README.md)
   - [Zirconium at 1300K: dynamical stabilization](./example_materials/Zr/README.md)
