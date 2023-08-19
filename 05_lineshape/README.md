@@ -347,12 +347,21 @@ where we can see that by iteration 5 (32 configurations) we are converged.
 
 - We'll start this section by looking at the output of the command we executed earlier, which should be stored in the `grid.log` file. Besides the timings, you should obtain something like this:
 
+<p align="center">
+  <img src="Figures/grid_output.png" width="500" height="400">
+</p>
 
- 
+In this file, we see that after calculating the spectral function for each point of the q-point grid, TDEP calculates and prints the results for the total thermal conductivity calculated with the Green-Kubo formalism, as well as its separation into the diagonal and off-diagonal mode contributions (last equation for $\kappa$ in the introduction, with $s_1 = s_2$ and $s_1 \neq s_2$ respectively). This decomposition allows us to see if the thermal conductivity of the system we're studying is influenced heavily by the phonon coherences (mode-mixing contributions are important) or if it's well described by the phonon populations (the diagonal mode contributions), as well as study how this scenario evolves with temperature. In the case of Silicon, one finds that the mode-mixing contributions are residual when compared to the mode-diagonal ones, and that although their importance increases with temperature they never really become relevant. If we plot, for example, the different contributions to $\kappa_{xx}$ against the temperature, we find a plot like the one below:
 
-After calculating the spectral function for each point of the q-point grid, TDEP calculates and prints the results for the total thermal conductivity calculated with the Green-Kubo formalism first as well as its separation into the diagonal and off-diagonal mode contributions (last equation for $\kappa$ in the introduction, with $s_1 = s_2$ and $s_1 \neq s_2$ respectively).  Afterwards, the raw normalization of the phonon DOS is returned, where since it should integrate to 1 the closer it is to this number the more converged the calculation is. Finally, the thermal conductivity calculated within the RTA approximation is returned, as well as in an "almost RTA" approximation where the only change is that the phonon lifetimes are instead taken to be the convolution of the spectral functions. Since in RTA approximation there is no mode-mixing involved and phonons are taken to be well defined quasiparticles, the comparison between it and the Green-Kubo result works as a measure of how much importance these processes hold for the thermal conductivity calculation and how much is the quasiparticle picture broken.
+<p align="center">
+  <img src="Figures/kappa_diagvsoffdiag.png" width="500" height="400">
+</p>
 
-- Contrary to the other cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely converged q-point grid. For an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$. To converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [8]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
+In this figure, we see that even when plotting the different contributions in logarithmic scale, the mode-diagonal contributions are virtually indistinguishable from the total thermal conductivity. This is, however, not the case for some systems, for which these mode-mixing contributions can become even the major contributor to the system's total thermal conductivity (see [8])
+
+Afterwards, the raw normalization of the phonon DOS is returned, where since it should integrate to 1 the closer it is to this number the more converged the calculation is. Finally, the thermal conductivity calculated within the RTA approximation is returned, as well as in an "almost RTA" approximation where the only change is that the phonon lifetimes are instead taken to be the convolution of the spectral functions. Since in RTA approximation there is no mode-mixing involved and phonons are taken to be well defined quasiparticles, the comparison between it and the Green-Kubo result works as a measure of how much importance these processes hold for the thermal conductivity calculation and how much is the quasiparticle picture broken.
+
+- Contrary to the other convergence cases, as the thermal conductivity is an integrated quantity it should be calculated in the limit of an infinitely dense q-point grid. For an increasingly denser grid the thermal conductivity should start evolving linearly with 1/q as 1/q $\rightarrow 0$. To converge this value one has to calculate the thermal conductivity for increasing q, plot it as $\kappa$ vs 1/q and fit the points after which the behavior becomes linear to a linear function (see [9]). It is then the y-intersect of the fit that corresponds to the thermal conductivity in the infinitely-dense q-point grid limit. This plot should look something like this:
 
 <p align="center">
   <img src="Figures/kappavsq.png" width="500" height="400">
@@ -417,4 +426,6 @@ In this plot we see that all of the heat is carried by the lower frequency acous
 
 [7](https://www.nature.com/articles/s41524-021-00523-7) Dangic, D. et. al., npj Computational Materials volume 7:57 (2021) 
 
-[8](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.085204) Esfarjani, K. et. al., Phys. Rev. B 84, 085204 (2011)
+[8](https://www.nature.com/articles/s41567-019-0520-x) Simoncelli, M. et. al., Nature Physics volume 15, pages 809–813 (2019)
+
+[9](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.085204) Esfarjani, K. et. al., Phys. Rev. B 84, 085204 (2011)
