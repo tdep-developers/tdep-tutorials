@@ -1,7 +1,11 @@
-Stochastic TDEP (sTDEP) for Zirconium
+sTDEP for Zirconium
 ===
 
 This example shows how to perform statistical sampling for bcc zirconium, and how to obtain a positive definite spectrum at high temperatures, in this case, 1300K.
+
+This tutorial assumes that you are already familiar with the [sTDEP sampling scheme](../../sTDEP/README.md).
+
+To speed up things we provide a machine-learning potential so calculate forces. This potential is introduced [in a dedicated tutorial](../../../00_preparation/potential_energy_surfaces/README.md).
 
 ## Steps
 
@@ -33,10 +37,8 @@ This example shows how to perform statistical sampling for bcc zirconium, and ho
 
 6. Now we can extract the forceconstants with
    ```bash
-   extract_forceconstants -rc2 10 -U0 | tee extract_forceconstants.log
+   extract_forceconstants -rc2 10 | tee extract_forceconstants.log
    ```
-
-   Note that `-U0` is used to dump extra statistics at the end of the output.
 
 7. Create phonon dispersion and plot:
    ```bash
