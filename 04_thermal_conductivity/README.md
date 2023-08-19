@@ -39,8 +39,11 @@ The data provided includes the IFCs and the unitcell obtained from previous DFT 
 
 ## Input files:
   `infile.ucposcar` 
+  
   `infile.forceconstants` 
+  
   `infile.forceconstant_thirdorder` 
+  
   
 ## Optional input file:
   `infile.isotopes` (for non-natural isotope distribution)
@@ -60,14 +63,10 @@ You can create your customized isotope distribution specifying the number of iso
 
 ## Preparation
 
-Read the documentation for the [thermal conductivity](https://ollehellman.github.io/program/thermal_conductivity.html)
+Read the documentation for the [thermal conductivity](https://tdep-developers.github.io/tdep/program/thermal_conductivity/)
 
-Go now into your work directory and copy the tar directory provided and extract it.
+Go now into your work directory and copy the files provided.
 
-```
-tar -xvf Thermal_conductivity.tar
-cd Therml_conductivity
-```
 
 #### Note: The tutorial files can be downloaded from the school webpage [tdep_school](https://)
 
@@ -79,9 +78,9 @@ You can see some examples.
 Go in Examples/Al
 
 It contains the minimum input files needed for the thermal conductivity
-* [infile.ucposcar](https://ollehellman.github.io/page/files.html#infile.ucposcar)
-* [infile.forceconstant](https://ollehellman.github.io/program/extract_forceconstants.html)
-* [infile.forceconstant_thirdorder](https://ollehellman.github.io/program/extract_forceconstants.html)
+* [infile.ucposcar](https://tdep-developers.github.io/tdep/files/#infile.ucposcar)
+* [infile.forceconstant](https://tdep-developers.github.io/tdep/program/extract_forceconstants/#outfileforceconstant)
+* [infile.forceconstant_thirdorder](https://tdep-developers.github.io/tdep/program/extract_forceconstants/#outfileforceconstant_thirdorder)
 
 ## Compute the thermal conductivity
 
