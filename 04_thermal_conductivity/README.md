@@ -68,7 +68,7 @@ Read the documentation for the [thermal conductivity](https://tdep-developers.gi
 Go now into your work directory and copy the files provided.
 
 
-#### Note: The tutorial files can be downloaded from the school webpage [tdep_school](https://)
+#### Note: The tutorial files can be downloaded from the school webpage [tdep_school](https://github.com/tdep-developers/tdep-school-2023)
 
  
 Inspect the content of the folder: 
@@ -237,7 +237,7 @@ mpirun thermal_conductivity -qg 10 10 10 --temperature 300
 
 ```
 
-By default, TDEP uses the isotope natural distribution.(tabulated in the code, taken from the symbol in infile.ucposcar). In case you want to specify some other distribution, you can write in the same directory the [inpute.isotopes file](https://ollehellman.github.io/page/files.html#infile.isotopes) following the example linked here. 
+By default, TDEP uses the isotope natural distribution.(tabulated in the code, taken from the symbol in infile.ucposcar). In case you want to specify some other distribution, you can write in the same directory the [inpute.isotopes file](https://tdep-developers.github.io/tdep/files/#infileisotopes) following the example linked here. 
 ```
 1         # number of isotopes for first atom in infile.ucposcar
 1 28.0855 # concentration, mass, one line per isotope
@@ -383,7 +383,7 @@ To do so, with the data provided in the folder ``convergence_tests/input_MgO/```
   ```
   canonical_configuration --quantum  --temperature 300 -n 3
    ```
-  Here, we are using an initial set of IFCs in order to create a set of configurations, in case you want to start from scratch without an initial set of forceconstants, you can use two flags ```--debye_temperature ``` and  ``` --maximum_frequency```. For the details, read the documentation on the [canonical_configuration](https://ollehellman.github.io/program/canonical_configuration.html) .
+  Here, we are using an initial set of IFCs in order to create a set of configurations, in case you want to start from scratch without an initial set of forceconstants, you can use two flags ```--debye_temperature ``` and  ``` --maximum_frequency```. For the details, read the documentation on the [canonical_configuration](https://tdep-developers.github.io/tdep/program/canonical_configuration/) .
   
   You should see now three configurations in your folder: `
   ``contcar_conf0001```
