@@ -89,7 +89,7 @@ To speed up things we provide a machine-learning potential so calculate forces. 
 
 Please note that there is a makefile that summarizes each of the steps, once you feel confident try to understand the targets and simply use those via, e.g., `make infile.forces`, or `make iteration` to create an entire step.
 
-## Things to look out for
+## Convergence
 
 - At each iteration, `canonical_configuration` is used and its output is saved to `canonical_configuration.log`. Inspect how in particular the mean-square displacement changes from iteration to iteration
 
