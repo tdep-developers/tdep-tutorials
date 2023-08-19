@@ -49,7 +49,7 @@ To generate configurations used in TDEP, we have two approaches :
 - Using molecular dynamics to sample the true (but classical) distribution (MD-TDEP)
 - Using the self-consistent stochastic approach (sTDEP)
 
-sTDEP is an application of the self-consistent harmonic approximation, constructed on an inequality called the Gibbs-Bogoliubov.
+[sTDEP is an application of the self-consistent harmonic approximation, constructed on an inequality called the Gibbs-Bogoliubov.](https://github.com/flokno/notes/blob/main/tdep/note_tdep_self-consistent-sampling.md)
 This inequality tells us that the sTDEP free energy is an **upper-bound** to the free energy : $\mathcal{F} \leq \mathcal{F}^{\mathrm{sTDEP}}$
 
 On the contrary, using the real distribution, MD-TDEP gives a **lower-bound** to the free energy : $\mathcal{F} \geq \mathcal{F}^{\mathrm{MD-TDEP}}$
@@ -100,7 +100,7 @@ Note that the configurations were generated using the self-consistent stochastic
 
 - Go into the `V0K` folder or copy the data in a new folder.
 - Compute the force constants using the command: `extract_forceconstants -rc2 10.0 -U0`
-- Compute the phonon dispersion with the command: `phonon_dispersions --dos --temperature 1300`. This command will compute the phonon dispersion, the density of state and compute thermodynamic properties at a temperature of 1300 K. For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !
+- Compute the phonon dispersion with the command: `phonon_dispersions --dos --temperature 1300`. This command will compute the phonon dispersion, the density of state and compute thermodynamic properties at a temperature of 1300 K. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
     - In the directory, you should find two files related to thermodynamic properites: `outfile.free_energy` and `outfile.U0` 
     - In the first one, obtained due to the use of the `--temperature` options of `phonon_dispersions`, you will find 4 values :
         1. The temperature
@@ -119,35 +119,40 @@ Note that the configurations were generated using the self-consistent stochastic
     1. The number of samples
     2. The cutoff for the force constants
     3. The q-point grid used to compute the harmonic properties. The grid can be controlled with the `--qg` option of the `phonon_dispersions` binary. For example, you can try
-    `phonon_dispersion_relation --dos --temperature 1300 --unit mev -qg 10 10 10`
+    `phonon_dispersion_relation --dos --temperature 1300 -qg 10 10 10`
     - Each of these parameters will have a different influence on the free energy. For instance, the $U_0$ value is computed using the potential energy of each configuration. This means that contrary to the force constants, which benefit from $3 \times N_{\mathrm{at}}$ values per configurations, only one data point is added to the average per configurations. **Try to observe the effect of each of the parameter on the convergence of the $U_0$ and the harmonic free energy**. 
+    - To simplify the convergence, it's a good idea to start with the number of samples. Indeed, this step is the most computationaly demanding (as it demand calculation of energy and forces !). Once this is done, you can look at the cutoff convergence and finish with q-point grid. 
 
 Remember to rename the outfile.X before launching tdep again !
 
 ## Practical example on the free energy convergence
 
 To grasp a better idea on how to converge the free energy, let's have a look at its computation from the start, using stochastic sampling.
-In the `reference/stochastic_sampling` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1100K at the same volume as before.
+In the `reference/sampling.1100K` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1100K at the same volume as before.
 If you need help on how to do so, don't hesitate to look back at the 01_sampling tutorial.
 
 When doing the iterations, look at the evolution of the harmonic free energy, $U_0$ correction term and the total free energy.
 Try to make the free energy converge to 1 meV/at.
 
+It's always a good practice to use previous force constants close to the desired conditions (temperature/volume) when available !
+With this, you can bypass the first iterations and already start with a larger number of configurations.
+For this example, since you've already computed force constants at 1300K, you can use them to start your sampling at 1100K.
 
 The steps to do the stochastic sampling are :
-1. Go to the folder `reference/stochastic_sampling/iter.000` to start the sampling
-2. Check the `Makefile` and the target `init`
-3. `make init` to create the first 4 samples
-4. compute the forces with `make compute`, this will use the So3krates potential to compute forces for the samples and create TDEP input files
-5. now we can extract the forceconstants → `make fc`
-6. inspect the phonon dispersion
-7. create the next iteration from the current set of force constants, `make iteration`
-8. move the folder `iter.001` down and `cd` there
-9. repeat until convergence
+1. Go to the folder `reference/sampling.1100K/iter.005` to start the sampling
+2. Copy the `infile.forceconstant` file from your previous calculation to the folder.
+3. Check the `Makefile` and the target `init`. You should see the absence of the `-mf` variable since you are already starting with a `infile.forceconstant`.
+4. `make init` to create the first 128 samples
+5. compute the forces with `make compute`, this will use the So3krates potential to compute forces for the samples and create TDEP input files
+6. now we can extract the forceconstants → `make fc`
+7. inspect the phonon dispersion
+8. create the next iteration from the current set of force constants, `make iteration`
+9. move the folder `iter.006` down and `cd` there
+10. repeat until convergence
 
 
 Things to look out for
-- At each iteration, the harmonic free energy and the U0 correction term are computed. Look at their evolution with the number of configurations.
+- At each iteration, the harmonic free energy and the U0 correction term are computed. Plot their evolution with the number of configurations !
 - After how many iteration does the total free energy stabilize ? Is it the same as for the phonon dispersion stabilization ?
 
 ## Getting the equilibrium volume
@@ -163,7 +168,7 @@ For example, here is the equation of state of bcc Zirconium fitted with the Vine
 To include the effects of temperature, we can use the equation of state method, but replacing the energy by the free energy in the fitting.
 
 
-In the `reference` folder, you will find a subdirectory `equation_of_state` which contains subfolders `aX`, where X is a number giving the lattice parameter.
+In the `reference` folder, you will find a subdirectory `sampling.1300K` which contains subfolders `aX`, where X is a number giving the lattice parameter.
 In each of these subfolders, you will find 12 iterations of stochastic TDEP with `outfile.free_energy` and `outfile.U0` files.
 
 1. Choose an iteration
