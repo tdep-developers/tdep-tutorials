@@ -7,6 +7,12 @@ This tutorial assumes that you are already familiar with the [sTDEP sampling sch
 
 To speed up things we provide a machine-learning potential so calculate forces. This potential is introduced [in a dedicated tutorial](../../../00_preparation/potential_energy_surfaces/README.md).
 
+## Prerequisites
+
+- [TDEP is installed](https://github.com/tdep-developers/tdep/blob/main/INSTALL.md)
+- [TDEP tools are installed](https://github.com/flokno/tools.tdep)
+- [you are familiar with using the so3krates force field (or have your own potential at hand)](https://github.com/tdep-developers/tdep-tutorials/tree/main/00_preparation/potential_energy_surfaces)
+
 ## Steps
 
 1. Go to the folder `sampling.000K/iter.000` to start the sampling
@@ -86,13 +92,16 @@ Please note that there is a makefile that summarizes each of the steps, once you
 ## Things to look out for
 
 - At each iteration, `canonical_configuration` is used and its output is saved to `canonical_configuration.log`. Inspect how in particular the mean-square displacement changes from iteration to iteration
+
 - Observe how the dispersion converges more and more.
-- Plot the phonon DOS per iteration
-- After how many steps are you converged?
 
-## Prerequisites
+- Plot the phonon DOS per iteration, you can do that with the script `plot_dos_convergence.py`:
+  ```bash
+  python plot_dos_convergence.py iter.*/outfile.phonon_dos
+  ```
+  
+  This should create a plot similar to this: 
+  
+  ![DOS](.assets/DOS.png)
 
-- [TDEP is installed](http://ollehellman.github.io/page/0_installation.html)
-- [TDEP tools are installed](https://github.com/flokno/tools.tdep)
-- [gnuplot is installed](http://www.gnuplot.info/)
-- [you are familiar with using the so3krates force field (or have your own potential at hand)](https://github.com/tdep-developers/tdep-tutorials/tree/main/00_preparation/potential_energy_surfaces)
+**When are you converged?**
