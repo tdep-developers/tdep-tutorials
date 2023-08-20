@@ -1,0 +1,8 @@
+Phonons
+ &inputph
+  prefix='qe',
+  epsil=.true.,
+  trans=.false.,
+  reduce_io=.true.,
+/
+0.0 0.0 0.0
