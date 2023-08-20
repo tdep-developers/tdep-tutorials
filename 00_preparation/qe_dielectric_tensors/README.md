@@ -1,4 +1,4 @@
-Dielectric tensor with Quantum Espresso
+Parsing of Quantum Espresso incl. dielectric info
 ===
 
 ## Preparation
