@@ -16,6 +16,7 @@ Where `--format` specifies the [IO format](https://wiki.fysik.dtu.dk/ase/ase/io/
 ## Tutorials
 
 - [FHI-aims](./FHI-aims/)
+- [Quantum Espresso](./QuantumEspresso/)
 
 ## Prerequisites
 
