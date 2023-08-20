@@ -402,7 +402,8 @@ To do so, with the data provided in the folder ``convergence_tests/input_MgO/```
           mpirun thermal_conductivity -qg 8 8 8 --temperature 300
           ```
     * study the convergence
-
+      
+![Here an example of the thermal conductivity convergence.](https://github.com/RobertaFarris93/tdep-tutorials/blob/thermal_conductivity/04_thermal_conductivity/Plots/MgO_SC.png)
  
 **How many steps did you need to reach convergence?**
 
