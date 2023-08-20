@@ -345,13 +345,17 @@ where we can see that by iteration 5 (32 configurations) we are converged.
   
 - Next, we will look at the `outfile.thermal_conductivity.hdf5` file. This file contains not only the spectral thermal conductivity per mode per direction of the tensor, but also information pertaining to the thermal conductivity in the RTA approximation like the lifetimes, mean free path, etc. For the purposes of this tutorial we'll be focusing in the spectral thermal conductivity only, but make sure you explore the rest of the file as well.
 
-- We'll start this section by looking at the output of the command we executed earlier, which should be stored in the `grid.log` file. Besides the timings, you should obtain something like this:
+- We'll start this section by looking at the output of the command we executed earlier, which should be stored in the `grid.log` file. Besides the timings and spectral function calculation, you should obtain something like this:
 
-
+<p align="center">
+  <img src="Figures/grid_log.png" width="500" height="400">
+</p>
 
 In this file, we see that after calculating the spectral function for each point of the q-point grid, TDEP calculates and prints the results for the total thermal conductivity calculated with the Green-Kubo formalism, as well as its separation into the diagonal and off-diagonal mode contributions (last equation for $\kappa$ in the introduction, with $s_1 = s_2$ and $s_1 \neq s_2$ respectively). This decomposition allows us to see if the thermal conductivity of the system we're studying is influenced heavily by the phonon coherences (mode-mixing contributions) or if it's well described by the phonon populations (the mode-diagonal contributions), as well as study how this scenario evolves with temperature. In the case of Silicon, one finds that the mode-mixing contributions are residual when compared to the mode-diagonal ones, and that although their importance increases with temperature they never really become relevant. If we plot, for example, the different contributions to $\kappa_{xx}$ against the temperature, we find a plot like the one below:
 
-
+<p align="center">
+  <img src="Figures/kappa_diagvsoffdiag.png" width="500" height="400">
+</p>
 
 In this figure, we see that even when plotting the different contributions in logarithmic scale, the mode-diagonal contributions are virtually indistinguishable from the total thermal conductivity. This is, however, not the case for some systems, for which these mode-mixing contributions can become even the major contributor to the system's total thermal conductivity (see [8])
 
