@@ -18,7 +18,7 @@ The tutorial covers:
 * the basic features included in the thermal conductivity routine of TDEP
 * thermal conductivity as a function of temperature
 * thermal conductivity for a given isotope distribution
-* thermal conductivity vs q-point grid.
+* thermal conductivity vs q-point grid
 * plot and analysis of the results
 
 The tutorial **does not cover**:
@@ -381,48 +381,30 @@ To do so, with the data provided in the folder ``convergence_tests/input_MgO/```
 
 * Create a set of canonical configurations using:
   ```
-  canonical_configuration --quantum  --temperature 300 -n 3
+  canonical_configuration --quantum  --temperature 300 -n 2
    ```
   Here, we are using an initial set of IFCs in order to create a set of configurations, in case you want to start from scratch without an initial set of forceconstants, you can use two flags ```--debye_temperature ``` and  ``` --maximum_frequency```. For the details, read the documentation on the [canonical_configuration](https://tdep-developers.github.io/tdep/program/canonical_configuration/) .
   
   You should see now three configurations in your folder: `
-  ``contcar_conf0001```
   
-   ```contcar_conf0002```
+  ```contcar_conf0001```
   
-  ```contcar_conf0003```
+  ```contcar_conf0002```
 
 * Compute the atomic forces using a DFT code of your choice.
 * 
   **Tip**: in order to avoid this step, that could require a significant amount of time, we provided a potential for MgO. You can download that from the first Tutorial. Create a folder "iter0" and copy your input files and the potential there.
 
-  Then run:
-  ```
-  sokrates_compute --folder-model module/ --format vasp contcar* --tdep
-  ```
-  You should see now the forces, energies and statistical information of your sample.  
-* Fit the forces using:
-  ```
-  mpirun extract_forceconstants  -rc2 8 -rc3 4
-  ```
-  And inspect the outfile carefully.
-  
-  **Remember** Your R2 should be > 0.5 at least, otherwise the effective harmonic potential is extremely bad at describing your forces.
-  
-*Link the output IFCs 
-    ```
-    $ln -s outfile.forceconstant_thirdorder infile.forceconstant_thirdorder
-    ```
-    
-* Compute the thermal conductivty by using
-  ```
-  mpirun thermal_conductivity -qg 8 8 8 --temperature 300
-  ```
-* create a new folder and copy your ```infile.ucposcar``` ```infile.ssposcar``` and ```infile.forceconstant```.
-* Use the updated forceconstants to generate a new sample, and repeat all the previous steps in a new folder (iter_1).
-* Check the thermal conductivity as a function of the iterative_step. 
 
-How many steps did you need to reach convergence?
+    * perform a self-consistent loop as described in [Tutorial1](https://github.com/tdep-developers/tdep-tutorials/tree/main/01_sampling) for MgO for 10 iterations
+    * compute thermal conductivity at each step:
+          ```
+          mpirun thermal_conductivity -qg 8 8 8 --temperature 300
+          ```
+    * study the convergence
+
+ 
+**How many steps did you need to reach convergence?**
 
 ## Cutoffs of IFcs
 
@@ -438,7 +420,7 @@ Repeat the same steps, but this time keep fixed rc2 and change rc3.
 mpirun extract_forceconstants  -rc2 8 -rc3 4
 ```
 
-How the thermal conductivity changes with the 3rd order IFCs cutoff?
+**How the thermal conductivity changes with the 3rd order IFCs cutoff?**
 
 # Next steps
  
