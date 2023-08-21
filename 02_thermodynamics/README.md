@@ -14,7 +14,7 @@ For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integratin
 \mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT})\big] 
 ```
 Consequently, the free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
-However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamic of the sytem.
+However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamics of the sytem.
 
 Fortunately TDEP is able to bring some corrections that include part of the anharmonicity [Ref. 2].
 For given volume and temperature, and staying at the second order in the force constants, the TDEP free energy $\mathcal{F}^{\mathrm{TDEP}}$ is given by
@@ -27,13 +27,13 @@ In this equation
 - $V^{\mathrm{TDEP}}(\vec{R})$ is the potential energy of the effective harmonic model.
 - $< O >_T$ indicate an average of $O$ computed at a temperature T.
 
-Compared to the harmonic approximations, two corrections are to be observed
+Compared to the harmonic approximation, two corrections are to be observed
 * The temperature dependence of the phonons -> that will bring a modification of the $\mathcal{F}_0(T)$
 * The $U_0 = < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >_T$ term -> a anharmonic correction
 
 In this tutorial, we will have a look on the convergence of both contributions.
 An important thing to have in mind, is that both will have a different rate of convergence.
-The harmonic harmonic free energy is computed using the interatomic force constants. For each configurations, $3 N_{\mathrm{at}}$ data point will contribute to the computation of the force constants, hence to the computation of $\mathcal{F}_0^{\mathrm{TDEP}}$
+The harmonic free energy is computed using the interatomic force constants. For each configurations, $3 N_{\mathrm{at}}$ data point will contribute to the computation of the force constants, hence to the computation of $\mathcal{F}_0^{\mathrm{TDEP}}$
 On the contrary, a configuration gives only one value to contribute to the $U_0$ correction term.
 As we will see, this difference is important in the convergence of the total free energy !
 
@@ -59,7 +59,7 @@ In the end, the real free energy is framed by the approximated free energy compu
 \mathcal{F}^{\mathrm{MD-TDEP}} \leq \mathcal{F} \leq \mathcal{F}^{\mathrm{sTDEP}}
 ```
 
-But be careful ! When comparing the free energy of two phases, to compute phase diagram for example, you have to use **the same approximation** for both phase !
+But be careful ! When comparing the free energy of two phases, to compute phase diagram for example, you have to use **the same approximation** for both phases !
 
 **Important Note 2**
 
