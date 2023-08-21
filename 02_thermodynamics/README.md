@@ -11,7 +11,7 @@ g(\omega) = \sum_\lambda \delta(\omega - \omega_\lambda)
 
 For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integrating this density of states with the free energy of each phonons modes
 ```math
-\mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT}\big] 
+\mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT})\big] 
 ```
 Consequently, the free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
 However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamic of the sytem.
@@ -121,7 +121,7 @@ Note that the configurations were generated using the self-consistent stochastic
         1. The average potential energy, in eV/atom
         2. The $U_0$ correction at second order, which is equal to `<V(R) - V_2(R)>`, in eV/atom.
         3. The $U_0$ correction at third order, which is equal to `<V(R) - V_2(R) - V_3(R)>`, in eV/atom. Note that it will be equal to the second order correction if you didn't extract third order force constants
-        3. The $U_0$ correction at fourth order, which is equal to `<V(R) - V_2(R) - V_3(R)>`, in eV/atom. Note that it will be equal to the second order correction if you didn't extract fourth order force constants
+        3. The $U_0$ correction at fourth order, which is equal to `<V(R) - V_2(R) - V_3(R) - V_4(R)>`, in eV/atom. Note that it will be equal to the second order correction if you didn't extract fourth order force constants
     - To get the free energy with the second order correction, you just have to add the harmonic free energy and the second order correction in `outfile.U0` (the second value). 
     The resulting free energy will be in eV/atom.
 
