@@ -16,7 +16,7 @@ This will provide infile.forces, infile.meta, infile.positions and  infile.stat 
 
 In addition, from a VASP run with (eg.) `LEPSILON=.TRUE.`, the dielectric tensor and Born effective charges will be printed to files infile.dielectric tensor and infile.born_charges. This should be combined for further use:  
 
-`cat infile.dielectric_tensor infile.born_charges > infile.lotsplitting`
+`cat infile.dielectric_tensor infile.born_charges > infile.lotosplitting`
 
 Alternatively, from an VASP run with `LEPSILON=.TRUE.`, a file `outfile.lotosplitting` can be obtained by running the command:
 
