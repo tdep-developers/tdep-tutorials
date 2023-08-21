@@ -110,7 +110,7 @@ Note that the configurations were generated using the self-consistent stochastic
 
 - Go into the `example_Zr/sampling.1300K/a3.61/iter.012` folder or copy the data in a new folder.
 - Compute the force constants using the command: `extract_forceconstants -rc2 10.0 -U0`
-- Compute the phonon dispersion with the command: `phonon_dispersions --dos --temperature 1300`. This command will compute the phonon dispersion, the density of state and compute thermodynamic properties at a temperature of 1300 K. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
+- Compute the phonon dispersion with the command: `phonon_dispersion_relations --dos --temperature 1300`. This command will compute the phonon dispersion, the density of state and compute thermodynamic properties at a temperature of 1300 K. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
     - In the directory, you should find two files related to thermodynamic properites: `outfile.free_energy` and `outfile.U0` 
     - In the first one, obtained due to the use of the `--temperature` options of `phonon_dispersions`, you will find 4 values :
         1. The temperature
