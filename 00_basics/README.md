@@ -11,15 +11,15 @@ The following required input files are provided in the `Si_infiles` directory:
 - **infile.meta**: Contains certain relevant metadata.
 - **infile.stat**: Contains additional data from the AIMD run. 
 
-See https://ollehellman.github.io/page/files.html for a detailed description of the content of these input files. 
+See https://tdep-developers.github.io/tdep/files/ for a detailed description of the content of these input files. 
 
 ## Extracting forceconstants
 
 In a directory containing all of the above input files, second order effective force constants can be extracted using the command 
 
-`extract_forceconstant -rc2 100 -s 50 > fc2.log`. 
+`extract_forceconstants -rc2 100 -s 50 > fc2.log`. 
 
-A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Before the fit is performed, the number of indepedent IFCs are reduced by enforcing the appropriate symmetries. These include the symmetries of the crystal being considered, as well as general translational and rotational invariances. This typically drastically reduces the number of IFCs that need to be fit. See https://ollehellman.github.io/program/extract_forceconstants.html or Ref. [1] for more details on how this is practically done.
+A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Before the fit is performed, the number of indepedent IFCs are reduced by enforcing the appropriate symmetries. These include the symmetries of the crystal being considered, as well as general translational and rotational invariances. This typically drastically reduces the number of IFCs that need to be fit. See https://tdep-developers.github.io/tdep/program/extract_forceconstants/ or Ref. [1] for more details on how this is practically done.
 
 A few notes:
 - The option `-rc2 X` specfies the interaction cutoff for the second order IFCs, i.e. only interactions between pairs of atoms less than a distance X apart will be considered.
@@ -65,7 +65,7 @@ Similarily, this produces a gnuplot script which can be used to view the DOS:
 
 
 A few notes:
-- If no Brillouin Zone (BZ) path is speecified (like in the case above), a default one for the space-group under consideration will be used. You can specify a custom BZ path by providing an `infile.qpoints_dispersion` file ( see format https://ollehellman.github.io/page/files.html#infile.qpoints_dispersion ) and the `--readpath` option.
+- If no Brillouin Zone (BZ) path is speecified (like in the case above), a default one for the space-group under consideration will be used. You can specify a custom BZ path by providing an `infile.qpoints_dispersion` file ( see format https://tdep-developers.github.io/tdep/files/ ) and the `--readpath` option.
 - The BZ grid and the smearing method and related parameters are influential on the resulting DOS. These may be edited using switches to `phonon_dispersion_relations`. Run the command `phonon_dispersion_relations -h` and spend some time looking through what your options are.
 
 

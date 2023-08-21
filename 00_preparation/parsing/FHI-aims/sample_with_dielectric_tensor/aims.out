@@ -1,0 +1,1926 @@
+------------------------------------------------------------
+          Invoking FHI-aims ...
+
+          When using FHI-aims, please cite the following reference:
+
+            Volker Blum, Ralf Gehrke, Felix Hanke, Paula Havu,
+            Ville Havu, Xinguo Ren, Karsten Reuter, and Matthias Scheffler,
+            'Ab Initio Molecular Simulations with Numeric Atom-Centered Orbitals',
+            Computer Physics Communications 180, 2175-2196 (2009)
+
+          In addition, many other developments in FHI-aims are likely important for
+          your particular application. A partial list of references is given at the end of
+          this file. Thank you for giving credit to the authors of these developments.
+
+          For any questions about FHI-aims, please visit our slack channel at
+
+            https://fhi-aims.slack.com
+
+          and our main development and support site at
+
+            https://aims-git.rz-berlin.mpg.de .
+
+          The latter site, in particular, has a wiki to collect information, as well
+          as an issue tracker to log discussions, suggest improvements, and report issues
+          or bugs. https://aims-git.rz-berlin.mpg.de is also the main development site
+          of the project and all new and updated code versions can be obtained there.
+          Please send an email to aims-coordinators@fhi-berlin.mpg.de and we will add
+          you to these sites. They are for you and everyone is welcome there.
+
+------------------------------------------------------------
+
+
+
+  Date     :  20230817, Time     :  094041.028
+  Time zero on CPU 1             :   0.124343000000000E+00  s.
+  Internal wall clock time zero  :           461497241.028  s.
+
+  FHI-aims created a unique identifier for this run for later identification
+  aims_uuid : 8486C979-CE1C-4C3E-AE67-6D6480C33396
+
+  Build configuration of the current instance of FHI-aims
+  -------------------------------------------------------
+  FHI-aims version      : 221103
+  Commit number         : cd81235a3
+  CMake host system     : Darwin-22.1.0
+  CMake version         : 3.24.2
+  Fortran compiler      : /opt/homebrew/bin/mpifort (GNU) version 12.2.0
+  Fortran compiler flags: -O3 -ffree-line-length-none -fallow-argument-mismatch
+  C compiler            : /opt/homebrew/bin/gcc-12 (GNU) version 12.2.0
+  C compiler flags      : -O3 -g
+  C++ compiler          : /Library/Developer/CommandLineTools/usr/bin/c++ (AppleClang) version 14.0.0.14000029
+  C++ compiler flags    :
+  HIP compiler          :
+  HIP compiler flags    :
+  HIP GPU arch          :
+  Using MPI
+  Using ScaLAPACK
+  Using LibXC
+  Using i-PI
+  Using RLSY
+  Linking against: /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/lib/libblas.tbd
+                   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/lib/liblapack.tbd
+                   /opt/homebrew/lib/libscalapack.dylib
+
+  Using        8 parallel tasks.
+  Task        0 on host flobook.staff.netlogon.liu.se reporting.
+  Task        1 on host flobook.staff.netlogon.liu.se reporting.
+  Task        2 on host flobook.staff.netlogon.liu.se reporting.
+  Task        3 on host flobook.staff.netlogon.liu.se reporting.
+  Task        4 on host flobook.staff.netlogon.liu.se reporting.
+  Task        5 on host flobook.staff.netlogon.liu.se reporting.
+  Task        6 on host flobook.staff.netlogon.liu.se reporting.
+  Task        7 on host flobook.staff.netlogon.liu.se reporting.
+
+  Performing system and environment tests:
+  | Environment variable OMP_NUM_THREADS correctly set to 1.
+  | Checking for ScaLAPACK...
+  | Testing pdtran()...
+  | All pdtran() tests passed.
+
+  Obtaining array dimensions for all initial allocations:
+  
+  -----------------------------------------------------------------------
+  Parsing control.in (first pass over file, find array dimensions only).
+  The contents of control.in will be repeated verbatim below
+  unless switched off by setting 'verbatim_writeout .false.' .
+  in the first line of control.in .
+  -----------------------------------------------------------------------
+  
+  #  override_warning_libxc
+  # xc libxc GGA_X_AM05+GGA_C_AM05
+  xc pbe
+  relativistic                       atomic_zora scalar
+  k_grid                             6 6 4
+  charge_mix_param                   0.2
+  DFPT dielectric
+  output_level                       MD_light
+  #===============================================================================
+  ################################################################################
+  #
+  #  FHI-aims code project
+  #  VB, Fritz-Haber Institut, 2009
+  #
+  #  Suggested "light" defaults for Ga atom (to be pasted into control.in file)
+  #  Be sure to double-check any results obtained with these settings for post-processing,
+  #  e.g., with the "tight" defaults and larger basis sets.
+  #
+  #  2020/09/15 Added f function to light settings to improve bulk properties of Ga-Br.
+  #
+  ################################################################################
+    species        Ga
+  #     global species definitions
+      nucleus             31
+      mass                69.723
+  #
+      l_hartree           4
+  #
+      cut_pot             3.5          1.5  1.0
+      basis_dep_cutoff    1e-4
+  #
+      radial_base         54 5.0
+      radial_multiplier   1
+      angular_grids       specified
+        division   0.5103   50
+        division   0.8880  110
+        division   1.2009  194
+        division   1.5000  302
+  #      division   1.7093  434
+  #      division   1.8791  590
+  #      division   1.9525  770
+  #      division   2.3801 1202
+  #      outer_grid  1202
+        outer_grid  302
+  ################################################################################
+  #
+  #  Definition of "minimal" basis
+  #
+  ################################################################################
+  #     valence basis states
+      valence      4  s   2.
+      valence      4  p   1.
+      valence      3  d  10.
+  #     ion occupancy
+      ion_occ      4  s   1.
+      ion_occ      3  p   6.
+      ion_occ      3  d  10.
+  ################################################################################
+  #
+  #  Suggested additional basis functions. For production calculations,
+  #  uncomment them one after another (the most important basis functions are
+  #  listed first).
+  #
+  #  Constructed for dimers: 1.85 A, 2.10 A, 2.45 A, 3.00 A, 4.00 A
+  #
+  ################################################################################
+  #  "First tier" - improvements: -222.33 meV to -26.19 meV
+       hydro 2 p 1.2
+       hydro 3 d 3.8
+       hydro 4 f 6.8
+       ionic 4 s auto
+  #  "Second tier" - improvements: -11.68 meV to -1.61 meV
+  #     hydro 5 g 10
+  #     hydro 4 p 3.6
+  #     hydro 4 f 13.2
+  #     hydro 6 h 14.4
+  #     hydro 4 d 5.2
+  #     hydro 1 s 0.45
+  #  "Third tier" - improvements: -0.64 meV to -0.15 meV
+  #     hydro 3 p 3.4
+  #     hydro 3 s 2.2
+  #     hydro 5 g 14
+  #     hydro 4 f 6.2
+  #     hydro 5 d 7.2
+  #  "Fourth tier"  -improvements: -0.12 meV and below
+  #     hydro 3 s 3.8
+  #     hydro 5 f 27.2
+  #     hydro 6 h 16
+  #     hydro 5 g 9.2
+  #     hydro 4 d 8.6
+  #     hydro 2 p 3.6
+  
+  ################################################################################
+  #
+  #  FHI-aims code project
+  #  VB, Fritz-Haber Institut, 2009
+  #
+  #  Suggested "light" defaults for N atom (to be pasted into control.in file)
+  #  Be sure to double-check any results obtained with these settings for post-processing,
+  #  e.g., with the "tight" defaults and larger basis sets.
+  #
+  ################################################################################
+    species        N
+  #     global species definitions
+      nucleus             7
+      mass                14.0067
+  #
+      l_hartree           4
+  #
+      cut_pot             3.5  1.5  1.0
+      basis_dep_cutoff    1e-4
+  #
+      radial_base         35 5.0
+      radial_multiplier   1
+      angular_grids       specified
+        division   0.2599   50
+        division   0.4601  110
+        division   0.5885  194
+        division   0.6503  302
+  #      division   0.6939  434
+  #      division   0.7396  590
+  #      division   0.7632  770
+  #      division   0.8122  974
+  #      division   1.1604 1202
+  #      outer_grid  974
+        outer_grid  302
+  ################################################################################
+  #
+  #  Definition of "minimal" basis
+  #
+  ################################################################################
+  #     valence basis states
+      valence      2  s   2.
+      valence      2  p   3.
+  #     ion occupancy
+      ion_occ      2  s   1.
+      ion_occ      2  p   2.
+  ################################################################################
+  #
+  #  Suggested additional basis functions. For production calculations,
+  #  uncomment them one after another (the most important basis functions are
+  #  listed first).
+  #
+  #  Constructed for dimers: 1.0 A, 1.1 A, 1.5 A, 2.0 A, 3.0 A
+  #
+  ################################################################################
+  #  "First tier" - improvements: -1193.42 meV to -220.60 meV
+       hydro 2 p 1.8
+       hydro 3 d 6.8
+       hydro 3 s 5.8
+  #  "Second tier" - improvements: -80.21 meV to -6.86 meV
+  #     hydro 4 f 10.8
+  #     hydro 3 p 5.8
+  #     hydro 1 s 0.8
+  #     hydro 5 g 16
+  #     hydro 3 d 4.9
+  #  "Third tier" - improvements: -4.29 meV to -0.53 meV
+  #     hydro 3 s 16
+  #     ionic 2 p auto
+  #     hydro 3 d 6.6
+  #     hydro 4 f 11.6
+  #  "Fourth tier" - improvements: -0.75 meV to -0.25 meV
+  #     hydro 2 p 4.5
+  #     hydro 2 s 2.4
+  #     hydro 5 g 14.4
+  #     hydro 4 d 14.4
+  #     hydro 4 f 16.8
+  # Further basis functions - -0.21 meV and below
+  #     hydro 3 p 14.8
+  #     hydro 3 s 4.4
+  #     hydro 3 d 19.6
+  #     hydro 5 g 12.8
+  
+  -----------------------------------------------------------------------
+  Completed first pass over input file control.in .
+  -----------------------------------------------------------------------
+  
+  
+  -----------------------------------------------------------------------
+  Parsing geometry.in (first pass over file, find array dimensions only).
+  The contents of geometry.in will be repeated verbatim below
+  unless switched off by setting 'verbatim_writeout .false.' .
+  in the first line of geometry.in .
+  -----------------------------------------------------------------------
+  
+  #===============================================================================
+  # Created using the Atomic Simulation Environment (ASE)
+  
+  # Thu Aug 17 09:31:22 2023
+  
+  #=======================================================
+  lattice_vector 3.1892600000000000 0.0000000000000000 0.0000000000000000
+  lattice_vector -1.5946300000000000 2.7619801792735599 0.0000000000000000
+  lattice_vector 0.0000000000000000 0.0000000000000000 5.1852299999999998
+  atom 0.0199999999999842 1.8413201195157156 5.1843430525864918 Ga
+  atom 1.5946300000000158 0.9206600597578440 2.5917280525864914 Ga
+  atom -0.0000000000000158 1.8413201195157156 1.9538147449160290 N
+  atom 1.5946300000000158 0.9206600597578440 4.5464297449160291 N
+  
+  -----------------------------------------------------------------------
+  Completed first pass over input file geometry.in .
+  -----------------------------------------------------------------------
+  
+
+  Basic array size parameters:
+  | Number of species                 :        2
+  | Number of atoms                   :        4
+  | Number of lattice vectors         :        3
+  | Max. basis fn. angular momentum   :        3
+  | Max. atomic/ionic basis occupied n:        4
+  | Max. number of basis fn. types    :        3
+  | Max. radial fns per species/type  :        8
+  | Max. logarithmic grid size        :     1412
+  | Max. radial integration grid size :       54
+  | Max. angular integration grid size:      302
+  | Max. angular grid division number :        8
+  | Radial grid for Hartree potential :     1412
+  | Number of spin channels           :        1
+
+------------------------------------------------------------
+          Reading file control.in.
+------------------------------------------------------------
+  XC: Using PBE gradient-corrected functionals.
+  Scalar relativistic treatment of kinetic energy: on-site free-atom approximation to ZORA.
+  Found k-point grid:         6         6         4
+  Charge density mixing - mixing parameter:     0.2000
+  DFPT calculation will begin after the DFT/HF calculation.
+  Requested output level: MD_light
+
+  Reading configuration options for species Ga                  .
+  | Found nuclear charge :  31.0000
+  | Found atomic mass :    69.722999999999999      amu
+  | Found l_max for Hartree potential  :   4
+  | Found cutoff potl. onset [A], width [A], scale factor :    3.50000    1.50000    1.00000
+  | Threshold for basis-dependent cutoff potential is   0.100000E-03
+  | Found data for basic radial integration grid :    54 points, outermost radius =    5.000 A
+  | Found multiplier for basic radial grid :   1
+  | Found angular grid specification: user-specified.
+  | Specified grid contains     5 separate shells.
+  | Check grid settings after all constraints further below.
+  | Found free-atom valence shell :  4 s   2.000
+  | Found free-atom valence shell :  4 p   1.000
+  | Found free-atom valence shell :  3 d  10.000
+  | Found free-ion valence shell :  4 s   1.000
+  | Found free-ion valence shell :  3 p   6.000
+  | Found free-ion valence shell :  3 d  10.000
+  | Found hydrogenic basis function :  2 p   1.200
+  | Found hydrogenic basis function :  3 d   3.800
+  | Found hydrogenic basis function :  4 f   6.800
+  | Found ionic basis function :  4 s , default cutoff radius.
+  Species Ga                  : Missing cutoff potential type.
+  Defaulting to exp(1/x)/(1-x)^2 type cutoff potential.
+  Species Ga: No 'logarithmic' tag. Using default grid for free atom:
+  | Default logarithmic grid data [bohr] : 0.1000E-03 0.1000E+03 0.1012E+01
+  | Will include ionic basis functions of  2.0-fold positive Ga                   ion.
+  Species Ga: On-site basis accuracy parameter (for Gram-Schmidt orthonormalisation) not specified.
+  Using default value basis_acc =  0.1000000E-03.
+  Species Ga                  : Using default innermost maximum threshold i_radial=  2 for radial functions.
+  Species Ga                  : Default cutoff onset for free atom density etc. : 0.35000000E+01 AA.
+  Species Ga                  : Basic radial grid will be enhanced according to radial_multiplier =   1, to contain    54 grid points.
+
+  Reading configuration options for species N                   .
+  | Found nuclear charge :   7.0000
+  | Found atomic mass :    14.006700000000000      amu
+  | Found l_max for Hartree potential  :   4
+  | Found cutoff potl. onset [A], width [A], scale factor :    3.50000    1.50000    1.00000
+  | Threshold for basis-dependent cutoff potential is   0.100000E-03
+  | Found data for basic radial integration grid :    35 points, outermost radius =    5.000 A
+  | Found multiplier for basic radial grid :   1
+  | Found angular grid specification: user-specified.
+  | Specified grid contains     5 separate shells.
+  | Check grid settings after all constraints further below.
+  | Found free-atom valence shell :  2 s   2.000
+  | Found free-atom valence shell :  2 p   3.000
+  | Found free-ion valence shell :  2 s   1.000
+  | Found free-ion valence shell :  2 p   2.000
+  | Found hydrogenic basis function :  2 p   1.800
+  | Found hydrogenic basis function :  3 d   6.800
+  | Found hydrogenic basis function :  3 s   5.800
+  Species N                   : Missing cutoff potential type.
+  Defaulting to exp(1/x)/(1-x)^2 type cutoff potential.
+  Species N : No 'logarithmic' tag. Using default grid for free atom:
+  | Default logarithmic grid data [bohr] : 0.1000E-03 0.1000E+03 0.1012E+01
+  Species N : On-site basis accuracy parameter (for Gram-Schmidt orthonormalisation) not specified.
+  Using default value basis_acc =  0.1000000E-03.
+  Species N                   : Using default innermost maximum threshold i_radial=  2 for radial functions.
+  Species N                   : Default cutoff onset for free atom density etc. : 0.35000000E+01 AA.
+  Species N                   : Basic radial grid will be enhanced according to radial_multiplier =   1, to contain    35 grid points.
+
+  Finished reading input file 'control.in'.
+
+------------------------------------------------------------
+
+
+------------------------------------------------------------
+          Reading geometry description geometry.in.
+------------------------------------------------------------
+  | The smallest distance between any two atoms is         1.93235814 AA.
+  | The first atom of this pair is atom number                      1 .
+  | The second atom of this pair is atom number                     4 .
+  | Wigner-Seitz cell of the first atom image          -1     1     0 .
+  | (The Wigner-Seitz cell of the second atom is 0 0 0  by definition.)
+
+  Symmetry information by spglib:
+  | Precision set to  0.1E-04
+  | Number of Operations  : 1
+  | Space group           : 1
+  | International         : P1
+  | Schoenflies           : C1^1
+  Input structure read successfully.
+  The structure contains        4 atoms,  and a total of         76.000 electrons.
+
+  Input geometry:
+  | Unit cell:
+  |        3.18926000        0.00000000        0.00000000
+  |       -1.59463000        2.76198018        0.00000000
+  |        0.00000000        0.00000000        5.18523000
+  | Atomic structure:
+  |       Atom                x [A]            y [A]            z [A]
+  |    1: Species Ga            0.02000000        1.84132012        5.18434305
+  |    2: Species Ga            1.59463000        0.92066006        2.59172805
+  |    3: Species N            -0.00000000        1.84132012        1.95381474
+  |    4: Species N             1.59463000        0.92066006        4.54642974
+
+  Lattice parameters for 3D lattice (in Angstroms) :     3.189260    3.189260    5.185230
+  Angle(s) between unit vectors (in degrees)       :    90.000000   90.000000  120.000000
+
+
+  Quantities derived from the lattice vectors (in Angstrom^-1):
+  | Reciprocal lattice vector 1:  1.970108  1.137442  0.000000
+  | Reciprocal lattice vector 2: -0.000000  2.274884  0.000000
+  | Reciprocal lattice vector 3:  0.000000  0.000000  1.211747
+  | Unit cell volume                               :   0.456750E+02  Angstrom^3
+
+
+  Finished reading input file 'geometry.in'.
+
+
+
+  Consistency checks for stacksize environment parameter are next.
+
+  | Maximum stacksize for task 0: 63 [Mb]
+  | Maximum stacksize for task 1: 63 [Mb]
+  | Maximum stacksize for task 2: 63 [Mb]
+  | Maximum stacksize for task 3: 63 [Mb]
+  | Maximum stacksize for task 4: 63 [Mb]
+  | Maximum stacksize for task 5: 63 [Mb]
+  | Maximum stacksize for task 6: 63 [Mb]
+  | Maximum stacksize for task 7: 63 [Mb]
+   *** Stacksize is not set to unlimited. This might cause problems...
+  | Current stacksize for task 0: 63 [Mb]
+  | Current stacksize for task 1: 63 [Mb]
+  | Current stacksize for task 2: 63 [Mb]
+  | Current stacksize for task 3: 63 [Mb]
+  | Current stacksize for task 4: 63 [Mb]
+  | Current stacksize for task 5: 63 [Mb]
+  | Current stacksize for task 6: 63 [Mb]
+  | Current stacksize for task 7: 63 [Mb]
+
+  Consistency checks for the contents of control.in are next.
+
+  MPI_IN_PLACE appears to work with this MPI implementation.
+  | Keeping use_mpi_in_place .true. (see manual).
+  Target number of points in a grid batch is not set. Defaulting to  100
+  Method for grid partitioning is not set. Defaulting to parallel hash+maxmin partitioning.
+  Batch size limit is not set. Defaulting to    200
+  By default, will store active basis functions for each batch.
+  If in need of memory, prune_basis_once .false. can be used to disable this option.
+  communication_type for Hartree potential was not specified.
+  Defaulting to calc_hartree .
+  Defaulting to Pulay charge density mixer.
+  Pulay mixer: Number of relevant iterations not set.
+  Defaulting to    8 iterations.
+  Pulay mixer: Number of initial linear mixing iterations not set.
+  Defaulting to    0 iterations.
+  Work space size for distributed Hartree potential not set.
+  Defaulting to   0.200000E+03 MB.
+  Algorithm-dependent basis array size parameters:
+  | n_max_pulay                         :        8
+  Maximum number of self-consistency iterations not provided.
+  Presetting  1000 iterations.
+  Presetting      1001 iterations before the initial mixing cycle
+  is restarted anyway using the sc_init_iter criterion / keyword.
+  Presetting a factor      1.000 between actual scf density residual
+  and density convergence criterion sc_accuracy_rho below which sc_init_iter
+  takes no effect.
+ * No s.c.f. convergence criteria (sc_accuracy_*) were provided in control.in.
+ * The run will proceed with a reasonable default guess, but please check whether.
+ * the s.c.f. cycles seem to take too much or too little time.
+  Calculation of forces was not defined in control.in. No forces will be calculated.
+  Geometry relaxation not requested: no relaxation will be performed.
+ * Notice: The s.c.f. convergence criterion sc_accuracy_rho was not provided.
+ * We used to stop in this case, and ask the user to provide reasonable
+ * scf convergence criteria. However, this led some users to employ criteria
+ * that led to extremely long run times, e.g., for simple relaxation.
+ * We now preset a default value for sc_accuracy_rho if it is not set.
+ * You may still wish to check if this setting is too tight or too loose for your needs.
+ * Based on n_atoms and forces and force-correction status, FHI-aims chose sc_accuracy_rho =  0.800000E-05 .
+  No accuracy limit for integral partition fn. given. Defaulting to  0.1000E-14.
+  No threshold value for u(r) in integrations given. Defaulting to  0.1000E-05.
+  No occupation type (smearing scheme) given. Defaulting to Gaussian broadening, width =  0.1000E-01 eV.
+  The width will be adjusted in iteration number     2 of the first full s.c.f. cycle only.
+  S.C.F. convergence parameters will be adjusted in iteration number     2 of the first full s.c.f. cycle only.
+  No accuracy for occupation numbers given. Defaulting to  0.1000E-12.
+  No threshold value for occupation numbers given. Defaulting to  0.0000E+00.
+  No accuracy for fermi level given. Defaulting to  0.1000E-19.
+  Maximum # of iterations to find E_F not set. Defaulting to  200.
+  Preferred method for the eigenvalue solver ('KS_method') not specified in 'control.in'.
+  Defaulting to serial version, LAPACK (via ELSI), since more k-points than CPUs available.
+  Will not use alltoall communication since running on < 1024 CPUs.
+  Threshold for basis singularities not set.
+  Default threshold for basis singularities:  0.1000E-04
+  partition_type (choice of integration weights) for integrals was not specified.
+  | Using a version of the partition function of Stratmann and coworkers ('stratmann_sparse').
+  | At each grid point, the set of atoms used to build the partition table is smoothly restricted to
+  | only those atoms whose free-atom density would be non-zero at that grid point.
+  Partitioning for Hartree potential was not defined. Using partition_type for integrals.
+  | Adjusted default value of keyword multip_moments_threshold to:       0.10000000E-11
+  | This value may affect high angular momentum components of the Hartree potential in periodic systems.
+  Spin handling was not defined in control.in. Defaulting to unpolarized case.
+  Angular momentum expansion for Kerker preconditioner not set explicitly.
+  | Using default value of   0
+  No explicit requirement for turning off preconditioner.
+  | By default, it will be turned off when the charge convergence reaches
+  | sc_accuracy_rho  =   0.800000E-05
+  No special mixing parameter while Kerker preconditioner is on.
+  Using default: charge_mix_param =     0.2000.
+  No q(lm)/r^(l+1) cutoff set for long-range Hartree potential.
+  | Using default value of  0.100000E-09 .
+  | Verify using the multipole_threshold keyword.
+  Defaulting to new monopole extrapolation.
+  Density update method: automatic selection selected.
+  Using density matrix based charge density update.
+  Using density matrix based charge density update.
+  Using packed matrix style: index .
+  Defaulting to use time-reversal symmetry for k-point grid.
+  Charge integration errors on the 3D integration grid will be compensated
+  by explicit normalization and distribution of residual charges.
+  Use the "compensate_multipole_errors" flag to change this behaviour.
+  Set 'collect_eigenvectors' to be '.true.' for all serial calculations. This is mandatory.
+  Set 'collect_eigenvectors' to be '.true.' for KS_method lapack_fast and serial.
+
+  Consistency checks for the contents of geometry.in are next.
+
+
+  Range separation radius for Ewald summation (hartree_convergence_parameter):      3.13984455 bohr.
+  Number of empty states per atom not set in control.in .
+  | Since you are using a method that relies on the unoccupied spectrum
+  | (MP2,GW,RPA et al.), will use the full Hamiltonian size (see below)
+  | as the max. possible number of states (occupied plus empty).
+
+  Structure-dependent array size parameters: 
+  | Maximum number of distinct radial functions  :       18
+  | Maximum number of basis functions            :       96
+  | Number of Kohn-Sham states (occupied + empty):       96
+------------------------------------------------------------
+
+------------------------------------------------------------
+          Preparing all fixed parts of the calculation.
+------------------------------------------------------------
+  Determining machine precision:
+     2.2250738585072014E-308
+  Setting up grids for atomic and cluster calculations.
+
+  Creating wave function, potential, and density for free atoms.
+  Runtime choices for atomic solver:
+  | atomic solver xc        : PBE
+  | compute density gradient: 1
+  | compute kinetic density : F
+
+  Species: Ga
+
+  List of occupied orbitals and eigenvalues:
+    n    l              occ      energy [Ha]    energy [eV]
+    1    0           2.0000      -380.489758    -10353.6531
+    2    0           2.0000       -46.460587     -1264.2569
+    3    0           2.0000        -5.427793      -147.6978
+    4    0           2.0000        -0.316119        -8.6020
+    2    1           6.0000       -40.433986     -1100.2647
+    3    1           6.0000        -3.616323       -98.4052
+    4    1           1.0000        -0.078625        -2.1395
+    3    2          10.0000        -0.688008       -18.7217
+
+
+  Species: N
+
+  List of occupied orbitals and eigenvalues:
+    n    l              occ      energy [Ha]    energy [eV]
+    1    0           2.0000       -14.143973      -384.8771
+    2    0           2.0000        -0.682008       -18.5584
+    2    1           3.0000        -0.259605        -7.0642
+
+
+  Adding cutoff potential to free-atom effective potential.
+  Creating fixed part of basis set: Ionic, confined, hydrogenic.
+
+  Ga                   ion:
+
+  List of free ionic orbitals and eigenvalues:
+    n    l      energy [Ha]    energy [eV]
+    1    0      -381.269939    -10374.8829
+    2    0       -47.220675     -1284.9399
+    3    0        -6.191291      -168.4736
+    4    0        -0.957864       -26.0648
+    2    1       -41.195167     -1120.9775
+    3    1        -4.379935      -119.1841
+    3    2        -1.446562       -39.3629
+
+
+  List of ionic basis orbitals and eigenvalues:
+    n    l      energy [Ha]    energy [eV]    outer radius [A]
+    4    0        -0.957837       -26.0641       4.370145
+
+
+  Ga                   hydrogenic:
+
+  List of hydrogenic basis orbitals: 
+    n    l      effective z      eigenvalue [eV]  inner max. [A]     outer max. [A]     outer radius [A]   
+    2    1         1.200000        -4.5108           1.643450           1.643450           4.589156
+    3    2         3.800000       -21.8139           1.255894           1.255894           4.589156
+    4    3         6.800000       -39.3178           1.240634           1.240634           4.533395
+
+
+  N                    hydrogenic:
+
+  List of hydrogenic basis orbitals: 
+    n    l      effective z      eigenvalue [eV]  inner max. [A]     outer max. [A]     outer radius [A]   
+    2    1         1.800000       -10.9749           1.177451           1.177451           4.573712
+    3    2         6.800000       -69.9026           0.704619           0.704619           3.538137
+    3    0         5.800000       -50.8545           0.067388           1.191934           4.250239
+
+  Creating atomic-like basis functions for current effective potential.
+
+  Species Ga                  :
+
+  List of atomic basis orbitals and eigenvalues:
+    n    l      energy [Ha]    energy [eV]    outer radius [A]
+    1    0      -380.489758    -10353.6531       0.339519
+    2    0       -46.460587     -1264.2569       0.983486
+    3    0        -5.427793      -147.6978       2.780058
+    4    0        -0.316119        -8.6020       4.533395
+    2    1       -40.433986     -1100.2647       1.020225
+    3    1        -3.616323       -98.4052       3.258922
+    4    1        -0.078625        -2.1395       4.589156
+    3    2        -0.688008       -18.7217       4.370145
+
+
+  Species N                   :
+
+  List of atomic basis orbitals and eigenvalues:
+    n    l      energy [Ha]    energy [eV]    outer radius [A]
+    1    0       -14.143973      -384.8771       1.637919
+    2    0        -0.682008       -18.5584       4.463241
+    2    1        -0.259605        -7.0642       4.518138
+
+  Assembling full basis from fixed parts.
+  | Species Ga :   atomic orbital   1 s accepted.
+  | Species Ga :   atomic orbital   2 s accepted.
+  | Species Ga :   atomic orbital   3 s accepted.
+  | Species Ga :    ionic orbital   4 s accepted.
+  | Species Ga :   atomic orbital   4 s accepted.
+  | Species Ga :   atomic orbital   2 p accepted.
+  | Species Ga :   atomic orbital   3 p accepted.
+  | Species Ga :   atomic orbital   4 p accepted.
+  | Species Ga :    hydro orbital   2 p accepted.
+  | Species Ga :   atomic orbital   3 d accepted.
+  | Species Ga :    hydro orbital   3 d accepted.
+  | Species Ga :    hydro orbital   4 f accepted.
+  | Species N :   atomic orbital   1 s accepted.
+  | Species N :    hydro orbital   3 s accepted.
+  | Species N :   atomic orbital   2 s accepted.
+  | Species N :   atomic orbital   2 p accepted.
+  | Species N :    hydro orbital   2 p accepted.
+  | Species N :    hydro orbital   3 d accepted.
+
+  Basis size parameters after reduction:
+  | Total number of radial functions:       18
+  | Total number of basis functions :       96
+
+  Per-task memory consumption for arrays in subroutine allocate_ext:
+  |           6.509872MB.
+  Testing on-site integration grid accuracy.
+  |  Species  Function  <phi|h_atom|phi> (log., in eV)  <phi|h_atom|phi> (rad., in eV)
+           1        1             -10353.6531083681             -10353.6426064854
+           1        2              -1264.2568837927              -1264.2567574771
+           1        3               -147.6977694494               -147.6977664834
+           1        4                 -8.2157067915                 -8.2156220906
+           1        5                  5.3691127490                  5.2869956537 ***
+           1        6              -1100.2647267038              -1100.2647251320
+           1        7                -98.4051589771                -98.4051585337
+           1        8                 -2.1632502565                 -2.1936630377 ***
+           1        9                  7.2154195323                  7.0101703907 ***
+           1       10                -18.7216618083                -18.7216626724
+           1       11                  9.0922871809                  9.0865043987
+           1       12                 23.0608801050                 23.0598690183
+           2       13               -384.8770852097               -384.8770238657
+           2       14                 12.5754985572                 12.5755902269
+           2       15                -15.7673946340                -15.7673131149
+           2       16                 -7.0647024644                 -7.0651952861
+           2       17                  8.8117910312                  8.7928686445
+           2       18                 35.9641313274                 35.9643080893
+ * Note: Onsite integrals marked "***" above are less accurate than
+ * onsite_accuracy_threshold =    0.03000 eV. Usually, this is harmless.
+ * However, one integral did have a negative value. This integral could be important.
+ * When in doubt, tighten the "radial" and/or "radial_multiplier" flags to check.
+
+  Preparing densities etc. for the partition functions (integrals / Hartree potential).
+
+  Preparations completed.
+  max(cpu_time)          :      0.209 s.
+  Wall clock time (cpu1) :      0.243 s.
+------------------------------------------------------------
+
+  Initializing index lists of integration centers etc. from given atomic structure:
+  Mapping all atomic coordinates to central unit cell.
+
+  Initializing the k-points
+  Using symmetry for reducing the k-points
+  | k-points reduced from:      144 to       76
+  | Number of k-points                             :        76
+  | Consuming        171 KiB for k_phase_exx.
+  The eigenvectors in the calculations are COMPLEX.
+  | K-points in task   0:         9
+  | K-points in task   1:        10
+  | K-points in task   2:        10
+  | K-points in task   3:        10
+  | K-points in task   4:        10
+  | K-points in task   5:         9
+  | K-points in task   6:         9
+  | K-points in task   7:         9
+  | Number of basis functions in the Hamiltonian integrals :      2897
+  | Number of basis functions in a single unit cell        :        96
+  | Number of centers in hartree potential         :      1132
+  | Number of centers in hartree multipole         :       668
+  | Number of centers in electron density summation:       470
+  | Number of centers in basis integrals           :       526
+  | Number of centers in integrals                 :       167
+  | Number of centers in hamiltonian               :       470
+  | Consuming        201 KiB for k_phase.
+  | Number of super-cells (origin) [n_cells]                     :        1183
+  | Number of super-cells (after PM_index) [n_cells]             :         170
+  | Number of super-cells in hamiltonian [n_cells_in_hamiltonian]:         170
+  | Size of matrix packed + index [n_hamiltonian_matrix_size] :      247348
+  | Size of matrix packed + index (no_symmetry):      489559
+
+------------------------------------------------------------
+          Begin self-consistency loop: Initialization.
+
+          Date     :  20230817, Time     :  094041.431
+------------------------------------------------------------
+  | Estimated reciprocal-space cutoff momentum G_max:         3.00359048 bohr^-1 .
+  | Reciprocal lattice points for long-range Hartree potential:     134
+  Partitioning the integration grid into batches with parallel hashing+maxmin method.
+  | Number of batches:      384
+  | Maximal batch size:      89
+  | Minimal batch size:      54
+  | Average batch size:      70.490
+  | Standard deviation of batch sizes:      11.563
+
+  Integration load balanced across     8 MPI tasks.
+  Work distribution over tasks is as follows:
+  Task     0 has       3413 integration points.
+  Task     1 has       3368 integration points.
+  Task     2 has       3367 integration points.
+  Task     3 has       3401 integration points.
+  Task     4 has       3384 integration points.
+  Task     5 has       3382 integration points.
+  Task     6 has       3399 integration points.
+  Task     7 has       3354 integration points.
+  Initializing partition tables, free-atom densities, potentials, etc. across the integration grid (initialize_grid_storage).
+  | initialize_grid_storage: Actual outermost partition radius vs. multipole_radius_free
+  | (-- VB: in principle, multipole_radius_free should be larger, hence this output)
+  | Species        1: Confinement radius =              4.999999999999999 AA, multipole_radius_free =              5.060654947817020 AA.
+  | Species        1: outer_partition_radius set to              5.060654947817020 AA .
+  | Species        2: Confinement radius =              4.999999999999999 AA, multipole_radius_free =              5.043624274424571 AA.
+  | Species        2: outer_partition_radius set to              5.043624274424571 AA .
+  | The sparse table of interatomic distances needs       1267.39 kbyte instead of      2213.41 kbyte of memory.
+  | Net number of integration points:    27068
+  | of which are non-zero points    :    22379
+  | Numerical average free-atom electrostatic potential    :    -18.58783977 eV
+  Renormalizing the initial density to the exact electron count on the 3D integration grid.
+  | Initial density: Formal number of electrons (from input files) :      76.0000000000
+  | Integrated number of electrons on 3D grid     :      76.0002529186
+  | Charge integration error                      :       0.0002529186
+  | Normalization factor for density and gradient :       0.9999966721
+  Renormalizing the free-atom superposition density to the exact electron count on the 3D integration grid.
+  | Formal number of electrons (from input files) :      76.0000000000
+  | Integrated number of electrons on 3D grid     :      76.0002529186
+  | Charge integration error                      :       0.0002529186
+  | Normalization factor for density and gradient :       0.9999966721
+  Obtaining max. number of non-zero basis functions in each batch (get_n_compute_maxes).
+  | Maximal number of non-zero basis functions:      917 in task     0
+  | Maximal number of non-zero basis functions:      968 in task     1
+  | Maximal number of non-zero basis functions:      972 in task     2
+  | Maximal number of non-zero basis functions:      949 in task     3
+  | Maximal number of non-zero basis functions:      925 in task     4
+  | Maximal number of non-zero basis functions:      959 in task     5
+  | Maximal number of non-zero basis functions:      945 in task     6
+  | Maximal number of non-zero basis functions:      952 in task     7
+  Allocating        1.266 MB for KS_eigenvector_complex
+  Integrating Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work        2.800 s, elapsed        3.936 s => Consider using load balancing!
+  Integrating overlap matrix.
+  Time summed over all CPUs for integration: real work        2.045 s, elapsed        2.251 s
+
+  Updating Kohn-Sham eigenvalues and eigenvectors using ELSI and the (modified) LAPACK eigensolver.
+
+  Obtaining occupation numbers and electronic chemical potential using ELSI.
+  | Note that, for insulating systems, the printed 'chemical potential' value is not uniquely defined.
+  | It can be anywhere in the energy gap, as long as it correctly separates occupied and unoccupied states.
+  | In systems with a gap, the physically relevant chemical potential is the VBM or HOMO.
+
+  | Chemical potential (Fermi level):    -6.39534918 eV
+  Writing Kohn-Sham eigenvalues.
+  K-point:       1 at    0.000000    0.000000    0.000000 (in units of recip. lattice)
+
+  State    Occupation    Eigenvalue [Ha]    Eigenvalue [eV]
+      1       2.00000        -380.502897       -10354.01063
+      2       2.00000        -380.502889       -10354.01041
+      3       2.00000         -46.474338        -1264.63108
+      4       2.00000         -46.474330        -1264.63085
+      5       2.00000         -40.447661        -1100.63685
+      6       2.00000         -40.447649        -1100.63654
+      7       2.00000         -40.447644        -1100.63639
+      8       2.00000         -40.447643        -1100.63638
+      9       2.00000         -40.447642        -1100.63634
+     10       2.00000         -40.447641        -1100.63630
+     11       2.00000         -14.232825         -387.29488
+     12       2.00000         -14.232776         -387.29354
+     13       2.00000          -5.446042         -148.19434
+     14       2.00000          -5.446031         -148.19404
+     15       2.00000          -3.635527          -98.92772
+     16       2.00000          -3.635372          -98.92350
+     17       2.00000          -3.635368          -98.92340
+     18       2.00000          -3.635361          -98.92321
+     19       2.00000          -3.635319          -98.92207
+     20       2.00000          -3.635220          -98.91937
+     21       2.00000          -0.920194          -25.03975
+     22       2.00000          -0.879231          -23.92511
+     23       2.00000          -0.729489          -19.85041
+     24       2.00000          -0.729175          -19.84186
+     25       2.00000          -0.728645          -19.82743
+     26       2.00000          -0.725671          -19.74652
+     27       2.00000          -0.725488          -19.74152
+     28       2.00000          -0.713709          -19.42101
+     29       2.00000          -0.713523          -19.41595
+     30       2.00000          -0.709673          -19.31119
+     31       2.00000          -0.709654          -19.31066
+     32       2.00000          -0.690144          -18.77978
+     33       2.00000          -0.563573          -15.33561
+     34       2.00000          -0.386709          -10.52289
+     35       2.00000          -0.384846          -10.47218
+     36       2.00000          -0.356856           -9.71055
+     37       2.00000          -0.356142           -9.69112
+     38       2.00000          -0.355321           -9.66878
+     39       0.00000          -0.233381           -6.35062
+     40       0.00000          -0.127019           -3.45635
+     41       0.00000           0.010953            0.29806
+     42       0.00000           0.109530            2.98046
+     43       0.00000           0.112607            3.06419
+     44       0.00000           0.139858            3.80573
+     45       0.00000           0.165383            4.50031
+     46       0.00000           0.167737            4.56437
+     47       0.00000           0.332755            9.05472
+     48       0.00000           0.342651            9.32401
+     49       0.00000           0.345306            9.39626
+     50       0.00000           0.441528           12.01458
+     51       0.00000           0.449335           12.22702
+     52       0.00000           0.467786           12.72912
+     53       0.00000           0.470293           12.79732
+     54       0.00000           0.612218           16.65929
+     55       0.00000           0.646331           17.58757
+     56       0.00000           0.646806           17.60049
+     57       0.00000           0.792984           21.57818
+     58       0.00000           0.793461           21.59117
+     59       0.00000           0.862430           23.46791
+     60       0.00000           0.868655           23.63730
+     61       0.00000           0.874557           23.79791
+     62       0.00000           0.947558           25.78435
+     63       0.00000           1.185890           32.26971
+     64       0.00000           1.188843           32.35006
+     65       0.00000           1.221920           33.25015
+     66       0.00000           1.221988           33.25199
+     67       0.00000           1.243833           33.84642
+     68       0.00000           1.273393           34.65079
+     69       0.00000           1.288852           35.07146
+     70       0.00000           1.469615           39.99025
+     71       0.00000           1.477433           40.20299
+     72       0.00000           1.502696           40.89044
+     73       0.00000           1.562940           42.52977
+     74       0.00000           1.754088           47.73116
+     75       0.00000           1.761279           47.92683
+     76       0.00000           1.766366           48.06526
+     77       0.00000           1.857957           50.55759
+     78       0.00000           1.861356           50.65006
+     79       0.00000           1.968694           53.57089
+     80       0.00000           1.973610           53.70467
+     81       0.00000           2.012592           54.76542
+     82       0.00000           2.287589           62.24848
+     83       0.00000           2.300628           62.60327
+     84       0.00000           2.433569           66.22079
+     85       0.00000           2.551458           69.42871
+     86       0.00000           2.644018           71.94739
+     87       0.00000           2.657499           72.31422
+     88       0.00000           2.702902           73.54970
+     89       0.00000           2.776459           75.55130
+     90       0.00000           2.788783           75.88666
+     91       0.00000           3.032120           82.50817
+     92       0.00000           3.714195          101.06839
+     93       0.00000           3.718463          101.18451
+     94       0.00000           4.428317          120.50065
+     95       0.00000           4.447029          121.00982
+     96       0.00000           4.470577          121.65059
+
+  What follows are estimated values for band gap, HOMO, LUMO, etc.
+  | They are estimated on a discrete k-point grid and not necessarily exact.
+  | For converged numbers, create a DOS and/or band structure plot on a denser k-grid.
+
+  Highest occupied state (VBM) at     -9.66878269 eV (relative to internal zero)
+  | Occupation number:      2.00000000
+  | K-point:       1 at    0.000000    0.000000    0.000000 (in units of recip. lattice)
+
+  Lowest unoccupied state (CBM) at    -6.35062052 eV (relative to internal zero)
+  | Occupation number:      0.00000000
+  | K-point:       1 at    0.000000    0.000000    0.000000 (in units of recip. lattice)
+
+  ESTIMATED overall HOMO-LUMO gap:      3.31816218 eV between HOMO at k-point 1 and LUMO at k-point 1
+  | This appears to be a direct band gap.
+  The gap value is above 0.2 eV. Unless you are using a very sparse k-point grid,
+  this system is most likely an insulator or a semiconductor.
+  Calculating total energy contributions from superposition of free atom densities.
+
+  Total energy components:
+  | Sum of eigenvalues            :       -2338.77162015 Ha      -63641.21381345 eV
+  | XC energy correction          :        -165.37311301 Ha       -4500.03136410 eV
+  | XC potential correction       :         214.83968616 Ha        5846.08530593 eV
+  | Free-atom electrostatic energy:       -1729.28140951 Ha      -47056.14134296 eV
+  | Hartree energy correction     :          -0.00000000 Ha          -0.00000000 eV
+  | Entropy correction            :          -0.00000000 Ha          -0.00000000 eV
+  | ---------------------------
+  | Total energy                  :       -4018.58645651 Ha     -109351.30121458 eV
+  | Total energy, T -> 0          :       -4018.58645651 Ha     -109351.30121458 eV  <-- do not rely on this value for anything but (periodic) metals
+  | Electronic free energy        :       -4018.58645651 Ha     -109351.30121458 eV
+
+  Derived energy quantities:
+  | Kinetic energy                :        4085.06857369 Ha      111160.37166754 eV
+  | Electrostatic energy          :       -7938.28191719 Ha     -216011.64151802 eV
+  | Energy correction for multipole
+  | error in Hartree potential    :           0.00000000 Ha           0.00000000 eV
+  | Sum of eigenvalues per atom                           :      -15910.30345336 eV
+  | Total energy (T->0) per atom                          :      -27337.82530365 eV  <-- do not rely on this value for anything but (periodic) metals
+  | Electronic free energy per atom                       :      -27337.82530365 eV
+  Initialize hartree_potential_storage
+  Max. number of atoms included in rho_multipole:            4
+
+  End scf initialization - timings             :  max(cpu_time)    wall_clock(cpu1)
+  | Time for scf. initialization                :        1.005 s           1.113 s
+  | Boundary condition initialization           :        0.071 s           0.075 s
+  | Integration                                 :        0.714 s           0.788 s
+  | Solution of K.-S. eqns.                     :        0.063 s           0.073 s
+  | Grid partitioning                           :        0.042 s           0.046 s
+  | Preloading free-atom quantities on grid     :        0.160 s           0.169 s
+  | Free-atom superposition energy              :        0.029 s           0.030 s
+  | Total energy evaluation                     :        0.000 s           0.000 s
+
+  Partial memory accounting:
+  | Current value for overall tracked memory usage:
+  |   Minimum:        5.984 MB (on task 0)
+  |   Maximum:        6.125 MB (on task 1)
+  |   Average:        6.054 MB
+  | Peak value for overall tracked memory usage:
+  |   Minimum:       14.289 MB (on task 0 after allocating wave)
+  |   Maximum:       15.335 MB (on task 2 after allocating wave)
+  |   Average:       14.872 MB
+  | Largest tracked array allocation so far:
+  |   Minimum:        6.415 MB (hamiltonian_shell on task 0)
+  |   Maximum:        7.208 MB (hamiltonian_shell on task 2)
+  |   Average:        6.864 MB
+  Note:  These values currently only include a subset of arrays which are explicitly tracked.
+  The "true" memory usage will be greater.
+------------------------------------------------------------
+  Time for density update prior                :  max(cpu_time)    wall_clock(cpu1)
+  | self-consistency iterative process          :        0.913 s           0.984 s
+------------------------------------------------------------
+Convergence:    q app. |  density  | eigen (eV) | Etot (eV) |             . |       CPU time |     Clock time
+  SCF    1 :  0.52E-13 |  0.43E+00 |  -0.44E+01 |  0.25E+01 |             . |        1.657 s |        1.908 s
+  SCF    2 :  0.48E-13 |  0.25E+00 |  -0.17E+01 |  0.13E+01 |             . |        1.733 s |        1.884 s
+  SCF    3 :  0.14E-13 |  0.10E+00 |   0.14E+02 |  0.39E-01 |             . |        1.735 s |        1.852 s
+  SCF    4 : -0.29E-13 |  0.26E-01 |  -0.79E+00 |  0.45E-02 |             . |        1.687 s |        1.851 s
+  SCF    5 :  0.48E-13 |  0.15E-01 |  -0.68E+01 |  0.46E-02 |             . |        1.843 s |        1.934 s
+  SCF    6 :  0.85E-14 |  0.37E-02 |  -0.11E+01 |  0.13E-02 |             . |        1.763 s |        1.857 s
+  SCF    7 :  0.88E-13 |  0.95E-03 |   0.45E+00 | -0.22E-03 |             . |        1.902 s |        2.000 s
+  SCF    8 :  0.20E-13 |  0.39E-03 |  -0.17E+00 |  0.20E-04 |             . |        1.912 s |        2.009 s
+  SCF    9 :  0.71E-13 |  0.12E-03 |  -0.32E-01 | -0.39E-05 |             . |        1.837 s |        1.948 s
+  SCF   10 : -0.19E-13 |  0.19E-04 |   0.65E-02 | -0.30E-05 |             . |        1.752 s |        1.850 s
+  SCF   11 :  0.14E-12 |  0.61E-05 |   0.20E-02 | -0.93E-06 |             . |        0.823 s |        0.852 s
+
+  Total energy components:
+  | Sum of eigenvalues            :       -2338.81116700 Ha      -63642.28993819 eV
+  | XC energy correction          :        -165.55529680 Ha       -4504.98883710 eV
+  | XC potential correction       :         215.07182695 Ha        5852.40217839 eV
+  | Free-atom electrostatic energy:       -1729.28140951 Ha      -47056.14134296 eV
+  | Hartree energy correction     :           0.13205220 Ha           3.59332327 eV
+  | Entropy correction            :          -0.00000000 Ha          -0.00000000 eV
+  | ---------------------------
+  | Total energy                  :       -4018.44399415 Ha     -109347.42461660 eV
+  | Total energy, T -> 0          :       -4018.44399415 Ha     -109347.42461660 eV  <-- do not rely on this value for anything but (periodic) metals
+  | Electronic free energy        :       -4018.44399415 Ha     -109347.42461660 eV
+
+  Derived energy quantities:
+  | Kinetic energy                :        4085.04981834 Ha      111159.86130838 eV
+  | Electrostatic energy          :       -7937.93851569 Ha     -216002.29708788 eV
+  | Energy correction for multipole
+  | error in Hartree potential    :           0.03800525 Ha           1.03417544 eV
+  | Sum of eigenvalues per atom                           :      -15910.57248455 eV
+  | Total energy (T->0) per atom                          :      -27336.85615415 eV  <-- do not rely on this value for anything but (periodic) metals
+  | Electronic free energy per atom                       :      -27336.85615415 eV
+  What follows are estimated values for band gap, HOMO, LUMO, etc.
+  | They are estimated on a discrete k-point grid and not necessarily exact.
+  | For converged numbers, create a DOS and/or band structure plot on a denser k-grid.
+
+  Highest occupied state (VBM) at     -7.13055568 eV (relative to internal zero)
+  | Occupation number:      2.00000000
+  | K-point:       1 at    0.000000    0.000000    0.000000 (in units of recip. lattice)
+
+  Lowest unoccupied state (CBM) at    -5.18742598 eV (relative to internal zero)
+  | Occupation number:      0.00000000
+  | K-point:       1 at    0.000000    0.000000    0.000000 (in units of recip. lattice)
+
+  ESTIMATED overall HOMO-LUMO gap:      1.94312970 eV between HOMO at k-point 1 and LUMO at k-point 1
+  | This appears to be a direct band gap.
+  The gap value is above 0.2 eV. Unless you are using a very sparse k-point grid,
+  this system is most likely an insulator or a semiconductor.
+
+  | Chemical Potential                          :    -5.23217126 eV
+  | Note that, for insulating systems, the printed 'chemical potential' value is not uniquely defined.
+  | It can be anywhere in the energy gap, as long as it correctly separates occupied and unoccupied states.
+  | In systems with a gap, the physically relevant chemical potential is the VBM or HOMO.
+
+  Self-consistency cycle converged.
+
+
+  Energy and forces in a compact form:
+  | Total energy uncorrected      :         -0.109347424616599E+06 eV
+  | Total energy corrected        :         -0.109347424616599E+06 eV  <-- do not rely on this value for anything but (periodic) metals
+  | Electronic free energy        :         -0.109347424616599E+06 eV
+
+ -------------------------------------------------------------------------------
+ |              ENTERING DFPT_DIELECTRIC (PERIODIC CALCULATION)                |
+ |                                                                             |
+ |  Details on the implementation can be found in the following reference:     |
+ |                                                                             |
+ |    Honghui Shang, Nathaniel Raimbault, Patrick Rinke,                       |
+ |     Matthias Scheffler,  Mariana Rossi and Christian Carbogno,              |
+ |    'All-Electron, Real-Space Perturbation Theory for Homogeneous            |
+ |    Electric Fields: Theory, Implementation, and Application within dft'     |
+ |                                                                             |
+ |  Please cite New Journal of Physics, 20(7):073040, 2018                     |
+ -------------------------------------------------------------------------------
+
+
+===========================================================================
+  before CPSCF, get Omega_MO = <i(k)|-r|j(k)> in MO basis
+
+==========================================================================
+  Integrating momentum_matrix_sparse matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       30.392 s, elapsed       31.336 s
+  Integrating momentum_matrix_sparse matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       33.775 s, elapsed       34.624 s
+  Integrating momentum_matrix_sparse matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       31.938 s, elapsed       32.598 s
+
+
+===========================================================================
+  CPSCF working for j_coord =    1
+
+==========================================================================
+
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    1
+
+  Date     :  20230817, Time     :  094115.899
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.6310E+01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.531 s, elapsed       13.793 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =   0.284411E-15
+  | Sum of charges compensated after spline to logarithmic grids =  -0.975244E-06
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.298248E-15
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.304 s, elapsed        1.521 s
+  | RMS delta_rho error from multipole expansion :   0.559320E-01
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       69.344 s, elapsed       70.937 s
+  End CPSCF iteration #     1                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.504 s          10.931 s
+  | first_order_DM                              :        0.024 s           0.032 s
+  | first_order_density                         :        1.614 s           1.731 s
+  | first_order_potential                       :        0.194 s           0.201 s
+  | first_order_H                               :        7.651 s           8.931 s
+  | Solution of Sternheimer eqns.               :        0.017 s           0.027 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    2
+
+  Date     :  20230817, Time     :  094126.830
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.5182E+01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       18.493 s, elapsed       19.659 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =   0.608794E-15
+  | Sum of charges compensated after spline to logarithmic grids =  -0.540629E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.774829E-15
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.421 s, elapsed        1.533 s
+  | RMS delta_rho error from multipole expansion :   0.277890E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       77.080 s, elapsed       80.332 s
+  End CPSCF iteration #     2                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.650 s          12.799 s
+  | first_order_DM                              :        0.019 s           0.026 s
+  | first_order_density                         :        1.622 s           2.461 s
+  | first_order_potential                       :        0.194 s           0.200 s
+  | first_order_H                               :        7.806 s          10.074 s
+  | Solution of Sternheimer eqns.               :        0.013 s           0.021 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    3
+
+  Date     :  20230817, Time     :  094139.629
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.4868E+00
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       16.083 s, elapsed       17.448 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.282259E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.625485E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.291791E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.996 s, elapsed        2.183 s
+  | RMS delta_rho error from multipole expansion :   0.274070E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       72.717 s, elapsed       75.077 s
+  End CPSCF iteration #     3                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.460 s          11.984 s
+  | first_order_DM                              :        0.027 s           0.035 s
+  | first_order_density                         :        1.628 s           2.210 s
+  | first_order_potential                       :        0.195 s           0.280 s
+  | first_order_H                               :        7.651 s           9.389 s
+  | Solution of Sternheimer eqns.               :        0.015 s           0.022 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    4
+
+  Date     :  20230817, Time     :  094151.613
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.5322E-01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.651 s, elapsed       13.871 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.196167E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.561857E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.202316E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.508 s, elapsed        1.672 s
+  | RMS delta_rho error from multipole expansion :   0.274088E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       67.066 s, elapsed       68.896 s
+  End CPSCF iteration #     4                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.448 s          10.661 s
+  | first_order_DM                              :        0.018 s           0.019 s
+  | first_order_density                         :        1.608 s           1.745 s
+  | first_order_potential                       :        0.212 s           0.239 s
+  | first_order_H                               :        7.590 s           8.620 s
+  | Solution of Sternheimer eqns.               :        0.015 s           0.019 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    5
+
+  Date     :  20230817, Time     :  094202.275
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.2363E-01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       15.681 s, elapsed       17.581 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =   0.142667E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.567813E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.115917E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.790 s, elapsed        2.022 s
+  | RMS delta_rho error from multipole expansion :   0.274206E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       69.859 s, elapsed       72.284 s
+  End CPSCF iteration #     5                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.604 s          11.660 s
+  | first_order_DM                              :        0.017 s           0.021 s
+  | first_order_density                         :        1.669 s           2.219 s
+  | first_order_potential                       :        0.235 s           0.308 s
+  | first_order_H                               :        7.680 s           9.047 s
+  | Solution of Sternheimer eqns.               :        0.014 s           0.023 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    6
+
+  Date     :  20230817, Time     :  094213.935
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.5632E-02
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       15.683 s, elapsed       17.909 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =   0.198319E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.575304E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.204776E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.416 s, elapsed        1.621 s
+  | RMS delta_rho error from multipole expansion :   0.274257E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       76.445 s, elapsed       78.692 s
+  End CPSCF iteration #     6                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :       10.037 s          12.418 s
+  | first_order_DM                              :        0.021 s           0.029 s
+  | first_order_density                         :        1.810 s           2.255 s
+  | first_order_potential                       :        0.202 s           0.207 s
+  | first_order_H                               :        8.000 s           9.844 s
+  | Solution of Sternheimer eqns.               :        0.014 s           0.018 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    7
+
+  Date     :  20230817, Time     :  094226.354
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.3223E-02
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       14.163 s, elapsed       15.139 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.759455E-15
+  | Sum of charges compensated after spline to logarithmic grids =  -0.575869E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.894743E-15
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.420 s, elapsed        1.555 s
+  | RMS delta_rho error from multipole expansion :   0.274308E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       75.652 s, elapsed       77.661 s
+  End CPSCF iteration #     7                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.698 s          11.910 s
+  | first_order_DM                              :        0.025 s           0.029 s
+  | first_order_density                         :        1.578 s           1.900 s
+  | first_order_potential                       :        0.194 s           0.199 s
+  | first_order_H                               :        7.838 s           9.710 s
+  | Solution of Sternheimer eqns.               :        0.015 s           0.017 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    8
+
+  Date     :  20230817, Time     :  094238.264
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.4522E-03
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.724 s, elapsed       14.049 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.550374E-15
+  | Sum of charges compensated after spline to logarithmic grids =  -0.575232E-05
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.728708E-15
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.430 s, elapsed        1.550 s
+  | RMS delta_rho error from multipole expansion :   0.274317E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       70.162 s, elapsed       71.789 s
+
+  CP-self-consistency cycle converged.
+
+  End CPSCF iteration #     8                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.670 s          11.062 s
+  | first_order_DM                              :        0.017 s           0.017 s
+  | first_order_density                         :        1.591 s           1.757 s
+  | first_order_potential                       :        0.220 s           0.236 s
+  | first_order_H                               :        7.793 s           8.981 s
+  | Solution of Sternheimer eqns.               :        0.015 s           0.017 s
+------------------------------------------------------------
+
+
+===========================================================================
+  CPSCF working for j_coord =    2
+
+==========================================================================
+
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    1
+
+  Date     :  20230817, Time     :  094249.336
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.7737E+01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.316 s, elapsed       13.945 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.159172E-14
+  | Sum of charges compensated after spline to logarithmic grids =   0.238223E-07
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.159165E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.807 s, elapsed        1.903 s
+  | RMS delta_rho error from multipole expansion :   0.559682E-01
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       70.349 s, elapsed       72.316 s
+  End CPSCF iteration #     1                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.723 s          11.082 s
+  | first_order_DM                              :        0.024 s           0.027 s
+  | first_order_density                         :        1.662 s           1.746 s
+  | first_order_potential                       :        0.182 s           0.245 s
+  | first_order_H                               :        7.837 s           9.042 s
+  | Solution of Sternheimer eqns.               :        0.015 s           0.018 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    2
+
+  Date     :  20230817, Time     :  094300.418
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.6198E+01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.495 s, elapsed       13.997 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.724499E-14
+  | Sum of charges compensated after spline to logarithmic grids =   0.119345E-06
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.724807E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.488 s, elapsed        1.634 s
+  | RMS delta_rho error from multipole expansion :   0.277637E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       71.658 s, elapsed       73.920 s
+  End CPSCF iteration #     2                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.626 s          11.271 s
+  | first_order_DM                              :        0.016 s           0.017 s
+  | first_order_density                         :        1.666 s           1.755 s
+  | first_order_potential                       :        0.200 s           0.210 s
+  | first_order_H                               :        7.780 s           9.252 s
+  | Solution of Sternheimer eqns.               :        0.012 s           0.015 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    3
+
+  Date     :  20230817, Time     :  094311.689
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.4960E+00
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       15.087 s, elapsed       16.673 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.104663E-13
+  | Sum of charges compensated after spline to logarithmic grids =   0.117311E-06
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.104633E-13
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.561 s, elapsed        1.687 s
+  | RMS delta_rho error from multipole expansion :   0.274172E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       65.646 s, elapsed       67.627 s
+  End CPSCF iteration #     3                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.522 s          10.888 s
+  | first_order_DM                              :        0.016 s           0.016 s
+  | first_order_density                         :        1.653 s           2.097 s
+  | first_order_potential                       :        0.248 s           0.286 s
+  | first_order_H                               :        7.639 s           8.457 s
+  | Solution of Sternheimer eqns.               :        0.016 s           0.016 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    4
+
+  Date     :  20230817, Time     :  094322.578
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.5125E-01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       13.756 s, elapsed       15.353 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.125906E-13
+  | Sum of charges compensated after spline to logarithmic grids =   0.112572E-06
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.125907E-13
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.654 s, elapsed        2.249 s
+  | RMS delta_rho error from multipole expansion :   0.274327E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       71.129 s, elapsed       74.675 s
+  End CPSCF iteration #     4                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.967 s          11.614 s
+  | first_order_DM                              :        0.018 s           0.018 s
+  | first_order_density                         :        1.642 s           1.921 s
+  | first_order_potential                       :        0.246 s           0.299 s
+  | first_order_H                               :        8.050 s           9.340 s
+  | Solution of Sternheimer eqns.               :        0.013 s           0.019 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    5
+
+  Date     :  20230817, Time     :  094334.192
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.6851E-02
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       15.513 s, elapsed       16.973 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.170630E-13
+  | Sum of charges compensated after spline to logarithmic grids =   0.117905E-06
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.170549E-13
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.443 s, elapsed        1.543 s
+  | RMS delta_rho error from multipole expansion :   0.274444E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       68.007 s, elapsed       70.608 s
+  End CPSCF iteration #     5                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.758 s          11.229 s
+  | first_order_DM                              :        0.024 s           0.026 s
+  | first_order_density                         :        1.651 s           2.125 s
+  | first_order_potential                       :        0.193 s           0.199 s
+  | first_order_H                               :        7.876 s           8.829 s
+  | Solution of Sternheimer eqns.               :        0.016 s           0.016 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    6
+
+  Date     :  20230817, Time     :  094345.421
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.9473E-03
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       14.006 s, elapsed       15.146 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.189745E-13
+  | Sum of charges compensated after spline to logarithmic grids =   0.115851E-06
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.189754E-13
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.489 s, elapsed        1.610 s
+  | RMS delta_rho error from multipole expansion :   0.274457E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       65.780 s, elapsed       68.240 s
+
+  CP-self-consistency cycle converged.
+
+  End CPSCF iteration #     6                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.632 s          10.724 s
+  | first_order_DM                              :        0.018 s           0.019 s
+  | first_order_density                         :        1.611 s           1.896 s
+  | first_order_potential                       :        0.204 s           0.212 s
+  | first_order_H                               :        7.791 s           8.536 s
+  | Solution of Sternheimer eqns.               :        0.012 s           0.019 s
+------------------------------------------------------------
+
+
+===========================================================================
+  CPSCF working for j_coord =    3
+
+==========================================================================
+
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    1
+
+  Date     :  20230817, Time     :  094356.150
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.8732E+01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       13.308 s, elapsed       15.159 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.799426E-15
+  | Sum of charges compensated after spline to logarithmic grids =  -0.448790E-04
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.578047E-15
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.519 s, elapsed        1.630 s
+  | RMS delta_rho error from multipole expansion :   0.493932E-01
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       79.594 s, elapsed       81.646 s
+  End CPSCF iteration #     1                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.578 s          12.397 s
+  | first_order_DM                              :        0.023 s           0.028 s
+  | first_order_density                         :        1.660 s           1.900 s
+  | first_order_potential                       :        0.187 s           0.210 s
+  | first_order_H                               :        7.698 s          10.229 s
+  | Solution of Sternheimer eqns.               :        0.012 s           0.025 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    2
+
+  Date     :  20230817, Time     :  094408.547
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.6990E+01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       13.489 s, elapsed       15.264 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.511633E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.225397E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.482116E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        2.046 s, elapsed        2.285 s
+  | RMS delta_rho error from multipole expansion :   0.245780E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work      101.416 s, elapsed      103.545 s
+  End CPSCF iteration #     2                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.847 s          15.561 s
+  | first_order_DM                              :        0.021 s           0.028 s
+  | first_order_density                         :        1.680 s           1.983 s
+  | first_order_potential                       :        0.324 s           0.559 s
+  | first_order_H                               :        7.834 s          12.950 s
+  | Solution of Sternheimer eqns.               :        0.011 s           0.015 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    3
+
+  Date     :  20230817, Time     :  094424.108
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.4591E+00
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       24.417 s, elapsed       26.363 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.339449E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.227127E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.403403E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        2.568 s, elapsed        3.039 s
+  | RMS delta_rho error from multipole expansion :   0.242478E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       91.155 s, elapsed       92.555 s
+  End CPSCF iteration #     3                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.796 s          15.578 s
+  | first_order_DM                              :        0.042 s           0.088 s
+  | first_order_density                         :        1.635 s           3.308 s
+  | first_order_potential                       :        0.266 s           0.500 s
+  | first_order_H                               :        7.833 s          11.617 s
+  | Solution of Sternheimer eqns.               :        0.016 s           0.019 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    4
+
+  Date     :  20230817, Time     :  094439.686
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.6756E-01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       13.543 s, elapsed       14.701 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.154966E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.226623E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.341909E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.609 s, elapsed        1.735 s
+  | RMS delta_rho error from multipole expansion :   0.242184E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       67.530 s, elapsed       69.824 s
+  End CPSCF iteration #     4                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.358 s          10.910 s
+  | first_order_DM                              :        0.021 s           0.022 s
+  | first_order_density                         :        1.551 s           1.849 s
+  | first_order_potential                       :        0.216 s           0.232 s
+  | first_order_H                               :        7.557 s           8.748 s
+  | Solution of Sternheimer eqns.               :        0.014 s           0.032 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    5
+
+  Date     :  20230817, Time     :  094450.596
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.1526E-01
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       14.375 s, elapsed       15.931 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.664139E-15
+  | Sum of charges compensated after spline to logarithmic grids =  -0.227252E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.221380E-15
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.808 s, elapsed        1.937 s
+  | RMS delta_rho error from multipole expansion :   0.242086E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       87.386 s, elapsed       88.546 s
+  End CPSCF iteration #     5                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.430 s          13.455 s
+  | first_order_DM                              :        0.024 s           0.028 s
+  | first_order_density                         :        1.581 s           2.016 s
+  | first_order_potential                       :        0.226 s           0.266 s
+  | first_order_H                               :        7.602 s          11.078 s
+  | Solution of Sternheimer eqns.               :        0.015 s           0.031 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    6
+
+  Date     :  20230817, Time     :  094504.051
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.2673E-02
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       18.140 s, elapsed       19.345 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =  -0.140207E-14
+  | Sum of charges compensated after spline to logarithmic grids =  -0.227433E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =  -0.132828E-14
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.754 s, elapsed        2.166 s
+  | RMS delta_rho error from multipole expansion :   0.242120E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       68.785 s, elapsed       70.642 s
+  End CPSCF iteration #     6                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.485 s          11.676 s
+  | first_order_DM                              :        0.024 s           0.028 s
+  | first_order_density                         :        1.561 s           2.425 s
+  | first_order_potential                       :        0.252 s           0.294 s
+  | first_order_H                               :        7.597 s           8.834 s
+  | Solution of Sternheimer eqns.               :        0.014 s           0.017 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    7
+
+  Date     :  20230817, Time     :  094515.727
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.1574E-02
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.088 s, elapsed       13.491 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =   0.112904E-13
+  | Sum of charges compensated after spline to logarithmic grids =  -0.227455E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.109214E-13
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.717 s, elapsed        1.856 s
+  | RMS delta_rho error from multipole expansion :   0.242141E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       66.988 s, elapsed       68.197 s
+  End CPSCF iteration #     7                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.468 s          10.613 s
+  | first_order_DM                              :        0.035 s           0.036 s
+  | first_order_density                         :        1.624 s           1.706 s
+  | first_order_potential                       :        0.218 s           0.256 s
+  | first_order_H                               :        7.556 s           8.530 s
+  | Solution of Sternheimer eqns.               :        0.012 s           0.017 s
+------------------------------------------------------------
+
+--------------------- CPSCF ---------------------------------------
+          Begin CP-self-consistency iteration #    8
+
+  Date     :  20230817, Time     :  094526.340
+------------------------------------------------------------
+
+  CPSCF convergence accuracy:
+  | Change of first_order_density_matrix     :  0.4528E-03
+  Integrating first_order_rho: batch-based integration.
+  Time summed over all CPUs for integration: real work       12.402 s, elapsed       13.745 s
+
+  Evaluating partitioned Hartree potential by multipole expansion.
+  | Original multipole sum: apparent total charge =   0.154228E-13
+  | Sum of charges compensated after spline to logarithmic grids =  -0.227456E-03
+  | Analytical far-field extrapolation by fixed multipoles:
+  | Hartree multipole sum: apparent total charge =   0.148078E-13
+  Summing up the Hartree potential.
+  Time summed over all CPUs for potential: real work        1.590 s, elapsed        1.703 s
+  | RMS delta_rho error from multipole expansion :   0.242148E+00
+
+  Integrating first-order-Hamiltonian matrix: batch-based integration.
+  Time summed over all CPUs for integration: real work       69.112 s, elapsed       70.623 s
+
+  CP-self-consistency cycle converged.
+
+  End CPSCF iteration #     8                  :  max(cpu_time)    wall_clock(cpu1)
+  | Time for this iteration                     :        9.453 s          10.886 s
+  | first_order_DM                              :        0.024 s           0.025 s
+  | first_order_density                         :        1.610 s           1.721 s
+  | first_order_potential                       :        0.212 s           0.225 s
+  | first_order_H                               :        7.567 s           8.841 s
+  | Solution of Sternheimer eqns.               :        0.013 s           0.015 s
+------------------------------------------------------------
+dP_dE (Bohr^3) at every cycle:--->
+         (124.87764946464233,2.58013706511615662E-002)        (0.42666193700599120,2.41164021334498921E-002)            (0.30363521096639695,-0.64321422208164170)
+       (0.42666666986773594,-1.75053812364299281E-002)         (124.86677857496147,1.38927621370057170E-002)      (-8.35753868142596890E-003,-0.15313281160560555)
+             (0.30324332872677934,0.75064669136857953)       (-8.39159317912935299E-003,0.18898493059080521)        (125.17021452963364,-1.18192402906788299E-002)
+DFPT polarizability (Bohr^3)        xx        yy        zz        xy        xz        yz
+  | Polarizability:--->            124.878   124.867   125.170     0.427     0.304    -0.008
+
+DFPT for dielectric_constant:--->  # PARSE DFPT_dielectric_tensor
+               6.091191906729025             0.017394768478640             0.012379037684464
+               0.017394961434766             6.090748706638381            -0.000340732176474
+               0.012363060864791            -0.000342120559294             6.103119620755202
+
+                                               :  max(cpu_time)    wall_clock(cpu1)
+  | Time for  dielectric calculation            :        0.003 s           0.004 s
+===========================================================================
+
+------------------------------------------------------------------------------
+  Final output of selected total energy values:
+
+  The following output summarizes some interesting total energy values
+  at the end of a run (AFTER all relaxation, molecular dynamics, etc.).
+
+  | Total energy of the DFT / Hartree-Fock s.c.f. calculation      :        -109347.424616599 eV
+  | Final zero-broadening corrected energy (caution - metals only) :        -109347.424616599 eV
+  | For reference only, the value of 1 Hartree used in FHI-aims is :             27.211384500 eV
+  | For reference only, the overall average (free atom contribution
+  | + realspace contribution) of the electrostatic potential after
+  | s.c.f. convergence is                                          :            -17.913722594 eV
+
+  Before relying on these values, please be sure to understand exactly which
+  total energy value is referred to by a given number. Different objects may
+  all carry the same name 'total energy'. Definitions:
+
+  Total energy of the DFT / Hartree-Fock s.c.f. calculation:
+  | Note that this energy does not include ANY quantities calculated after the
+  | s.c.f. cycle, in particular not ANY RPA, MP2, etc. many-body perturbation terms.
+
+  Final zero-broadening corrected energy:
+  | For metallic systems only, a broadening of the occupation numbers at the Fermi
+  | level can be extrapolated back to zero broadening by an electron-gas inspired
+  | formula. For all systems that are not real metals, this value can be
+  | meaningless and should be avoided.
+
+------------------------------------------------------------------------------
+  Methods described in the following list of references were used in this FHI-aims run.
+  If you publish the results, please make sure to cite these reference if they apply.
+  FHI-aims is an academic code, and for our developers (often, Ph.D. students
+  and postdocs), scientific credit in the community is essential.
+  Thank you for helping us!
+
+  For any use of FHI-aims, please cite:
+
+    Volker Blum, Ralf Gehrke, Felix Hanke, Paula Havu, Ville Havu,
+    Xinguo Ren, Karsten Reuter, and Matthias Scheffler
+    'Ab initio molecular simulations with numeric atom-centered orbitals'
+    Computer Physics Communications 180, 2175-2196 (2009)
+    http://doi.org/10.1016/j.cpc.2009.06.022
+
+
+  The provided symmetry information was generated with SPGlib:
+
+    Atsushi Togo, Yusuke Seto, Dimitar Pashov
+    SPGlib 1.7.3 obtained from http://spglib.sourceforge.net
+    Copyright (C) 2008 Atsushi Togo
+
+
+  The DFPT (perturbation by an electric field) part of the code was used.
+  Here is the corresponding reference:
+
+    Honghui Shang, Nathaniel Raimbault, Mariana Rossi,
+    Christian Carbogno, Patrick Rinke and Matthias Scheffler,
+    'All-Electron, Real-Space Perturbation Theory for Homogeneous
+    Electric Fields: Theory, Implementation, and Application within dft'
+    New Journal of Physics, 20(7):073040, 2018
+
+
+  The ELSI infrastructure was used in your run to solve the Kohn-Sham electronic structure.
+  Please check out http://elsi-interchange.org to learn more.
+  If scalability is important for your project, please acknowledge ELSI by citing:
+
+    V. W-z. Yu, F. Corsetti, A. Garcia, W. P. Huhn, M. Jacquelin, W. Jia,
+    B. Lange, L. Lin, J. Lu, W. Mi, A. Seifitokaldani, A. Vazquez-Mayagoitia,
+    C. Yang, H. Yang, and V. Blum
+    'ELSI: A unified software interface for Kohn-Sham electronic structure solvers'
+    Computer Physics Communications 222, 267-285 (2018).
+    http://doi.org/10.1016/j.cpc.2017.09.007
+
+
+  For the real-space grid partitioning and parallelization used in this calculation, please cite:
+
+    Ville Havu, Volker Blum, Paula Havu, and Matthias Scheffler,
+    'Efficient O(N) integration for all-electron electronic structure calculation'
+    'using numerically tabulated basis functions'
+    Journal of Computational Physics 228, 8367-8379 (2009).
+    http://doi.org/10.1016/j.jcp.2009.08.008
+
+  Of course, there are many other important community references, e.g., those cited in the
+  above references. Our list is limited to references that describe implementations in the
+  FHI-aims code. The reason is purely practical (length of this list) - please credit others as well.
+
+ * A warning was issued further up regarding the accuracy of onsite integrals.
+   An integral with a negative eigenvalue was among the flagged integrals.
+   In most standard situations, this warning is probably harmless.
+   If needed, this can be verified by adjusting the radial_multiplier flag.
+
+------------------------------------------------------------
+          Leaving FHI-aims.
+          Date     :  20230817, Time     :  094537.254
+
+          Computational steps:
+          | Number of self-consistency cycles          :           33
+          | Number of SCF (re)initializations          :            1
+          | Number of coupled perturbed self-consistency cycles          :            0
+          | Number of CPSCF (re)initializations          :            0
+
+          Detailed time accounting                     :  max(cpu_time)    wall_clock(cpu1)
+          | Total time                                  :      241.918 s         296.226 s
+          | Preparation time                            :        0.209 s           0.243 s
+          | Boundary condition initalization            :        0.071 s           0.075 s
+          | Grid partitioning                           :        0.042 s           0.046 s
+          | Preloading free-atom quantities on grid     :        0.160 s           0.169 s
+          | Free-atom superposition energy              :        0.029 s           0.030 s
+          | Total time for integrations                 :        5.294 s           5.645 s
+          | Total time for solution of K.-S. equations  :        0.715 s           0.756 s
+          | Total time for density update               :       10.394 s          11.086 s
+          | Total time for mixing & preconditioning     :        1.858 s           1.954 s
+          | Total time for Hartree multipole update     :        0.021 s           0.028 s
+          | Total time for Hartree multipole sum        :        2.220 s           2.311 s
+          | Total time for total energy evaluation      :        0.004 s           0.005 s
+          | Total time for scaled ZORA corrections      :        0.000 s           0.000 s
+          | Total time for DFPT                         :      221.496 s         273.737 s
+          | Total time first_order_DM                   :        0.500 s           0.614 s
+          | Total time first_order_density              :       35.907 s          44.726 s
+          | Total time first_order_potential            :        4.818 s           5.863 s
+          | Total time first_order_H                    :      170.225 s         208.879 s
+          | Total time solving of Sternheimer equations :        0.309 s           0.438 s
+          | Total time for dielectric constant          :        0.003 s           0.004 s
+          | Total time momentum matrix                  :        0.000 s           0.000 s
+
+          Partial memory accounting:
+          | Residual value for overall tracked memory usage across tasks:     0.000000 MB (should be 0.000000 MB)
+          | Peak values for overall tracked memory usage:
+          |   Minimum:       39.956 MB (on task 0 after allocating DFPT_pulay_mixing::pulay_mix::alphas)
+          |   Maximum:       40.096 MB (on task 1 after allocating DFPT_pulay_mixing::pulay_mix::alphas)
+          |   Average:       40.026 MB
+          | Largest tracked array allocation:
+          |   Minimum:       13.210 MB (DFPT_pulay_mixing::initialize_pulay_mixing::X_in_diffs on task 0)
+          |   Maximum:       13.210 MB (DFPT_pulay_mixing::initialize_pulay_mixing::X_in_diffs on task 0)
+          |   Average:       13.210 MB
+          Note:  These values currently only include a subset of arrays which are explicitly tracked.
+          The "true" memory usage will be greater.
+
+          Have a nice day.
+------------------------------------------------------------
