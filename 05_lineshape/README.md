@@ -328,7 +328,7 @@ This will produce a plot like the following:
   <img src="Figures/DOS_T100K.png" width="500" height="400">
 </p>
 
-If we look at the corresponding (same sampling, same q-point grid) anharmonic band structure, we can clearly see that the peaks in the phonon DOS correspond to the densest parts of the dispersion plot:
+If we look at the corresponding (same sampling, same q-point grid) anharmonic band structure, what connection do you see between the two?
 
 <p align="center">
   <img src="Figures/T100K_anh_bands_333.png" width="625" height="500">
