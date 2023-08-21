@@ -12,7 +12,7 @@ To parse data into the TDEP format from a vasprun.xml file simply do
 
 `tdep_parse_output vasprun.xml`
 
-This will provide infile.forces, infile.meta, infile.positions and  infile.stat files.
+This will provide infile.forces, infile.meta, infile.positions and  infile.stat files. For (eg.) an MD run at 300 K you may also add the option `--temperature 300` to get the correct temperature in infile.meta.
 
 In addition, from a VASP run with (eg.) `LEPSILON=.TRUE.`, the dielectric tensor and Born effective charges will be printed to files infile.dielectric tensor and infile.born_charges. This should be combined for further use:  
 
