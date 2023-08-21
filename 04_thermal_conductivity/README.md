@@ -68,7 +68,7 @@ Read the documentation for the [thermal conductivity](https://tdep-developers.gi
 Go now into your work directory and copy the files provided.
 
 
-#### Note: The tutorial files can be downloaded from the school webpage [tdep_school](https://github.com/tdep-developers/tdep-school-2023)
+#### Note: The tutorial files can be downloaded from the school webpage [tdep_school](https://github.com/tdep-developers/tdep-tutorials/tree/main)
 
  
 Inspect the content of the folder: 
