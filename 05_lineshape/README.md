@@ -226,7 +226,7 @@ This will result in a plot like the following:
 
 - We can now proceed by repeating the calculation for an increasing q-point grid as before (as well as converge the forceconstant cutoffs and number of samples), and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg (or the other parameters) and simply seeing when it stops changing. Again, the converged value of -qg (-rc2, -rc3 and number of configurations) is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
 
-- Once convergence is achieved for this temperature, we can now repeat this procedure for a much higher temperature (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? Do you expect quantum effects to change anything? (Hint: see [6])
+- Once convergence is achieved for this temperature, we can now repeat this procedure for a much higher temperature (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? In case you used the classical Molecular Dynamics sampling, do you expect quantum effects to change anything? (Hint: see [6])
 
 # Spectral Thermal Conductivity Introduction
 
