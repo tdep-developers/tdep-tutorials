@@ -2,19 +2,23 @@
 
 This tutorial covers how to produce TDEP input files from VASP ouput data. It requires the `tdeptools` package ( https://github.com/flokno/tools.tdep )
 
-## Molecular Dynamics
+**We need the most recent version of [ASE](https://gitlab.com/ase/ase) in order to be able to parse dielectric tensors**. Please make sure you have that installed, e.g., by running
 
-Given a `vasprun.xml` file produced from a VASP MD run, you may simply run:
+```bash
+pip install git+https://gitlab.com/ase/ase.git@master
+```
 
-`tdep_parse_output vasprun.xml --temperature 300`
+To parse data into the TDEP format from a vasprun.xml file simply do
 
-This will produce the following set of infiles: infile.forces, infile.meta, infile.positions, infile.stat.
+`tdep_parse_output vasprun.xml`
 
-## LO-TO splitting
+This will provide infile.forces, infile.meta, infile.positions and  infile.stat files.
 
-To include the effect of long-range electrostatics in TDEP, an `infile.lotosplitting` containing the Dielectric tensor and Born effective charges is required.
+In addition, from a VASP run with (eg.) `LEPSILON=.TRUE.`, the dielectric tensor and Born effective charges will be printed to files infile.dielectric tensor and infile.born_charges. This should be combined for further use:  
 
-From an VASP run with `LEPSILON=.TRUE.`, a file `outfile.lotosplitting` can be obtained by running the command:
+`cat infile.dielectric_tensor infile.born_charges > infile.lotsplitting`
+
+Alternatively, from an VASP run with `LEPSILON=.TRUE.`, a file `outfile.lotosplitting` can be obtained by running the command:
 
 `tdep_read_lotosplitting_from_outcar OUTCAR`
 
