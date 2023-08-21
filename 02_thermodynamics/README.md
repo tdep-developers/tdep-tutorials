@@ -6,7 +6,7 @@ For an arbitrary system with a potential $V(\vec{R})$, the free energy is very d
 
 Fortunately, in the harmonic approximation, the free energy can computed exactly using the phonon density of states defined as:
 ```math
-g(\omega) = \sum_\lambda \delta(\omega - \omega_\lambda)
+g(\omega) = \frac{(2\pi)^3}{V} \int_{\mathrm{BZ}} \delta(\omega - \omega_{q,s}) dq
 ```
 
 For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integrating this density of states with the free energy of each phonons modes
