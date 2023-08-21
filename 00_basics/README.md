@@ -17,7 +17,7 @@ See https://tdep-developers.github.io/tdep/files/ for a detailed description of 
 
 In a directory containing all of the above input files, second order effective force constants can be extracted using the command 
 
-`extract_forceconstant -rc2 100 -s 50 > fc2.log`. 
+`extract_forceconstants -rc2 100 -s 50 > fc2.log`. 
 
 A least-squares solution for the set of second order IFCs that best fit the position-force data (in `infile.{positions,forces}) will then be performed. Before the fit is performed, the number of indepedent IFCs are reduced by enforcing the appropriate symmetries. These include the symmetries of the crystal being considered, as well as general translational and rotational invariances. This typically drastically reduces the number of IFCs that need to be fit. See https://tdep-developers.github.io/tdep/program/extract_forceconstants/ or Ref. [1] for more details on how this is practically done.
 
