@@ -239,7 +239,7 @@ This will result in a plot like the following:
 
 - We can now proceed by repeating the calculation for an increasing q-point grid as before (as well as converge the forceconstant cutoffs and number of samples), and checking for its convergence by plotting the band structure for the different values. This is, unfortunately, a bit more complicated to check than in the --highsymmetrypoint case, but can be done by comparing the plots evolution with -qg (or the other parameters) and simply seeing when it stops changing. Again, the converged value of -qg (-rc2, -rc3 and number of configurations) is the one we will be using for this temperature from now on. Note again, that in order to save the files we want to keep from being re-written we have to rename them before re-running the calculations.
 
-- Once convergence is achieved for this temperature, we can now repeat this procedure for a much higher temperature (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? In case you used the classical Molecular Dynamics sampling, do you expect quantum effects to change anything? (Hint: see [6])
+- Once convergence is achieved for this temperature, we can now repeat this procedure for a much higher temperature (convergence included!). What do you see changing? Why? What can we conclude about the anharmonicity of this material? In case you used the classical Molecular Dynamics sampling, do you expect quantum effects to change anything? (Hint: see [4])
 
 # Spectral Thermal Conductivity Introduction
 
@@ -257,11 +257,11 @@ A half-way compromise between the two is also possible to obtain, by performing 
 
 where X and Y are two operators in the Heisenberg representation and the dagger represents hermitian conjugation. In this representation of the heat current autocorrelation, some of the quantum character of the fluctuations can be recovered via the occupations despite the usage of classical simulations.
 
-In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [4] :
+In order to evaluate $\kappa$, we start by writing the expression for the heat current in terms of phonon operators [5] :
 
 <p>$$\textbf{S}(t) = \frac{1}{2V} \sum_{\textbf{q} s_1 s_2} \omega_{\textbf{q} s_1} \textbf{v}_{\textbf{q} s_1 s_2} B_{\textbf{q} s_1}(t) A_{\bar{\textbf{q}} s_2}(t)$$<p>
 
-Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [5] for the definition of these operators in terms of phonon creation and annihilation operators).
+Here $\bf{v}$ are the off-diagonal phonon group velocities and couple phonons with the same momentum in different bands, while B and A are the momentum and displacement operators in the phonon representation (see [6] for the definition of these operators in terms of phonon creation and annihilation operators).
 
 Substituting S(t) into the Green-Kubo equation we obtain
 
@@ -286,7 +286,7 @@ If we now convert our correlation functions into spectral functions via the rela
 
 <p>$$\langle X(t) Y \rangle = i G^>(X,Y^{\dagger}) = \int J^{X Y^{\dagger}}(\Omega)~(n(\Omega)+1)e^{i\omega t} d\Omega$$<p>
 	
-where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [5] for more on this applied to Raman scattering), we can obtain (after some math and doing $s_1=s_4$ and $s_2=s_3$)
+where $J(\Omega)$ represents the spectral function of that correlation function, and use the convolution theorem to turn the product of correlation functions in the time domain into a convolution involving spectral functions in the frequency domain (see [6] for more on this applied to Raman scattering), we can obtain (after some math and doing $s_1=s_4$ and $s_2=s_3$)
 
 <p>$$\kappa^{\alpha \beta} = \frac{\pi}{2V} \sum_{\textbf{q}} \sum_{s_1 s_2} \mathfrak{Re}(\textbf{v}^{\alpha}_{\textbf{q} s_1 s_2} \textbf{v}^{\beta}_{\textbf{q} s_1 s_2}) \int^{+\infty}_{-\infty} J^{A A^{\dagger}}_{\textbf{q}s_1 s_1} (\Omega) ~ J^{A A^{\dagger}}_{\textbf{q} s_2 s_2} (\Omega) ~ c_v(\Omega) ~ d\Omega$$<p>
 	
@@ -431,11 +431,11 @@ In this plot we see that all of the heat is carried by the lower frequency acous
 
 [3](https://journals.aps.org/pr/abstract/10.1103/PhysRev.128.2589) A.A. Maradudin et. al., Phys. Rev. 128, 2589 (1962)
 
-[4](https://doi.org/10.1038/s41467-019-11572-4) L. Isaeva et. al. Nature Communications, 10(1):3853, (2019)
+[4](https://www.pnas.org/doi/full/10.1073/pnas.1707745115) Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
 
-[5](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607) N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
+[5](https://doi.org/10.1038/s41467-019-11572-4) L. Isaeva et. al. Nature Communications, 10(1):3853, (2019)
 
-[6](https://www.pnas.org/doi/full/10.1073/pnas.1707745115) Kim, D., et. al.,  Proceedings of the National Academy of Sciences of the United States of America, _115_(9), 1992–1997 (2018)
+[6](https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.6.033607) N. Benshalom, et. al. , Phys Rev Mater 6, 033607 (2022) 
 
 [7](https://www.nature.com/articles/s41524-021-00523-7) Dangic, D. et. al., npj Computational Materials volume 7:57 (2021) 
 
