@@ -1,5 +1,12 @@
+#General Scope
 
 This tutorial covers the lineshape calculation part of the code. The goal will be to go beyond simple perturbation theory and understanding what changes in the phonon spectral quantities when anharmonicity is taken into account. We'll start by generalizing the phonon lineshape beyond the weakly interacting approximation, and then go into the calculation of the thermal conductivity from a spectral function approach.
+
+This tutorial **does not cover**:
+*Structure relaxation
+*Supercell convergence
+*Extracting forceconstants
+*Sampling
 
 # Preparation 
 
