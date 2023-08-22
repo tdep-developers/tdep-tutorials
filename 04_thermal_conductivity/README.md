@@ -40,7 +40,7 @@ The data provided includes the IFCs and the unitcell obtained from previous DFT 
 ## Input files:
   `infile.ucposcar` 
   
-  `infile.forceconstants` 
+  `infile.forceconstant` 
   
   `infile.forceconstant_thirdorder` 
   
