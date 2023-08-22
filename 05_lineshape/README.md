@@ -8,6 +8,13 @@ This tutorial **does not cover**:
 * Extracting forceconstants
 * Sampling
 
+# Input Files
+
+To run this part of the code, the required input files are:
+* infile.ucposcar
+* infile.forceconstant
+* infile.forceconstant_thirdorder
+
 # Preparation 
 
 Before starting with the tutorial, make sure that you:
@@ -15,7 +22,6 @@ Before starting with the tutorial, make sure that you:
 - Have a system for which you can generate the required data for a wide enough set of temperatures (choose somewhere between 100K and 1300K, as long as it includes one temperature on the lower end and another on the higher end). If you cannot generate this data, an example is provided for Silicon between 100K and 1100K from classical Molecular Dynamics simulations.
 - Can parse files in hdf5 format (h5py for example, if you're using Python) and you have access to a plotting tool (matplotlib for example, if you're using Python).
 - Read the introduction texts (and go through the recommended material) beforehand.
-
 
 # Steps
 
