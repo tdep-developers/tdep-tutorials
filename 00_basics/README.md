@@ -51,11 +51,11 @@ Now, to use these IFCs to produce a phonon dispersion relation, simply run
 
 This produces a set of output files. Most important for us is the 'outfile.dispersion_relations' which contains the dispersion data. A convenient '.gnuplot' file is also produced so that the dispersion may be plotted simply by running:
 
-`gnuplot --persists outfile.dispersion_relations.gnuplot`
+`gnuplot --persist outfile.dispersion_relations.gnuplot`
 
 Confirm that this dispersion relation corresponds to what you expect the phonon dispersion relation of Si to look like by eg. comparing to the litterature. 
 
-To also obtain the phonon DOS, simply add the `--dos` options:
+To also obtain the phonon DOS, simply add the `--dos` option:
 
 `phonon_dispersion_relations --dos`
 
@@ -87,7 +87,7 @@ TDEP phonon thermodynamics will be covered in more detail in tutorial TODO.
 
 This will, in addition to the `outfile.forceconstant` file, write a `outfile.forceconstant_thirdorder` containing the third order IFCS, file. 
 
-Again, Some usefull information is printed in the log file:
+Again, some useful information is printed in the log file:
 - How many third order IFCs were fitted?
 - Do you see an improvement on R^2 by also including the third order IFCs in the fit?
 
