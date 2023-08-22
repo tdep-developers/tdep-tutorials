@@ -11,9 +11,9 @@ This tutorial **does not cover**:
 # Input Files
 
 To run this part of the code, the required input files are:
-* infile.ucposcar
-* infile.forceconstant
-* infile.forceconstant_thirdorder
+* [infile.ucposcar](https://tdep-developers.github.io/tdep/files/#infile.ucposcar)
+* [infile.forceconstant](https://tdep-developers.github.io/tdep/program/extract_forceconstants/#outfileforceconstant)
+* [infile.forceconstant_thirdorder](https://tdep-developers.github.io/tdep/program/extract_forceconstants/#outfileforceconstant_thirdorder)
 
 # Preparation 
 
