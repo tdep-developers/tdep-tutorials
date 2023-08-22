@@ -90,7 +90,7 @@ If you run it using:
 mpirun thermal_conductivity
 ```
 
-you will be able to get *output _thermal_conductivity* which contains the components of the thermal conductivity tensor  &kappa;_&alpha;_&beta;  for each temperature.
+you will be able to get *output _thermal_conductivity* which contains the components of the thermal conductivity tensor  $\kappa_{\alpha \beta}$  for each temperature.
 
 ```
 Row 	Description
@@ -184,7 +184,7 @@ Counting scattering events and calculating integration weights
 
 plot the results with 
 ```
-gnuplot outfile.thermal conducitivity.gnuplot -persist
+gnuplot outfile.thermal_conductivity.gnuplot -persist
 ```
 and study the plot. 
 
@@ -205,7 +205,7 @@ or for a given range
 ```
 mpirun thermal_conductivity --temperature_range 100 500 50
 ```
-Where you can specify the minimum, the maximum and the number of points. 
+where you can specify the minimum, the maximum and the number of points. 
 
 
 ## Study the convergence 
