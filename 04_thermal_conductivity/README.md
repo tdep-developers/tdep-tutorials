@@ -25,7 +25,6 @@ The tutorial **does not cover**:
 * Relax the structure
 * Supercell convergence
 * Extract force constants
-* Convergence of the results
 
   
 There are two test cases: Al and MgO. 
@@ -180,7 +179,7 @@ Counting scattering events and calculating integration weights
 
 
 ```
-
+The first step (iter 0) represents the RTA solution. The last step is the converged iterative solution. For reference, take a look at the documentation about the [thermal conductivity](https://tdep-developers.github.io/tdep/program/thermal_conductivity/).
 
 plot the results with 
 ```
@@ -258,7 +257,7 @@ mpirun thermal_conductivity -qg 10 10 10 --temperature 300 --noisotope
 ```
 
 Compare the outputs. 
-The isotope scattering is known to decrease the thermal conductivity of MgO by 30%-40% at 300K. Did you observe that?
+The isotope scattering is known to decrease the thermal conductivity of MgO by 30%-40% at 300K. Did you observe that? For reference, see [Florian Knoop et.al, PRB 107, 224304 (2023)](https://journals.aps.org/prb/pdf/10.1103/PhysRevB.107.224304). 
 
 
 ![MgO: comparison betweeen natural isotope distribution and pure cases](https://github.com/RobertaFarris93/tdep-tutorials/blob/thermal_conductivity/04_thermal_conductivity/Plots/MgO_isotope.png)
@@ -291,7 +290,7 @@ So far we see how to extract the thermal conductivity tensor using TDEP routine.
 
 *outfile.cumulative_kappa.hdf5*
 
-It contains the information on the cumulative thermal conductivity plots described in the manual, per each computed temperature. You can inspect the information contained in the file using the following minimal Python script:
+The file contains the information on the cumulative thermal conductivity plots described in the manual, per each computed temperature. You can inspect the information contained in the file using the following minimal Python script:
 ```
 import numpy
 import matplotlib.pyplot as plt
