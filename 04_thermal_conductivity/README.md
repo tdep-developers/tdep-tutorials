@@ -87,7 +87,7 @@ It contains the minimum input files needed for the thermal conductivity
 If you run it using:
 
 ```
-mpirun thermal_conductivity
+mpirun thermal_conductivity > kappa.log
 ```
 
 you will be able to get *output _thermal_conductivity* which contains the components of the thermal conductivity tensor  $\kappa_{\alpha \beta}$  for each temperature.
@@ -101,7 +101,7 @@ Row 	Description
 
 As explained in the documentation, without specifying any optional flag, you will obtain the thermal conductivity for a natural isotope distribution, with a q-mesh of 26 26 26 (default value), for 5 different temperatures between 100K and 300K.
 
-You can check the status of the calculation by looking at the log.file printed
+You can check the status of the calculation by looking at the file kappa.log printed
 ```
 ... using 4 MPI ranks
  ... read unitcell poscar
@@ -218,6 +218,9 @@ where you can specify the minimum, the maximum and the number of points.
 What is a good grid for the thermal conductivity of Al? 
 
 The calculation of thermal conductivity, being a integrated quantity, requires its evaluation under the assumption of an infinitely refined q-point grid. Unfortunately, this is impossible from a computational point of view, but using progressively finer grids, the behavior of thermal conductivity should scale linearly with q. Thus, in order to converge the thermal conductivity value, we could perform the calculation for a set of q-grids and then evaluating then studing the convergence by plotting the thermal conductivity against 1/q and extrapolating the value for 1/q at 0.  The point of intersection on the y-axis resulting from this regression corresponds to the thermal conductivity within the hypothetical context of an infinitely dense q-point grid. 
+For more details, see [Esfarjani, K. et. al., Phys. Rev. B 84, 085204 (2011)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.84.085204).
+
+
 ![Here the convergence test for thermal conductivity of aluminum](https://github.com/RobertaFarris93/tdep-tutorials/blob/thermal_conductivity/04_thermal_conductivity/Plots/Al_convergence.png)
 
 ### Thermal conductivity of MgO
@@ -255,9 +258,11 @@ mpirun thermal_conductivity -qg 10 10 10 --temperature 300 --noisotope
 ```
 
 Compare the outputs. 
+The isotope scattering is known to decrease the thermal conductivity of MgO by 30%-40% at 300K. Did you observe that?
+
 
 ![MgO: comparison betweeen natural isotope distribution and pure cases](https://github.com/RobertaFarris93/tdep-tutorials/blob/thermal_conductivity/04_thermal_conductivity/Plots/MgO_isotope.png)
-The isotope scattering is known to decrease the thermal conductivity of MgO by 30%-40% at 300K. Did you observe that?
+
 
 #### Extrapolation for an infinite grid of q-points
 
