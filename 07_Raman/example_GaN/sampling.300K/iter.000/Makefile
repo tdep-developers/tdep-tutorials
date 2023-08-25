@@ -8,7 +8,7 @@ infile.forces:
 	sokrates_compute --folder-model ../../module/ samples*/*/geometry.in --tdep
 
 infile.forceconstant: infile.forces
-	extract_forceconstants --polar -rc2 10 -U0 | tee extract_forceconstants.log
+	extract_forceconstants --polar -rc2 7 -U0 | tee extract_forceconstants.log
 	ln -sf outfile.forceconstant infile.forceconstant
 	phonon_dispersion_relations -p && gnuplot -p outfile.dispersion_relations.gnuplot_pdf
 
