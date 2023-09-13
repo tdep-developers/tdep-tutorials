@@ -124,7 +124,7 @@ We will start with backscattering in $z$ direction:
   tdep_parse_output sample.000*/qe.json
   ```
 
-  in case [you are using Quantum Espresso](../00_preparation/qe_dielectric_tensors/README.md), other codes that should work out of the box are VASP and FHI-aims. If you are using another code, just make sure to write the dielectric tensors into a plain text file with 3 columns, similar to the `infile.lotosplitting`. Name the file `infile.dielectric_tensor` and copy or link it to your working directory `raman_z`.
+  in case [you are using Quantum Espresso](../00_preparation/parsing/QuantumEspresso/README.md), other codes that should work out of the box are VASP and FHI-aims. If you are using another code, just make sure to write the dielectric tensors into a plain text file with 3 columns, similar to the `infile.lotosplitting`. Name the file `infile.dielectric_tensor` and copy or link it to your working directory `raman_z`.
 
   **If you cannot run DFPT at the moment, do not worry, and take the hidden input files in `07_Raman/example_GaN/.assets`.**
 
