@@ -28,7 +28,7 @@ Please install the following repositories in this order:
 - Go to the tutorials folder (the folder in which you find this README) and `cd` into the `test` directory:
 
   ```bash
-  cd .../tdep-tutorials/00_preparation/gan_potential/test
+  cd .../tdep-tutorials/00_preparation/potential_energy_surfaces/pes_gan/test
   ```
 
 - create a virtual environment and activate it:
