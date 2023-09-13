@@ -43,7 +43,7 @@ To speed up things we provide a machine-learning potential so calculate forces. 
 
 6. Now we can extract the forceconstants with
    ```bash
-   extract_forceconstants -rc2 10 | tee extract_forceconstants.log
+   extract_forceconstants -rc2 10 --polar | tee extract_forceconstants.log
    ```
 
 7. Create phonon dispersion and plot:
