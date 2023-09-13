@@ -89,7 +89,7 @@ If you run it using:
 mpirun thermal_conductivity > kappa.log
 ```
 
-you will be able to get *output _thermal_conductivity* which contains the components of the thermal conductivity tensor  $\kappa_{\alpha \beta}$  for each temperature.
+you will be able to get *outfile.thermal_conductivity* which contains the components of the thermal conductivity tensor  $\kappa_{\alpha \beta}$  for each temperature.
 
 ```
 Row 	Description
@@ -239,7 +239,7 @@ mpirun thermal_conductivity -qg 10 10 10 --temperature 300
 
 ```
 
-By default, TDEP uses the isotope natural distribution.(tabulated in the code, taken from the symbol in infile.ucposcar). In case you want to specify some other distribution, you can write in the same directory the [inpute.isotopes file](https://tdep-developers.github.io/tdep/files/#infileisotopes) following the example linked here. 
+By default, TDEP uses the isotope natural distribution.(tabulated in the code, taken from the symbol in infile.ucposcar). In case you want to specify some other distribution, you can write in the same directory the [infile.isotopes file](https://tdep-developers.github.io/tdep/files/#infileisotopes) following the example linked here. 
 ```
 1         # number of isotopes for first atom in infile.ucposcar
 1 28.0855 # concentration, mass, one line per isotope

@@ -25,7 +25,7 @@ To speed up things we provide a machine-learning potential so calculate forces. 
    canonical_configuration -n 4 -t 300 -mf 20 --quantum
    ```
 
-   this will create 4 samples at a temperature of 0K assuming a maximum frequency (`-mf`) of 20 THz – just a rough guess. This could also be just a single sample in the beginning, it should not matter too much.
+   this will create 4 samples at a temperature of 300K assuming a maximum frequency (`-mf`) of 20 THz – just a rough guess. This could also be just a single sample in the beginning, it should not matter too much.
 
 4. To keep things organized, we move everything into a folder `samples`, there's a script in `tdeptools` to do that:
    ```bash
@@ -43,7 +43,7 @@ To speed up things we provide a machine-learning potential so calculate forces. 
 
 6. Now we can extract the forceconstants with
    ```bash
-   extract_forceconstants -rc2 10 | tee extract_forceconstants.log
+   extract_forceconstants -rc2 10 --polar | tee extract_forceconstants.log
    ```
 
 7. Create phonon dispersion and plot:
@@ -65,7 +65,7 @@ To speed up things we provide a machine-learning potential so calculate forces. 
 
 10. Now create the next iteration. There is a script in `tdeptools` that does everything automatically for you:
    ```bash
-   tdep_create_next_iteration -T 0
+   tdep_create_next_iteration -T 300
    ```
 
    will create the samples and move them to a folder `iter.001`. Note that it will generally create twice as many samples for the next iteration, to be precise: 4, 8, 16, 32, …, based on the current iteration (inferred from the folder name, i.e., `iter.000` for the initial guess, then `iter.001` for the first real iteration, then `iter.002`, you get the point). The maximal number of samples is set to 512, but that can be adjusted. Together with re-using the previous samples (see below), this is the best sampling scheme in our experience. Feel free to prove us wrong and find a better one!

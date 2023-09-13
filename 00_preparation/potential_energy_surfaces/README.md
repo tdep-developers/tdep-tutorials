@@ -28,7 +28,7 @@ Please install the following repositories in this order:
 - Go to the tutorials folder (the folder in which you find this README) and `cd` into the `test` directory:
 
   ```bash
-  cd .../tdep-tutorials/00_preparation/gan_potential/test
+  cd .../tdep-tutorials/00_preparation/potential_energy_surfaces/pes_gan/test
   ```
 
 - create a virtual environment and activate it:
@@ -45,8 +45,8 @@ Please install the following repositories in this order:
   ```bash
   pip install https://github.com/sirmarcel/glp/archive/main.zip
   pip install https://github.com/flokno/mlff/archive/v0.2.1.zip
-  pip install https://github.com/flokno/tools.tdep/archive/main.zip
-  pip install https://github.com/flokno/tools.mlff/archive/main.zip
+  pip install https://github.com/flokno/tools.tdep/archive/v0.0.5.zip
+  pip install https://github.com/flokno/tools.mlff/archive/v0.0.2.zip
   ```
 
 ## Test

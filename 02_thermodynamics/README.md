@@ -82,7 +82,7 @@ According to the harmonic approximation, the bcc phase of zirconium present seve
   <figcaption><center><em>Phonons in bcc Zr in the harmonic approximation.</a></em></center></figcaption>
 </p>
 However, it is well documented that zirconium is in a bcc phase at high temperature and ambient pressure, showing thus a limitation of the harmonic approximation.
-The stabilization of zirconium can be explained through explicit temperature effects that can be caputred by the TDEP approach [Ref. 1].
+The stabilization of zirconium can be explained through explicit temperature effects that can be captured by the TDEP approach [Ref. 1].
 
 When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
 When working at 0K, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
