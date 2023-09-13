@@ -71,7 +71,7 @@ This $X(YX)Z$ is to be read as:
 
 - X: Direction of incoming light (its $\mathbf k$ vector)
 - Y: Polarization of incoming light $\mathbf e_\mathrm{i}$
-- X: Polarization of incoming light $\mathbf e_\mathrm{o}$
+- X: Polarization of outgoing light $\mathbf e_\mathrm{o}$
 - Z: Direction of outgoing light (its $\mathbf k$ vector)
 
 #### Backscattering experiment
