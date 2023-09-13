@@ -89,7 +89,7 @@ If you run it using:
 mpirun thermal_conductivity > kappa.log
 ```
 
-you will be able to get *output _thermal_conductivity* which contains the components of the thermal conductivity tensor  $\kappa_{\alpha \beta}$  for each temperature.
+you will be able to get *outfile.thermal_conductivity* which contains the components of the thermal conductivity tensor  $\kappa_{\alpha \beta}$  for each temperature.
 
 ```
 Row 	Description
