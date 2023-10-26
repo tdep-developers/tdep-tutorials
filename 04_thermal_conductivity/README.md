@@ -400,7 +400,7 @@ To do so, with the data provided in the folder ``convergence_tests/input_MgO/```
   **Tip**: in order to avoid this step, that could require a significant amount of time, we provided a potential for MgO. You can download that from the first Tutorial. Create a folder "iter0" and copy your input files and the potential there.
 
 
-    * perform a self-consistent loop as described in [Tutorial 1](https://github.com/tdep-developers/tdep-tutorials/tree/main/01_sampling) for MgO for 10 iterations
+    * perform a self-consistent loop as described in [Tutorial 1](https://github.com/tdep-developers/tdep-tutorials/tree/main/02_sampling) for MgO for 10 iterations
     * compute thermal conductivity at each step:
           ```
           mpirun thermal_conductivity -qg 8 8 8 --temperature 300

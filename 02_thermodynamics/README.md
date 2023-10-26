@@ -141,7 +141,7 @@ Remember to rename the outfile.X before launching tdep again !
 To grasp a better idea on how to converge the free energy, let's have a look at its computation from the start, using stochastic sampling.
 For the lattice parameter of 3.63 $\mathring{a}$, the self-consistent sampling have not been done, and we will do it now.
 In the `example_Zr/sampling.1300K/a3.63` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1300K.
-If you need help on how to do so, don't hesitate to look back at the 01_sampling tutorial.
+If you need help on how to do so, don't hesitate to look back at the 02_sampling tutorial.
 
 When doing the iterations, look at the evolution of the harmonic free energy, $U_0$ correction term and the total free energy.
 Try to make the free energy converge to 1 meV/at.
