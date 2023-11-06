@@ -17,7 +17,7 @@ The Raman tensor is given by the susceptibility-susceptibility response function
 
 $$
 I_{\mu \nu, \xi \rho} (\Omega)
-= \int \langle \chi_{\mu \nu} \chi_{\xi \rho} \rangle {\mathrm e}^{- \mathrm i \Omega t} \mathrm d t~,
+= \int \langle \chi_{\mu \nu} (t) \chi_{\xi \rho} (0) \rangle {\mathrm e}^{- \mathrm i \Omega t} \mathrm d t~,
 $$
 
 with the polarizability also known from the dielectric tensor
