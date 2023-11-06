@@ -8,16 +8,16 @@ This tutorial covers the basics to compute temperature-dependent first-order Ram
 What we need to compute is the Raman scattering cross section, Eq. (7) in Ref. [1], 
 
 $$
-\sigma(\Omega) \propto \sum_{\mu \nu \xi \rho} E_\mu^{\text {out }} E_{\xi}^{\text {out }} I_{\mu \nu, \xi \rho}(\Omega) E_\nu^{\text {in }} E_\rho^{\text {in }}
+\sigma(\omega) \propto \sum_{\mu \nu \xi \rho} E_\mu^{\text {out }} E_{\xi}^{\text {out }} I_{\mu \nu, \xi \rho}(\omega) E_\nu^{\text {in }} E_\rho^{\text {in }}
 $$
 
-which relates the intensity of incoming with with E-field vector ${\mathbf E}^\mathrm{in}$ to the intensity of the outgoing light with E-field vector ${\mathbf E}^\mathrm{out}$, where $\mu$, $\xi$, $\nu$, $\rho$ are Cartesian indices, and $I_{\mu \nu, \xi \rho}$ is the _Raman tensor_.
+which relates the intensity of incoming with with E-field vector ${\mathbf E}^\mathrm{in}$ to the intensity of the outgoing light with E-field vector ${\mathbf E}^\mathrm{out}$, where $\mu$, $\xi$, $\nu$, $\rho$ are Cartesian indices, $I_{\mu \nu, \xi \rho}$ is the _Raman tensor_, and $\omega$ is the Raman shift frequency.
 
 The Raman tensor is given by the susceptibility-susceptibility response function
 
 $$
-I_{\mu \nu, \xi \rho} (\Omega)
-= \int \langle \chi_{\mu \nu} (t) \chi_{\xi \rho} (0) \rangle {\mathrm e}^{- \mathrm i \Omega t} \mathrm d t~,
+I_{\mu \nu, \xi \rho} (\omega)
+= \int \langle \chi_{\mu \nu} (t) \chi_{\xi \rho} (0) \rangle {\mathrm e}^{- \mathrm i \omega t} \mathrm d t~,
 $$
 
 with the polarizability also known from the dielectric tensor
