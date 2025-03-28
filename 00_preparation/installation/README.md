@@ -14,7 +14,7 @@ Go inside this folder.
 
 ## Compiling
 
-`TDEP` is written in modern Fortran, and requires a working Fortran environment. All system-specific settings are saved in a file called `important_settings`. There are some example `important_settings.target` template files in the [`examples/build`](./examples/build) folder. We advise to pick the one closest to your target system and adjust the respective fields.
+`TDEP` is written in modern Fortran, and requires a working Fortran environment. All system-specific settings are saved in a file called `important_settings`. There are some example `important_settings.target` template files in the [`examples/build`](https://github.com/tdep-developers/tdep/tree/main/examples/build) folder of the `TDEP` repository. We advise to pick the one closest to your target system and adjust the respective fields.
 
 ## Requirements
 
