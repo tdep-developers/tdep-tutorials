@@ -1,5 +1,7 @@
 # custom
 .DS_Store
+outfile.*
+infile.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
