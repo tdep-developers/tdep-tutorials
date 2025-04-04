@@ -109,12 +109,12 @@ For the 12th iteration of the `a3.61` folder, we have generated all the necessar
 
 Note that the configurations were generated using the self-consistent stochastic approach using the [`canonical_configuration`](https://tdep-developers.github.io/tdep/program/canonical_configuration/) binary at a temperature of 1300 K.
 
-1. Change directory to `example_Zr/sampling.1300K/a3.61/iter.012` or copy the data in a new folder.
+1. Change directory to `example_Zr/sampling.1300K/a3.61/iter.012` or copy the data to a new folder.
 2. Compute the second-order force constants:
     - `extract_forceconstants -rc2 10.0 -U0`
         - Expected Runtime: 5 seconds
         - Important Results: `outfile.forceconstant` and `outfile.U0`
-        - Expected Output:
+        - Expected Output (to stdout):
         ```sh
          BASELINE ENERGY (eV/atom):
              U0:             -98782.253022
@@ -125,12 +125,11 @@ Note that the configurations were generated using the self-consistent stochastic
     - `phonon_dispersion_relations --dos --temperature 1300`. 
         - Expected Runetime: 1 second
         - Important Results: `outfile.free_energy`
-        - Expected Output:
+        - Expected Output (to stdout):
         ```sh
         T(K)     F(eV/atom)         S(eV/K/atom)       Cv(eV/K/atom)
         1300.00000 -0.73434817276E+00  0.82376351069E-03  0.25815978923E-03
         ```
-
 
 We now have all we need to compute the TDEP free energy! The `oufile.free_energy` contains harmonic free energy (column 2) and the `outfile.U0` contains the temperature dependent estimate of $U_0$. More specifically:
   - The `outfile.free_energy`, obtained due to the use of the `--temperature` option of `phonon_dispersions`, you will find 4 values :
@@ -170,20 +169,18 @@ When doing the iterations, look at the evolution of the harmonic free energy, $U
 Try to make the free energy converge to 1 meV/atom.
 
 It's always a good practice to use previous force constants close to the desired conditions (temperature/volume) when available !
-With this, you can bypass the first iterations and already start with a larger number of configurations.
-For this example, since you've already computed force constants at 1300K, you can use them to start your sampling at 1100K.
+With this, you can bypass the first iterations and already start with a larger number of configurations. In this instance, we have provided force constants from the a3.61 as a starting point.
 
 The steps to do the stochastic sampling are :
-1. Go to the folder `example_Zr/sampling.1300K/a3.63/iter.005` to start the sampling
-2. Copy the `infile.forceconstant` file from your previous calculation to the folder.
-3. Check the `Makefile` and the target `init`. You should see the absence of the `-mf` variable since you are already starting with a `infile.forceconstant`.
-4. `make init` to create the first 128 samples
-5. compute the forces with `make compute`, this will use the So3krates potential to compute forces for the samples and create TDEP input files
-6. now we can extract the forceconstants → `make fc`
-7. inspect the phonon dispersion
-8. create the next iteration from the current set of force constants, `make iteration`
-9. move the folder `iter.006` down and `cd` there
-10. repeat until convergence
+1. Go to the folder `example_Zr/sampling.1300K/a3.63/iter.001` to start the sampling.
+2. Check the `Makefile` and the target `init`. You should see the absence of the `-mf` variable since you are already starting with a `infile.forceconstant`.
+3. `make init` to create the first 128 samples
+4. compute the forces with `make compute`, this will use the So3krates potential to compute forces for the samples and create TDEP input files
+5. now we can extract the forceconstants → `make fc`
+6. inspect the phonon dispersion
+7. create the next iteration from the current set of force constants, `make iteration`
+8. move the folder `iter.002` down and `cd` there
+9. repeat until convergence
 
 
 Things to look out for

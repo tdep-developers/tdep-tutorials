@@ -2,6 +2,8 @@
 .DS_Store
 outfile.*
 infile.*
+sample.*
+!03_thermodynamics/example_Zr/sampling.1300K/a3.63/iter.005/infile.forceconstant
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
