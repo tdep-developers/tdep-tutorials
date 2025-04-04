@@ -47,6 +47,7 @@ Please install the following repositories in this order:
   pip install https://github.com/flokno/mlff/archive/v0.2.1.zip
   pip install https://github.com/flokno/tools.tdep/archive/v0.0.5.zip
   pip install https://github.com/flokno/tools.mlff/archive/v0.0.2.zip
+  pip install 'numpy<2.0' jax==0.4.13 jaxlib==0.4.13 optax==0.2.0 orbax_checkpoint==0.5.3 --no-dependencies
   ```
 
 ## Test
