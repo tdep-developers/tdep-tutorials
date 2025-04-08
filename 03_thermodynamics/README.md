@@ -105,82 +105,78 @@ We will need to perform simulations for several volumes, with reference data tha
 
 To start, we will compute the free energy of BCC zirconium with a lattice parameter of 3.61 $\mathring{A}$.
 In the `example_Zr` folder, you will find a subdirectory `sampling.1300K` which contains subfolders `aX`, where X is a number giving the lattice parameter.
-For the 12th iteration of the `a3.61` folder, we have generated all the necessary input files to compute the free energy with TDEP.
-
-Note that the configurations were generated using the self-consistent stochastic approach using the [`canonical_configuration`](https://tdep-developers.github.io/tdep/program/canonical_configuration/) binary at a temperature of 1300 K.
+For the 12th iteration of the `a3.61` folder, we have generated all the necessary input files to compute the free energy with TDEP. **Note that the configurations were generated using the self-consistent stochastic approach using the [`canonical_configuration`](https://tdep-developers.github.io/tdep/program/canonical_configuration/) binary at a temperature of 1300 K.**
 
 1. Change directory to `example_Zr/sampling.1300K/a3.61/iter.012` or copy the data to a new folder.
-2. Compute the second-order force constants:
-    - `extract_forceconstants -rc2 10.0 -U0`
-        - Expected Runtime: 5 seconds
-        - Important Results: `outfile.forceconstant` and `outfile.U0`
-        - Expected Output (to stdout):
-        ```sh
-         BASELINE ENERGY (eV/atom):
-             U0:             -98782.253022
-        ```
-    - For downstream commands to load the force constants file we must rename it to `infile.forceconstant`. Simply run: `mv outfile.forceconstant infile.forceconstant`
-3. Compute the phonon dispersion, density of states and other (harmonic) thermodynamic properties at 1300K.
-    - **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
-    - `phonon_dispersion_relations --dos --temperature 1300`. 
-        - Expected Runetime: 1 second
-        - Important Results: `outfile.free_energy`
-        - Expected Output (to stdout):
-        ```sh
-        T(K)     F(eV/atom)         S(eV/K/atom)       Cv(eV/K/atom)
-        1300.00000 -0.73434817276E+00  0.82376351069E-03  0.25815978923E-03
-        ```
+2. Compute the second-order force constants and re-name the output to use the IFCs as input for the next iteration. This command should take about 5 seconds to run and will generate the `outfile.forceconstant` and `outfile.U0` files.
+```
+extract_forceconstants -rc2 10.0 -U0
+mv outfile.forceconstant infile.forceconstant
+```
+Expected U0:
+```sh
+    BASELINE ENERGY (eV/atom):
+        U0:             -98782.253022
+```
+3. Compute the phonon dispersion, density of states and other (harmonic) thermodynamic properties at 1300K. This should take about 1 second and will generate the `outfile.free_energy` file. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
+```sh
+phonon_dispersion_relations --dos --temperature 1300
+```
+Expected Output:
+```sh
+T(K)     F(eV/atom)         S(eV/K/atom)       Cv(eV/K/atom)
+1300.00000 -0.73434817276E+00  0.82376351069E-03  0.25815978923E-03
+```
 
-We now have all we need to compute the TDEP free energy! The `oufile.free_energy` contains harmonic free energy (column 2) and the `outfile.U0` contains the temperature dependent estimate of $U_0$. More specifically:
-  - The `outfile.free_energy`, obtained due to the use of the `--temperature` option of `phonon_dispersions`, you will find 4 values :
-      1. The temperature
-      2. The harmonic free energy, in eV/atom
-      3. The harmonic entropy, in ev/K/atom
-      4. The harmonic heat capacity in eV/K/atom
-  - The `outfile.U0` activated with the `-U0` option of `extract_forceconstants` contains the $U_0$ correction to the harmonic free energy
-      1. The average potential energy, in eV/atom
-      2. The $U_0$ correction at second order, which is equal to $\langle V(R) - V_2(R) \rangle$, in eV/atom.
-      3. The $U_0$ correction at third order, which is equal to $\langle V(R) - V_2(R) - V_3(R) \rangle$, in eV/atom. Note that it will be equal to the second order correction if you didn't extract third order force constants
-      3. The $U_0$ correction at fourth order, which is equal to $\langle V(R) - V_2(R) - V_3(R) -V_4(R)\rangle$, in eV/atom. Note that it will be equal to the second order correction if you didn't extract fourth order force constants
-  - To get the free energy with the second order correction, you just have to add the harmonic free energy and the second order correction in `outfile.U0` (the second value). 
-    The resulting free energy will be in eV/atom.
+We now have all we need to compute the TDEP free energy! The `oufile.free_energy` contains harmonic free energy (column 2) and the `outfile.U0` contains the temperature dependent estimate of $U_0$. To get the free energy with the second order correction, you just have to add the harmonic free energy in `outfile.free_energy` and the second order correction in `outfile.U0` (the second value). The `outfile.U0` will also contain high-order corrections, but since our reference free energy is from a harmonic system we can only use the harmonic correction for $U_0$. The resulting free energy will be in eV/atom.
 
-In this case $F_{\text{TDEP}} = \langle V(R) - V_2(R) \rangle + F_{\text{vib}} = U_0 + F_{\text{vib}}$.
-<!-- 
-- Try to converge the value of the harmonic free energy and the $U_0$ correction. For this, you have several parameters to control
-    1. The number of samples
-    2. The cutoff for the force constants
-    3. The q-point grid used to compute the harmonic properties. The grid can be controlled with the `--qg` option of the `phonon_dispersions` binary. For example, you can try
-    `phonon_dispersion_relation --dos --temperature 1300 -qg 10 10 10`
-    - Each of these parameters will have a different influence on the free energy. For instance, the $U_0$ value is computed using the potential energy of each configuration. This means that contrary to the force constants, which benefit from $3 \times N_{\mathrm{at}}$ values per configurations, only one data point is added to the average per configurations. **Try to observe the effect of each of the parameter on the convergence of the $U_0$ and the harmonic free energy**. 
-    - To simplify the convergence, it's a good idea to start with the number of samples. Indeed, this step is the most computationaly demanding (as it demand calculation of energy and forces !). Once this is done, you can look at the cutoff convergence and finish with q-point grid. 
+In this case $F_{\text{TDEP}} = \langle V(R) - V_2(R) \rangle + F_{\text{vib}} = U_0 + F_{\text{vib}}$ = .
 
-Remember to rename the outfile.X before launching tdep again !
-**Note** For the final steps of this tutorial, we will need the `outfile.U0` and `outfile.free_energy` files inside this folder. Don't erase them ! -->
 
-## Practical Example on Free Energy Convergence
+## Free Energy Convergence
 
-To grasp a better idea on how to converge the free energy, let's have a look at its computation from the start, using stochastic sampling.
-For the lattice parameter of 3.63 $\mathring{a}$, the self-consistent sampling have not been done, and we will do it now.
-In the `example_Zr/sampling.1300K/a3.63` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1300K.
-If you need help on how to do so, don't hesitate to look back at the 02_sampling tutorial.
+To better understand the free energy convergence, we will perform the computation from the start, using stochastic sampling.
+For the lattice parameter of 3.63 $\mathring{a}$, the self-consistent sampling has not been done, and we will do it now.
+In the `example_Zr/sampling.1300K/a3.63` folder, you will find everything needed to perform a self-consistent simulation of bcc Zr at 1300K. If you need help on how to do so, don't hesitate to look back at the 02_sampling tutorial.
 
 When doing the iterations, look at the evolution of the harmonic free energy, $U_0$ correction term and the total free energy.
-Try to make the free energy converge to 1 meV/atom.
+Try to make the free energy converge to tolerance of 1 meV/atom.
 
 It's always a good practice to use previous force constants close to the desired conditions (temperature/volume) when available !
 With this, you can bypass the first iterations and already start with a larger number of configurations. In this instance, we have provided force constants from the a3.61 as a starting point.
 
-The steps to do the stochastic sampling are :
+The steps to do the stochastic sampling are very similar to the 02_sampling tutorial:
 1. Go to the folder `example_Zr/sampling.1300K/a3.63/iter.001` to start the sampling.
-2. Check the `Makefile` and the target `init`. You should see the absence of the `-mf` variable since you are already starting with a `infile.forceconstant`.
-3. `make init` to create the first 128 samples
-4. compute the forces with `make compute`, this will use the So3krates potential to compute forces for the samples and create TDEP input files
-5. now we can extract the forceconstants → `make fc`
-6. inspect the phonon dispersion
-7. create the next iteration from the current set of force constants, `make iteration`
-8. move the folder `iter.002` down and `cd` there
-9. repeat until convergence
+2. Generate configurations with `canonical_configuration`. The output format should be set to the aims format to work well with the So3krates potential.
+```sh
+canonical_configuration -n 128 -t 1300 --output_format 4
+```
+3. Compute the forces on the generated configurations with the So3krates potential. This will create the infiles with displacements and forces for TDEP.
+```sh
+sokrates_compute --folder-model ../../../module ./aims_conf* --format=aims --tdep
+```
+4. Extract the force constants from the displacements and forces
+```sh
+extract_forceconstants -rc2 10.0 -U0
+```
+5. Copy the outfile force constants as an infile using:
+```sh
+ln -sf outfile.forceconstant infile.forceconstant
+```
+6. Compute and plot the density of states as well as other thermodynamic properties. 
+```
+phonon_dispersion_relations --dos --temperature 1300
+python ../../plot_dos.py 
+```
+7. Check convergence by comparing the DOS (or whichever property you wish to converge). To plot the DOS, U0 and harmonic free energy from all iterations run:  
+```
+python ../../plot_dos.py --basepath="../" --convergence 
+```
+If not converged create a new directory for the next iteration. For example,
+```
+mkdir ../iter.002 && cd ../iter.002
+cp ../iter.001/infile.forceconstant ../iter.001/infile.ucposcar ../iter.001/infile.ssposcar ./
+```
 
 
 Things to look out for
@@ -212,4 +208,5 @@ Things to look out for
 
 ## Prerequisites
 
-- [TDEP is installed](http://ollehellman.github.io/page/0_installation.html)
+- [TDEP is installed](https://github.com/tdep-developers/tdep/blob/main/INSTALL.md)
+- So3krates Potential
