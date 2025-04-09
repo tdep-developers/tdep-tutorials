@@ -1,4 +1,0 @@
-fc:
-	extract_forceconstants --polar -rc2 6 --stride STRIDE | tee extract_forceconstants.log
-	ln -sf outfile.forceconstant infile.forceconstant
-	phonon_dispersion_relations -p && gnuplot -p outfile.dispersion_relations.gnuplot_pdf
