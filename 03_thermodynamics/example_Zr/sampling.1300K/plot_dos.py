@@ -26,7 +26,7 @@ def plot_y_conv(
     plt.xticks(np.arange(len(y)))
     plt.ylabel(y_label);
     plt.tight_layout()
-    plt.savefig(os.path.join(outpath, var_name.replace(" ", "_") + ".png"));
+    plt.savefig(os.path.join(outpath, "convergence_of_" + var_name.replace(" ", "_") + ".png"));
     plt.close();
 
 def plot_dos(
@@ -79,8 +79,6 @@ def plot_convergence(
 
     plot_y_conv(y_data, f"{var_name} [eV / atom]", var_name, outpath)
 
-    
-    print(f"Convergence plot saved to {os.path.join(outpath, f'{var_name}_convergence.png')}")
 
 def plot_dos_convergence(
         basepath: os.PathLike = os.getcwd(), 
@@ -91,7 +89,6 @@ def plot_dos_convergence(
     
     plt.figure(figsize=(10, 6))
     cmap = plt.cm.viridis
-    y_offset = 0.0
     
     for i, iter_dir in enumerate(iter_dirs):
         dos_file = os.path.join(iter_dir, "outfile.phonon_dos")
@@ -100,7 +97,7 @@ def plot_dos_convergence(
             print(f"Warning: {dos_file} not found, skipping")
             continue
 
-        y_offset += i*0.25 # hard coded for tutorial, change for your material
+        y_offset = i*0.25 # hard coded for tutorial, change for your material
             
         dos_data = np.loadtxt(dos_file)
         color = cmap(i / len(iter_dirs))

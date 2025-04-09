@@ -1,7 +1,6 @@
 # custom
 .DS_Store
 outfile.*
-infile.*
 sample.*
 aims*
 !03_thermodynamics/example_Zr/sampling.1300K/a3.63/iter.005/infile.forceconstant

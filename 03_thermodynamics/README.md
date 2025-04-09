@@ -172,16 +172,20 @@ python ../../plot_dos.py
 ```
 python ../../plot_dos.py --basepath="../" --convergence 
 ```
-If not converged create a new directory for the next iteration. For example,
+Create a new directory for the next iteration:
 ```
 mkdir ../iter.002 && cd ../iter.002
 cp ../iter.001/infile.forceconstant ../iter.001/infile.ucposcar ../iter.001/infile.ssposcar ./
 ```
 
+To save some time we provide a shell script, `converge_F.sh` that will perform the remaining iterations and automatically create convergence plots. This script is somewhat bespoke, but many parts are reusable. The first argument is the number of iterations (feel free to change this) and the second is the tempearture in Kelvin.
+```
+cd ../ && sh converge_F.sh 10 1300
+```
 
 Things to look out for
-- At each iteration, the harmonic free energy and the U0 correction term are computed. Plot their evolution with the number of configurations !
-- After how many iteration does the total free energy stabilize ? Is it the same as for the phonon dispersion stabilization ?
+- At each iteration, the harmonic free energy and the U0 correction term are computed. Plot their evolution with the number of configurations! Do they seem to converge?
+- After how many iteration does the total free energy stabilize ? Is it the same as for the phonon dispersion stabilization?
 
 
 **Note** For the final steps of this tutorial, we will need the `outfile.U0` and `outfile.free_energy` files inside the folder `iter.XXX`. Don't erase them !
