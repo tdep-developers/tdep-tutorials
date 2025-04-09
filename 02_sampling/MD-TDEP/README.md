@@ -67,7 +67,7 @@ And we can now proceed to extract the force constants.
 However, we have to keep in mind that configurations in the infiles are correlated with each other since we extracted them from molecular dynamics simulations.
 We can avoid this correlation by using the `--stride` flag
 ```bash
-extract_forceconstant -rc2 10 --stride 50
+extract_forceconstants -rc2 10 --stride 50
 ```
 This will extract second order force constants using a cutoff of 10 angstrom and only use one configurations every 50 steps from the infiles.
 Keep in mind that this stride decrease the actual number of configuration used to extract the force constant.
@@ -75,7 +75,7 @@ Keep in mind that this stride decrease the actual number of configuration used t
 Now, link the outfile force constants as an infile, and extract the phonon dispersion
 ```bash
 ln -sf outfile.forceconstant infile.forceconstant
-phonon_dispersion --dos
+phonon_dispersion_relations --dos
 ```
 
 And that's it, we now have our phonon dispersion at 50K !
