@@ -21,9 +21,9 @@ def plot_y_conv(
         outpath : os.PathLike = os.getcwd()
     ):
 
-    plt.scatter(np.arange(len(y)), y);
+    plt.scatter(np.arange(1, len(y) + 1), y);
     plt.xlabel("Iteration");
-    plt.xticks(np.arange(len(y)))
+    plt.xticks(np.arange(1, len(y) + 1))
     plt.ylabel(y_label);
     plt.tight_layout()
     plt.savefig(os.path.join(outpath, "convergence_of_" + var_name.replace(" ", "_") + ".png"));
@@ -63,13 +63,12 @@ def plot_convergence(
     iter_dirs = get_iter_dirs(basepath)
     
     plt.figure(figsize=(10, 6))
-    cmap = plt.cm.viridis
-    y_offset = 0.0
     
     y_data = []
-    for i, iter_dir in enumerate(iter_dirs):
+    for iter_dir in iter_dirs:
         dos_file = os.path.join(iter_dir, "outfile.phonon_dos")
         
+        # Skipp iter.000 if its there
         if not os.path.exists(dos_file):
             print(f"Warning: {dos_file} not found, skipping")
             continue
@@ -139,7 +138,8 @@ def main():
     parser.add_argument(
         "--convergence",
         action = "store_true",
-        help = "Compare DOS across multiple iterations"
+        help = "Compare DOS across multiple iterations",
+        default = False
     )
 
     args = parser.parse_args()
