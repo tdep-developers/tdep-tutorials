@@ -161,8 +161,10 @@ Now we have all the free energy and U0 data to asses convergence. From the `T200
 python ../../../scripts/plot_dos.py --convergence --basepath=$(pwd)
 ```
 
-This will create 3 plots: `convergence_of_Harmonic_Free_Energy.png`, `convergence_of_U0.png` and `DOS_convergence.png`. Remeber that converging free energy to 1 meV/atom is a good goal. Open each plot, do you think we've reached convergence? Could we get away with running fewer sampling iterations?
-
+This will create 3 plots: `convergence_of_Harmonic_Free_Energy.png`, `convergence_of_U0.png` and `DOS_convergence.png`. Remeber that converging free energy to 1 meV/atom is a good goal. Open the plots at various temperatures and try to answer these questions:
+- Do you think we've reached convergence? 
+- Which property do you expect to converge first?
+- Could we get away with running fewer sampling iterations?
 
 For the remaining temperatures we provide a script to loop over temperature, run sTDEP, and create the convergence plots for you. If you open the `run.sh` script you will see several parameters hard coded at the top for silicon. If you wish to experiment, try running more temepartures or changing the number of iterations. This script was used to create the provided data and could be adapted for other the other materials supported by the So3ktrates potential.
 ```sh
@@ -206,7 +208,7 @@ Despite the discrepency in our data, the general trend looks good and we can est
 The linear thermal expansion can be approximated by numerically differentiating the lattice constant with respect to temperature.
 
 $$\alpha = \frac{1}{L}\frac{dL}{dT} \approx \frac{1}{L(T)}\frac{L(T+\Delta T) - L(T-\Delta T)}{2\Delta T}$$
-Let's estimate the linear thermal expansion at 600K. The lattice constants can be found in the `equilibrium_lattice_constants.txt` file created by `equation_of_state.py`. You should get `2.703e-06 1/K` which is a bit of an underestimate of the true thermal expansion `3.842e-06 1/K`.
+Let's estimate the linear thermal expansion at 600K. The lattice constants can be found in the `equilibrium_lattice_constants.txt` file created by `equation_of_state.py`. You should get roughly `2.703e-06 1/K` which is a bit of an underestimate of the true thermal expansion `3.842e-06 1/K`. Note that your number will be different since the sampling procedure is random.
 
 
 
