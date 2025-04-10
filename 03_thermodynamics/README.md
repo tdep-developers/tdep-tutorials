@@ -74,7 +74,7 @@ This tutorial covers:
 1. Obtaining the effective harmonic free energy as well as the $U_0$ correction
 2. Converging the free energy when using stochastic sampling
 3. Computing equilbrium volumes at finite temperature using the equation of state fitting method
-4. Calculating the thermal expansion from mode Gruneissen parameters
+4. Calculating the thermal expansion
 
 
 The end goal of this tutorial is to compute the lattice parameters of silicon in order to approximate the thermal expansion of silicon.When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
@@ -203,20 +203,11 @@ Despite the discrepency in our data, the general trend looks good and we can est
 
 ## Thermal Expansion
 
-Thermal expansion can be approximated by numerically differentiating the lattice constant with respect to temperature.
+The linear thermal expansion can be approximated by numerically differentiating the lattice constant with respect to temperature.
 
 $$\alpha = \frac{1}{L}\frac{dL}{dT} \approx \frac{1}{L(T)}\frac{L(T+\Delta T) - L(T-\Delta T)}{2\Delta T}$$
-Let's estimate the thermal expansion at 600K. The lattice constants can be found in the `equilibrium_lattice_constants.txt` file created by `equation_of_state.py`. You should get `2.703e-06 1/K` which is a bit of an underestimate of the true thermal expansion `3.842e-06 1/K`.
+Let's estimate the linear thermal expansion at 600K. The lattice constants can be found in the `equilibrium_lattice_constants.txt` file created by `equation_of_state.py`. You should get `2.703e-06 1/K` which is a bit of an underestimate of the true thermal expansion `3.842e-06 1/K`.
 
-
-
-We could also use the mode Gruneissen parameters to estimate the thermal expansion. This approach should be less sensitve to noise in our estimate of the lattice constant (derivatives amplify noise), but requires a couple extra steps. 
-
-$$ \alpha(T) = \frac{\kappa_T}{3V(T)}\sum_{\lambda}c_{\lambda}\gamma_{\lambda} $$
-
-where $\kappa_T$ is the isothermal bulk modulus, $c_{\lambda}$ is the heat capacity of the phonon labeled $\lambda$ and $\gamma_{\lambda}$ is the Gruneissen parameter of mode $\lambda$. According to Kittel's *Solid State Physics*, this is $\kappa_T$ = 98.8 GPa for silicon and TDEP's `phonon_dispersion_relations` is capable of calculating the rest for us!
-
-As a challenge try to calculate the thermal expansion at 600K for silicon using the Gruneissen parameters. To get started you will also need to calculate third-order force constants and the `--gruneisen` flag on `phonon_dispersion_relations`. 
 
 
 ## Suggested reading
