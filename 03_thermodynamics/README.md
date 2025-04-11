@@ -4,16 +4,22 @@ Thermodynamics with TDEP
 The free energy is a central property in statistical physics that allows to access to the stability of a structure, find its equilibrium volume, compute phase diagrams and many other things.
 For an arbitrary system with a potential $V(\vec{R})$, the free energy is very difficult to compute and requires complex and expensive method.
 
-Fortunately, in the harmonic approximation, the free energy can computed exactly using the phonon density of states defined as:
+Fortunately, in the harmonic approximation, the free energy can computed exactly from the partition function
 ```math
-g(\omega) = \frac{(2\pi)^3}{V} \int_{\mathrm{BZ}} \delta(\omega - \omega_{q,s}) dq
+Z_{\text{harmonic}} = \prod_{\lambda}\exp\left(-\frac{\hbar\omega_{\lambda}}{2k_BT}\right)\left[1-\exp\left(-\frac{\hbar\omega_{\lambda}}{k_BT}\right)\right]
 ```
 
-For instance, the harmonic free energy $\mathcal{F}_0$ is computed by integrating this density of states with the free energy of each phonons modes
+The harmonic free energy, $\mathcal{F}_0$, naturally follows from the partition function.
+```math
+\mathcal{F}_0 = -k_BT\log(Z_{\text{harmonic}}) = \sum_{\lambda}\left(\frac{\hbar\omega_{\lambda}}{2} + k_BT\log\left(1-\exp\left(-\frac{\hbar\omega_{\lambda}}{k_BT}\right)\right)\right)
+```
+
+In TDEP the harmonic free energy is actually evalulated by integreating the phonon density of states.
 ```math
 \mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT})\big] 
 ```
-Consequently, the free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
+
+The free energy of the system at any temperature can be obtained using this formula with a given set of phonons.
 However, by definition, the harmonic approach is missing the **anharmonic** contribution, which can dramatically modify the thermodynamics of the sytem.
 
 Fortunately TDEP is able to bring some corrections that include part of the anharmonicity [Ref. 2].
@@ -81,7 +87,7 @@ The end goal of this tutorial is to compute the lattice parameters of silicon in
 When working at 0K, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
 For example, here is the equation of state of bcc Zirconium fitted with the Vinet model.
 <p align="center">
-	<img src="scripts/silicon_vinet_200K_example.png" width="450"/>
+	<img src="solutions/silicon_vinet_200K_example.png" width="450"/>
   <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
 </p>
 
@@ -96,7 +102,7 @@ To start, we will compute the free energy of BCC zirconium with a lattice parame
 In the `example_Zr` folder, you will find a subdirectory `a3.61_1300K` which all the necessary input files to compute the free energy with TDEP. The configurations were generated using the sTDEP approach using the [`canonical_configuration`](https://tdep-developers.github.io/tdep/program/canonical_configuration/) binary at a temperature of 1300 K. To calculate the TDEP free energy we will use the later iteration.
 
 1. Change directory to `example_Zr/a3.61_1300K/iter.012`.
-2. Compute the second-order force constants and re-name the output to use the IFCs as input for the next iteration. This command should take about 5 seconds to run and will generate the `outfile.forceconstant` and `outfile.U0` files.
+2. Compute the second-order force constants and re-name the output to use the IFCs as input for the free energy calculation. This command should take a few seconds to run and will generate the `outfile.forceconstant` and `outfile.U0` files.
 ```
 extract_forceconstants -rc2 10.0 -U0
 mv outfile.forceconstant infile.forceconstant
@@ -106,7 +112,7 @@ Expected U0:
     BASELINE ENERGY (eV/atom):
         U0:             -98782.253022
 ```
-3. Compute the phonon dispersion, density of states and other (harmonic) thermodynamic properties at 1300K. This should take about 1 second and will generate the `outfile.free_energy` file. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !**
+3. Compute the phonon dispersion, density of states and other (harmonic) thermodynamic properties at 1300K. This should take about 1 second and will generate the `outfile.free_energy` file. **For consistency, it is important to compute thermodynamic properties at the temperature at which the configurations were generated !** 
 ```sh
 phonon_dispersion_relations --dos --temperature 1300
 ```
@@ -116,6 +122,9 @@ T(K)     F(eV/atom)         S(eV/K/atom)       Cv(eV/K/atom)
 1300.00000 -0.73434817276E+00  0.82376351069E-03  0.25815978923E-03
 ```
 
+The `phonon_dispersion_relations` command calculates harmonic thermodynamic properties from the second-order force constants. First the phonons are calculated from the dynamical matrix and the free energy is directly evaluated. Equations for entropy and heat capacity can be obtained by differenting the harmonic free energy expression. Walking through the output from TDEP we can see exactly what the code is doing. If you want even more detail the source code always contains the truth. 
+
+
 We now have all we need to compute the TDEP free energy! The `oufile.free_energy` contains harmonic free energy (column 2) and the `outfile.U0` contains the temperature dependent estimate of $U_0$. To get the free energy with the second order correction, you just have to add the harmonic free energy in `outfile.free_energy` and the second order correction in `outfile.U0` (the second value). The `outfile.U0` will also contain high-order corrections, but since our reference free energy is from a harmonic system we can only use the harmonic correction for $U_0$. The resulting free energy will be in eV/atom.
 
 In this case $F_{\text{TDEP}} = \langle V(R) - V_2(R) \rangle + F_{\text{vib}} = U_0 + F_{\text{vib}}$ = -98782.253022 + -0.7343481 = - 98782.98737
@@ -123,12 +132,17 @@ In this case $F_{\text{TDEP}} = \langle V(R) - V_2(R) \rangle + F_{\text{vib}} =
 
 ## Free Energy Convergence and Temperature Dependent Lattice Parameters
 
-To better understand free energy convergence and thermal expansion we will calculate the equilibrium lattice constants for silicon at 200K, 400K, 600K and 800K. To estimate the lattice parameters we need to find the equilibrium volume by minimizing the free energy at several tempeartures. To speed things up data is provided for all but one of the volumes (a5.40). You will converge the free energy at 4 temepratures for silicon with a lattice constant of 5.40.
+To better understand free energy convergence and thermal expansion we will calculate the equilibrium lattice constants. To estimate the lattice parameters we need to find the equilibrium volume by minimizing the free energy at several tempeartures. To speed things up data is provided for all but one of the volumes (a5.40). You will converge the free energy at 1 temeprature for silicon with a lattice constant of 5.40. The remainder of the data is provided as it just involves repeating the process on a grid of temperature and volume.
 
-We will step through the first tempearture, 200K, manually, and then use a shell script to compute the other tempeartures. Start by entering the `a5.40` directory and making a directory to store the results for this temperature. Note that the `infile.ucposcar` is all we need to start!
+First we need to unzip the provided data:
 ```sh
-cd a5.40
-mkdir "T200" && cd "T200"
+cd ../example_Si
+tar -xzvf data.tar.gz
+```
+
+We will step through the first tempearture, 100K, manually. Start by entering the `a5.40` directory and entering the T100 directory. **Note that the `infile.ucposcar` is all we need to start! From just the potential and crystal definition we can get everything we need.**
+```sh
+cd ./a5.40/T100
 cp ../infile.ucposcar ./
 ```
 
@@ -138,9 +152,9 @@ generate_structure -na 216
 mv outfile.ssposcar infile.ssposcar
 ```
 
-Next we will leverage the `run_sTDEP.sh` script from the sampling tutorial. This automates the process of self-consistently looping to obtain force constants. Since we are using silicon now we need to set some of the parameters. Specifically, set the second-order force constant cutoff to 4.0 angstroms and the maximum freuqency to 17 THz. In practice another study should be done to ensure the force constant cutoff is converged. For today, 8.0 will work (and is probably overkill). Furthermore, the number of iterations until convergence cannot be known a priori. We will start with 5, but should refine this guess later depending on convergence. 
+Next we will leverage the `run_sTDEP.sh` script from the sampling tutorial. This automates the process of self-consistently looping to obtain force constants. Since we are using silicon now we need to set some of the parameters. Specifically, set the second-order force constant cutoff to 8.0 angstroms and the maximum freuqency to 17 THz. In practice another study should be done to ensure the force constant cutoff is converged. For today, 8.0 will work (and is probably overkill). Furthermore, the number of iterations until convergence cannot be known a priori. We will start with 5, but could refine this guess later depending on convergence. 
 ```sh
-bash ../../../../02_sampling/sTDEP/scripts/run_sTDEP.sh --niter 5 --maximum_frequency 17.0 --temperature 200 --cutoff 8.0
+bash ../../../../02_sampling/sTDEP/scripts/run_sTDEP.sh --niter 5 --maximum_frequency 17.0 --temperature 100 --cutoff 8.0
 ```
 
 The sTDEP algorithm will take a few minutes to run. Once it is complete we can assess the convergence of U0 and the free energy. The `scripts` folder contains the necessary code to create the convergence plots, but we need to compute the free energies first. U0 was already calculated by the `run_sTDEP.sh` script. 
@@ -150,13 +164,13 @@ for ii in $(seq 1 5); do
     folder=iter.$jj
     cd $folder
 
-    phonon_dispersion_relations --dos --temperature 300
+    phonon_dispersion_relations --dos --temperature 100
 
     cd ../
 done
 ```
 
-Now we have all the free energy and U0 data to asses convergence. From the `T200` directory run the provided plotting script:
+Now we have all the free energy and U0 data to asses convergence. From the `T100` directory run the provided plotting script:
 ```sh
 python ../../../scripts/plot_dos.py --convergence --basepath=$(pwd)
 ```
@@ -166,51 +180,82 @@ This will create 3 plots: `convergence_of_Harmonic_Free_Energy.png`, `convergenc
 - Which property do you expect to converge first?
 - Could we get away with running fewer sampling iterations?
 
-For the remaining temperatures we provide a script to loop over temperature, run sTDEP, and create the convergence plots for you. If you open the `run.sh` script you will see several parameters hard coded at the top for silicon. If you wish to experiment, try running more temepartures or changing the number of iterations. This script was used to create the provided data and could be adapted for other the other materials supported by the So3ktrates potential.
+Here is an example of some of the $U_0$ and $F_0$ plots at 200K and a = 5.40:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+  <div>
+    <img src="solutions/U0_example.png" width="500"/>
+    <figcaption style="text-align: center;"><em>U0 convergence at 200K and a = 5.40</em></figcaption>
+  </div>
+  <div>
+    <img src="solutions/F0_example.png" width="500"/>
+    <figcaption style="text-align: center;"><em>F0 convergence at 200K and a = 5.40</em></figcaption>
+  </div>
+</div>
+
+
+The remaining temperatures are calculated for you. The script to loop over temperature, run sTDEP, and create the convergence plots is in the `scripts` directory if you want to run more temperatures or play with the settings. If you open the `run.sh` script you will see several parameters hard coded at the top for silicon. Try running more temepartures or changing the number of iterations. This script takes in the directory which must contain the `infile.ucposcar` and a list of temperatures to calculate.
 ```sh
-cd ../../
 sh ../scripts/run.sh a5.40 400 600 800
 ```
-
-After a few minutes you should have data at 7 volumes and 4 temperatures. From this we can get a crude estimate of the lattice parameter temperature dependence. 
 
 ## Getting the Equilibrium Volume
 
 Now that the free energy for every volume has been computed, we can finally compute the equilibrium volume. To get the equilibrium volume we choose the volume which corresponds to the mimimum free energy. So we must:
 
 1. Extract the total free energy of each volume and temperature (at the final iteration)
-2. Fit a Vinet equation of state for each temeprature. Note that because of statistical noise, the fit might not work for some iterations without enough data.
+2. Fit a Vinet equation of state (EOS) for each temeprature. Note that because of statistical noise, the fit might not work for some iterations without enough data.
+
+The Vinet EOS is Eqn 1. in [this](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.70.224107) paper. There are several free parameters: the bulk modulus at zero pressure $B_0$ its derivative with respect to pressure, $B_0^\prime$, the total energy at zero pressure $E_0$ and the volume at zero pressure, $V_0$.
 
 We already have all of this data and just need to do the fit! A script to parse and plot the relevant data is provided. The script will fit the Vinet equation of state to the data at each temperature for the final iteration. There are several values hard coded in this script, if you wish to adapt it you will need to change those variables.
 ```sh
+# cd to `example_Si` folder
+cd ../../
 python ../scripts/equation_of_state.py
 ```
 
-If all has gone correctly, you should see a plot called `lattice_constant.png` in the `example_Si` folder that looks something like this:
-
+This script will create a lot of plots and data files. The `eos_results_{T}.dat` files contain the fitted parameters at each temperature and the `vinet_{T}.png` plot each fit. The interesting plots are `lattice_constant.png` and `lattice_constant_scaled.png` in the `example_Si` folder that should look something like this:
+- Can you think of any reasons why our lattice constant did not match exactly?
 <p align="center">
-	<img src="scripts/silicon_lattice_const_soln.png" width="450"/>
+	<img src="solutions/lattice_constant_soln.png" width="450"/>
   <figcaption><center><em>TDEP prediction of silicon lattice constants.</a></em></center></figcaption>
 </p>
 
-The agreement might seem a little rough, but this can be attributed to several factors.
+If we normalize each plot by the lattice constant at 100K we see that the trend predicted by So3krates and s-TDEP agrees very well with the experimental data! This means we should be able to get a good estimate for the thermal expansion.
 
-1. Non-convergence of $U_0$ or $F$ (i.e., run more sTDEP iterations). This could be especially true at higher temperatures.
-2. So3krates potential does not perfectly match real silicon. 
-3. Higher order anharmonic effects not captured by U0 or $F_{ha}$.
+<p align="center">
+	<img src="solutions/lattice_constant_scaled_soln.png" width="450"/>
+  <figcaption><center><em>TDEP prediction of silicon lattice constants.</a></em></center></figcaption>
+</p>
+
+To answer the earlier question, some possible reasons for the deviation are:
+
+1. So3krates potential does not perfectly match real silicon. 
+2. Higher order anharmonic effects not captured by $U_0$ or $F_{ha}$.
+3. Non-convergence of $U_0$ or $F$ (i.e., run more sTDEP iterations). This could be especially true at higher temperatures
+4. Supercell size is too small
 
 For a more careful calculation the silicon's thermal expansion check out [this](https://doi.org/10.1073/pnas.1707745115) paper which uses sTDEP and DFT to capture the anomolous negative thermal expansion in silicon. 
 
-Despite the discrepency in our data, the general trend looks good and we can estimate the thermal expansion.
-
 ## Thermal Expansion
 
-The linear thermal expansion can be approximated by numerically differentiating the lattice constant with respect to temperature.
+The linear thermal expansion can be approximated by numerically differentiating the lattice constant with respect to temperature. Ideally, a functional form is fit to the lattice constant or volume data which can be analytically differentiated as numerical derivatives amplify noise. For the purposes of this tutorial, we can estimate the linear thermal expansion as:
 
 $$\alpha = \frac{1}{L}\frac{dL}{dT} \approx \frac{1}{L(T)}\frac{L(T+\Delta T) - L(T-\Delta T)}{2\Delta T}$$
-Let's estimate the linear thermal expansion at 600K. The lattice constants can be found in the `equilibrium_lattice_constants.txt` file created by `equation_of_state.py`. You should get roughly `2.703e-06 1/K` which is a bit of an underestimate of the true thermal expansion `3.842e-06 1/K`. Note that your number will be different since the sampling procedure is random.
 
+Let's estimate the linear thermal expansion at 600K. The lattice constants can be found in the `equilibrium_lattice_constants.txt` file created by `equation_of_state.py`. You should get roughly `3.353e-06 1/K` which is a bit of an underestimate of the true thermal expansion `3.842e-06 1/K`. Note that your number will be slightly different since the sampling procedure is random.
 
+If you're curious, the values at the other temperatures where we have enough data to calculate the derivative are:
+
+| Temperature [K] | s-TDEP [1/K] | Experiment [1/K] |
+|:----------:|:----------:|:----------:|
+| 400   | 3.285e-06     | 3.253e-06     |
+| 600    | 3.353e-06     | 3.842e-06    |
+| 800    | 3.758e-06     | 4.151e-06    |
+| 1000    | 4.38364e-06    | 4.260e-06    |
+
+More accurate predictions can be obtained by using DFT in place of So3krates and by ensuring convergence of U0 and F0.
 
 ## Suggested reading
 
@@ -221,4 +266,4 @@ Let's estimate the linear thermal expansion at 600K. The lattice constants can b
 ## Prerequisites
 
 - [TDEP is installed](https://github.com/tdep-developers/tdep/blob/main/INSTALL.md)
-- So3krates Potential
+- So3krates Potential (see tutorial 0)

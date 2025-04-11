@@ -130,7 +130,7 @@ do
     else
         samplefiles="../iter.${jjm1}/samples/*/geometry.in "
     fi
-    sokrates_compute --folder-model ../../module $samplefiles --format=aims --tdep
+    sokrates_compute --float32 --folder-model ../../module $samplefiles --format=aims --tdep
 
     # Extract the force constants
     $extractifc

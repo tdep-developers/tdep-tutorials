@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
     lattice_parameters = parse_lattice_params(args.basepath)
     assert len(lattice_parameters) > 0
-    temperatures = [200,400,600,800] # could also parse but this is easier
+    temperatures = [100,200,400,600,800,1000,1200] # could also parse but this is easier
     n_iter = 5
     n_atoms_ss = 216
 
@@ -150,8 +150,20 @@ if __name__ == "__main__":
     # Make a plot comparing to experiment
     a_true = np.loadtxt(os.path.join(args.basepath, "ground_truth.txt"))
 
-    plt.scatter(temperatures, equilibrium_lattice_constants_TDEP, label = "TDEP")
-    plt.scatter(a_true[:,0], a_true[:,1], label = "Experiment")
+    a0_exp = a_true[0,1]
+    a0_TDEP = equilibrium_lattice_constants_TDEP[0]
+
+    plt.scatter(a_true[:,0], a_true[:,1]/a0_exp, s = 100, color = "#ffbd52", label = "Experiment")
+    plt.scatter(temperatures, equilibrium_lattice_constants_TDEP/a0_TDEP,
+                    facecolors = 'none', edgecolors = "#52bdff", s = 100, lw = 2, label = "s-TDEP")
+    plt.xlabel("Temperature [K]")
+    plt.ylabel("Lattice Constant / 100K Lattice Constant")
+    plt.legend(loc = "lower right")
+    plt.savefig(os.path.join(args.basepath, "lattice_constant_scaled.png"))
+    plt.close()
+
+    plt.scatter(temperatures, equilibrium_lattice_constants_TDEP, s = 100, color = "#52bdff", label = "s-TDEP")
+    plt.scatter(a_true[:,0], a_true[:,1], color = "#ffbd52", s = 100, label = "Experiment")
     plt.xlabel("Temperature [K]")
     plt.ylabel("Lattice Constant [Angstrom]")
     plt.legend(loc = "lower right")

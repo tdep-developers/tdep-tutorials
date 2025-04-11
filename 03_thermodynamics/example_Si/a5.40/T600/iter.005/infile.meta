@@ -1,4 +1,0 @@
-       216     # N atoms
-       192     # N timesteps
-       1.0     # timestep in fs (currently not used )
-   -314.15     # temperature in K (only for free energy)

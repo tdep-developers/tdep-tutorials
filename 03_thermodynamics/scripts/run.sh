@@ -42,10 +42,10 @@ generate_structure -na 216
 mv outfile.ssposcar infile.ssposcar
 
 # Do ground state calculation
-mkdir -p "T0" && cd "T0"
-cp ../infile.ssposcar ./
-sokrates_compute --folder-model ../module/ ./infile.ssposcar --format=vasp --tdep
-cd ../
+# mkdir -p "T0" && cd "T0"
+# cp ../infile.ssposcar ./
+# sokrates_compute --float32 --folder-model ../module/ ./infile.ssposcar --format=vasp --tdep
+# cd ../
 
 for T in "$@"; do
     echo "Temperature: $T Kelvin"

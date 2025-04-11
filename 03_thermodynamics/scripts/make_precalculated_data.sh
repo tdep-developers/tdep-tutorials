@@ -16,7 +16,7 @@ TEMP_CMD_FILE=$(mktemp)
 # Generate all commands
 for i in $(seq 5.40 0.02 5.52); do
   folder_name="a$(printf "%.2f" $i)"
-  echo "sh ./run.sh ../example_Si/$folder_name 200 400 600 800" >> "$TEMP_CMD_FILE"
+  echo "sh ./run.sh ../example_Si/$folder_name 100 200 400 600 800 1000 1200" >> "$TEMP_CMD_FILE"
 done
 
 # Define how many jobs to run in parallel
