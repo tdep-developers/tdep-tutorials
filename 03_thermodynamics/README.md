@@ -1,7 +1,7 @@
 Thermodynamics with TDEP
 ========================
 
-The free energy is a central property in statistical physics that allows to access to the stability of a structure, find its equilibrium volume, compute phase diagrams and many other things.
+The free energy is a central property in statistical physics that makes it possible to assess the stability of a structure, find its equilibrium volume, compute phase diagrams and many other things.
 For an arbitrary system with a potential $V(\vec{R})$, the free energy is very difficult to compute and requires complex and expensive method.
 
 Fortunately, in the harmonic approximation, the free energy can computed exactly from the partition function
@@ -46,7 +46,7 @@ As we will see, this difference is important in the convergence of the total fre
 
 
 It should be noted that the free energy computed this way is still an approximation.
-However, compared to the harmonic approximation, explicit temperature effect are included.
+However, compared to the harmonic approximation, explicit temperature effects are included.
 Moreover, if using the self-consistent stochating sampling with a Bose-Einstein distribution (see tutorial on stochastic sampling) this approach allows to include nuclear quantum effects.
 
 
@@ -83,9 +83,9 @@ This tutorial covers:
 4. Calculating the thermal expansion
 
 
-The end goal of this tutorial is to compute the lattice parameters of silicon in order to approximate the thermal expansion of silicon.When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
-When working at 0K, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
-For example, here is the equation of state of bcc Zirconium fitted with the Vinet model.
+The end goal of this tutorial is to compute the lattice parameters of silicon in order to approximate the thermal expansion of silicon. When computing properties at finite temperature, thermal expansion can have a significant impact, thus making the prediction of the equilibrium volume an important step.
+When working at fixed temperature, the equilibrium volume can be computed using a model equation of state to fit potential energy vs volume data.
+For example, here is the equation of state of silicon fitted with the Vinet model.
 <p align="center">
 	<img src="solutions/silicon_vinet_200K_example.png" width="450"/>
   <figcaption><center><em>Equation of state of bcc Zr computed without effects of temperature.</a></em></center></figcaption>
@@ -122,7 +122,7 @@ T(K)     F(eV/atom)         S(eV/K/atom)       Cv(eV/K/atom)
 1300.00000 -0.73434817276E+00  0.82376351069E-03  0.25815978923E-03
 ```
 
-The `phonon_dispersion_relations` command calculates harmonic thermodynamic properties from the second-order force constants. First the phonons are calculated from the dynamical matrix and the free energy is directly evaluated. Equations for entropy and heat capacity can be obtained by differenting the harmonic free energy expression. Walking through the output from TDEP we can see exactly what the code is doing. If you want even more detail the source code always contains the truth. 
+The `phonon_dispersion_relations` command calculates harmonic thermodynamic properties from the second-order force constants. First the phonons are calculated from the dynamical matrix and the free energy is evaluated. Equations for entropy and heat capacity can be obtained by differenting the harmonic free energy expression. Walking through the output from TDEP we can see exactly what the code is doing. If you want even more detail the source code always contains the truth. 
 
 
 We now have all we need to compute the TDEP free energy! The `oufile.free_energy` contains harmonic free energy (column 2) and the `outfile.U0` contains the temperature dependent estimate of $U_0$. To get the free energy with the second order correction, you just have to add the harmonic free energy in `outfile.free_energy` and the second order correction in `outfile.U0` (the second value). The `outfile.U0` will also contain high-order corrections, but since our reference free energy is from a harmonic system we can only use the harmonic correction for $U_0$. The resulting free energy will be in eV/atom.
@@ -132,7 +132,7 @@ In this case $F_{\text{TDEP}} = \langle V(R) - V_2(R) \rangle + F_{\text{vib}} =
 
 ## Free Energy Convergence and Temperature Dependent Lattice Parameters
 
-To better understand free energy convergence and thermal expansion we will calculate the equilibrium lattice constants. To estimate the lattice parameters we need to find the equilibrium volume by minimizing the free energy at several tempeartures. To speed things up data is provided for all but one of the volumes (a5.40). You will converge the free energy at 1 temeprature for silicon with a lattice constant of 5.40. The remainder of the data is provided as it just involves repeating the process on a grid of temperature and volume.
+To better understand free energy convergence and thermal expansion we will calculate the equilibrium lattice constants. To estimate the lattice parameters we need to find the equilibrium volume by minimizing the free energy at several tempeartures. To speed things up data is provided for all but one of the volume temperature combinations. You will converge the free energy at 100K temeprature for silicon with a lattice constant of 5.40. The remainder of the data is provided as it just involves repeating the process on a grid of temperature and volume.
 
 First we need to unzip the provided data:
 ```sh
@@ -140,7 +140,7 @@ cd ../../../example_Si/
 tar -xzvf data.tar.gz
 ```
 
-We will step through the first tempearture, 100K, manually. Start by entering the `a5.40` directory and entering the T100 directory. **Note that the `infile.ucposcar` is all we need to start! From just the potential and crystal definition we can get everything we need.**
+We will step through the first tempearture, 100K, manually. Start by entering the `a5.40/T100` directory. **Note that the `infile.ucposcar` and potential is all we need to start!**
 ```sh
 cd ./a5.40/T100
 cp ../infile.ucposcar ./
@@ -177,7 +177,7 @@ python ../../../scripts/plot_dos.py --convergence --basepath=$(pwd)
 
 This will create 3 plots: `convergence_of_Harmonic_Free_Energy.png`, `convergence_of_U0.png` and `DOS_convergence.png`. Remeber that converging free energy to 1 meV/atom is a good goal. Open the plots at various temperatures and try to answer these questions:
 - Do you think we've reached convergence? 
-- Which property do you expect to converge first?
+- Which property do you expect to converge first? Why?
 - Could we get away with running fewer sampling iterations?
 
 Here is an example of some of the $U_0$ and $F_0$ plots at 200K and a = 5.40:
@@ -216,7 +216,7 @@ python ../scripts/equation_of_state.py
 ```
 
 This script will create a lot of plots and data files. The `eos_results_{T}.dat` files contain the fitted parameters at each temperature and the `vinet_{T}.png` plot each fit. The interesting plots are `lattice_constant.png` and `lattice_constant_scaled.png` in the `example_Si` folder that should look something like this:
-- Can you think of any reasons why our lattice constant did not match exactly?
+- Can you think of any reasons why our lattice constants do not match exactly?
 <p align="center">
 	<img src="solutions/lattice_constant_soln.png" width="450"/>
   <figcaption><center><em>TDEP prediction of silicon lattice constants.</a></em></center></figcaption>
