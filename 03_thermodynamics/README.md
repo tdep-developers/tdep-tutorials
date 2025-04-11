@@ -136,7 +136,7 @@ To better understand free energy convergence and thermal expansion we will calcu
 
 First we need to unzip the provided data:
 ```sh
-cd ../example_Si
+cd ../../../example_Si/ 
 tar -xzvf data.tar.gz
 ```
 
