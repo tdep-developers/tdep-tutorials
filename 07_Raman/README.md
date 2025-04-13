@@ -36,25 +36,38 @@ in atomic units.
 
 In this tutorial, we will compute the Raman tensor by expanding the susceptibility to first order in the atomic displacements, i.e., the first-order dielectric response, Eq. (10) in [1], which we compute here by finite differences similar to Eq. (9) in Ref. [2]. By including anharmonicity, we can study the temperature dependence of the Raman spectrum as well, as well as polarization dependence.
 
-In first order Raman, we only deal with 
+In first order Raman, the Raman tensor is:
 
 $$
 I^{\alpha \beta}_s = \frac{\partial \chi^{\alpha \beta}}{\partial u_s}~,
 $$
 
-i.e., the change of the susceptibility with _mode displacement_ $u_s$. The intensity contribution of mode $s$ at frequency $\omega$ for given polarization $\mathbf e_{\mathrm i}$ of incoming and $\mathbf e_\mathrm{o}$ for outgoing light will be given by
+i.e., the change of the susceptibility with _mode displacement_ $u_s$.
+
+</br>
+The Raman tensor can be obtained from atomic displacements (as we will do in this tutorial) via the eigenvectors:
+
+$$
+I^{\alpha \beta}_ s  = \sum_{i}v_{i,s}\frac{\partial \chi^{\alpha \beta}}{\partial u_i}
+$$
+
+where $v_{i,s}$ is the real part of the eigenvector relative to the $i$-th atomic displacement according to the mode $s$.
+
+
+The intensity contribution of mode $s$ at frequency $\omega$ for given polarization $\mathbf e_{\mathrm i}$ of incoming and $\mathbf e_\mathrm{o}$ for outgoing light will be given by
 
 $$
 \sigma_{s; \mathbf e_\mathrm{i}, \mathbf e_\mathrm{o}} (\omega) = \lvert \mathbf e_\mathrm{i} \cdot I_s \mathbf e_\mathrm{o} \rvert^2 J_s(\omega)~,
 $$
 
-with the spectral function $J_s$, which, of course, depends on temperature. There are a couple of approximations here that we go over, I refer to [[Benshalom2022, Benshalom2023]](#Suggested-reading) for a more complete treating. The full intensity will be given as a sum over modes:
+where $e_\mathrm{i}$, $e_\mathrm{o}$ and $I_s$ are respectively two vectors and a matrix, and $J_s$ is the spectral function of mode $s$, which, of course, depends on temperature. There are a couple of approximations here that we go over, I refer to [[Benshalom2022, Benshalom2023, Knoop-arxiv2412.17711]](#Suggested-reading) for a more complete treating. The full intensity will be given as a sum over modes (**equation (1)**):
 
 $$
 \sigma_{\mathbf e_\mathrm{i}, \mathbf e_\mathrm{o}} (\omega) 
-= \sum_s \lvert \mathbf e_\mathrm{i} \cdot I_s \mathbf e_\mathrm{o} \rvert^2 J_s(\omega)~,
-\tag{1}
+= \sum_s \sigma_{s; \mathbf e_\mathrm{i}, \mathbf e_\mathrm{o}} (\omega)
+= \sum_s \lvert \mathbf e_\mathrm{i} \cdot I_s \mathbf e_\mathrm{o} \rvert^2 J_s(\omega)
 $$
+
 
 and this will be what experimentalists can measure. Mapping out the full dependency of the intensity as a function of the incoming/outgoing polarization is called _polarization-orientation (PO) Raman_. Eq. (1) is the topic of this tutorial.
 
@@ -76,7 +89,16 @@ This $X(YX)Z$ is to be read as:
 
 #### Backscattering experiment
 
-We will deal only with the most common type of experiment, the _backscattering experiment_, where incoming and outgoing light have the same direct, $\mathbf k_{\mathrm i} = - \mathbf{k}_{\mathrm o}$, denoted in Porto notation as, e.g., $Z (XY) \bar Z$.
+We will deal only with the most common type of experiment, the _backscattering experiment_, where incoming and outgoing light have the same direction, $\mathbf k_{\mathrm i} = - \mathbf{k}_{\mathrm o}$, denoted in Porto notation as, e.g., $Z (XY) \bar Z$.
+
+### Note on polarization and averages
+The cross-section $\sigma_{e_\mathrm{i}, e_\mathrm{o}} (\omega)$ can be measured by sending the probing light polarized along $\mathbf e_\mathrm{i}$ and detecting only the $\mathbf e_\mathrm{o}$-polarized component of the outcoming light from the crystal.
+</br>
+For an unpolarized backscattering experiment (e.g. no polarizers are useed for either probing and detecting), the spectrum is an average of the cross-sections for all the parallel and orthogonal pairs $(e_\mathrm{i}, e_\mathrm{o})$ that can be defined on the plane orthogonal to the wavevector of the incoming light. The result is an unpolarized spectrum.
+</br>
+For a powder sample, not only the considerations made so far hold, but we also have to make an average over all the possible wavevectors of the incoming light (isotropic average). The same result can be obtained by averaging the raman tensor elements as explained in [Knoop-arxiv2412.17711]. The result is an isotropically averaged spectrum.
+</br>
+Note that for powders of polar materials there is also another possible complication that is not taken into account in this tutorial: since the Raman tensor depends on the polarization of the mode, it might considerably change by varying the wavevector of the incoming light (which means probing long-wavelength phonons from different directions of the BZ), because of the LO-TO splitting. In order to solve this, a spherical integration over all the possible wavevectors should be performed (i.e. the entire process displaied in this tutorial should be done a very large number of times). Depending on the symmetry of your system and on the entity of the LO-TO splitting, this effect might be neglected. 
 
 ## Outline
 
@@ -86,130 +108,153 @@ We will compute Raman spectra for wurtzite gallium nitride (GaN) and compare to 
 
 - Have a converged set of 2nd and 3rd order force constants.
 
-- Have a DFT code ready that can compute the dielectric tensor $\varepsilon$ for you.
+- Have a DFT code ready that can compute the dielectric tensor $\varepsilon$ for you (not necessary for the tutorial, but it is for production).
 
-- **We need the most recent version of ASE in order to be able to parse dielectric tensors**. Please make sure you have that installed, e.g., by running
-
-  ```
-  pip install git+https://gitlab.com/ase/ase.git@master
-  ```
-
-  The parsers will work for VASP, Quantum Espresso, and FHI-aims. For Quantum Espresso, please note the extra step explained in the `00_preparation/qe_dielectric_tensors` tutorial.
 
 ## Steps
 
 We will start with backscattering in $z$ direction:
+1. Go to the `example_GaN/` folder
+2. Create a new working directory for the $z$ direction
+   ```bash
+   mkdir raman_z
+   cd raman_z
+   ``` 
+3. Copy the infiles into `raman_z/`:
+    ```bash
+    cp ../infile.lotosplitting ../infile.ucposcar ../infile.ssposcar ./
+    ```
+4. Copy your (converged) force constant outfiles that you got previously (see tutorial 01) and change their prefix to `infile`. For time reasons, we will use some pre-computed ones:
+   ```bash
+   cp ../.assets/infile.forceconstant ../.assets/infile.forceconstant_thirdorder .
+   ```   
+5. Create the spectral functions:
+   ```bash
+   lineshape --temperature 300 --qdirin 0 0 1
+   ```
+   this should give the file `outfile.phonon_self_energy.hdf5` that you already encountered in previous tutorials.
 
-- Copy `infile.ucposcar`, `infile.lotosplitting` and the `infile.forceconstant` + `infile.forceconstant_thirdorder` into a folder `raman_z`
+6. Now we create the atomic displacements via:
+   ```bash
+   tdep_displace_atoms infile.ucposcar
+   ```
 
-- Create the spectral functions with 
-  ```bash
-  lineshape --temperature 300 --qdirin 0 0 1
-  ```
+   which will create positive and negative displacements for each mode, minus the acoustic ones, and write them to `outfile.ucposcar.displacement.00001.x.plus`, `outfile.ucposcar.displacement.00002.x.minus`, etc. Tidy up the mess by moving these outfiles inside a dedicated folder (e.g. `displacements`):
+   ```bash
+   mkdir displacements
+   mv outfile.ucposcar.displacement* displacements/
+   ```
 
-  this should give the file `outfile.phonon_self_energy.hdf5` that you already encountered.
+7. **Now comes the DFPT part:** convert these geometry files into the input format of the DFT code of your choice which is capable of computing the dielectric tensor (Born charges are not needed) and compute the dielectric tensor for each sample.
 
-- Now we create the mode displacements via
-  ```bash
-  tdep_displace_modes
-  ```
+8. When you are finished with all dielectric calculations, parse them and write them in a new file called `infile.dielectric_tensor`. The order to follow when writing the tensors in this file is the same used in the numbering of the outfiles obtained from `tdep_displace_atoms` (that is the order of the atoms in the `infile.ucposcar` and first + and then - displacement).
+   </br>
+   Note that the units of the dielectric tensor are not important (of course they must be consistent among the displacements), as they renormalize the whole spectrum intensity.
+   </br>
+   Copy or link the infile to your working directory `raman_z`.
+   </br>
+   **We will skip steps 7 and 8 now, due to time reasons, but naturally this is something you need to do for production runs. For the time being, we will use the hidden input file `07_Raman/example_GaN/.assets/.infile.dielectric_tensor`.**
+   ```bash
+   cp ../.assets/infile.dielectric_tensor .
+   ```
+9. Good, now we can compute the Raman tensors, and convolute them with the spectral functions, i.e., evaluate Eq. (1). There is a script to do this in several ways:
+   ```bash
+   tdep_compute_raman_intensities
+   ```
+Done.
 
-  which will create positive and negative displacements for each mode, minus the acoustic ones, and write them to `outfile.ucposcar.mode.003.plus`, `outfile.ucposcar.mode.003.minus`, etc.
 
-- **Now comes the DFPT part:** Convert these geometry files to the input of the DFT code of you choice which is capable of computing the dielectric tensor (Born charges are not needed, good luck FHI-aims users), and compute the dielectric tensor for each sample. I recommend to use a dedicated folder for this like before, let's say `samples`.
+## The output files
+Several output files are produced by the last step
+- ```outfile.raman_activity_mode_001.csv```
+  The mode index, the frequency (in THz and $cm^{-1}$), the isotropic and unpolarized Raman activities are listed for each mode. No information on the peak shape.
+- ```outfile.raman_intensity_001.csv```
+  The actual spectra: frequency (in $cm^{-1}$), the parallel and perpendicular intensities, and the unpolarized and isotropic intensities are listed. Here the parallel and perpendicular intensities are averages computed by only considering respectively the parallel and orthogonal pairs of polarizations lying on the plane orthogonal to the photon wavevector.
+- ```outfile.raman_intensity_001_po.h5```
+  This hdf5 file has attributes:
+     - direction1
+     - direction2
+     - direction3
+  
+     where the first is the propagation direction of the incoming light, and the last two define the polarization plane of both the incoming and scattered light.
 
-- When you are finished with all dielectric constants, parse them with e.g.
-  ```bash
-  cd samples
-  tdep_parse_output sample.000*/qe.json
-  ```
+  Then there are two coordinates:
+     - angle (size=361): the array of the possible angles of rotation of the (fixed) pairs of polarization around the propagation direction of the light (it uniquely identifies the pair of polarisations on the plane)
+     - frequency (size=1200): the frequency in $cm^{-1}$
 
-  in case [you are using Quantum Espresso](../00_preparation/parsing/QuantumEspresso/README.md), other codes that should work out of the box are VASP and FHI-aims. If you are using another code, just make sure to write the dielectric tensors into a plain text file with 3 columns, similar to the `infile.lotosplitting`. Name the file `infile.dielectric_tensor` and copy or link it to your working directory `raman_z`.
-
-  **If you cannot run DFPT at the moment, do not worry, and take the hidden input files in `07_Raman/example_GaN/.assets`.**
-
-- Good, now we can compute the Raman tensors, and convolute them with the spectral functions, i.e., evaluate Eq. (1). There is a script to do this in several ways:
-
-  ```bash
-  tdep_compute_raman_intensities
-  ```
-
-  done.
+  Finally, two data variables:
+     - parallel (shape=361,1200): Raman spectrum (1200 values, one for each frequency) for each angle of rotation of the fixed pair of *parallel* polarizations on the plane   
+     - perpendicular (shape=361,1200): Raman spectrum (1200 values, one for each frequency) for each angle of rotation of the fixed pair of *perpendicular* polarizations on the plane
 
 ## Analysis
-
-Now we have several files:
-
-- `outfile.mode_intensity.csv`: Gives the (isotropically averaged) intensity for each mode. Plot the intensities vs. harmonic frequencies, e.g.
-
+Here are some examples of python scripts to plot the spectra.
+#### Unpolarized and isotropically averaged spectra
   ```python
-  import pandas as pd
+  import numpy as np
   from matplotlib import pyplot as plt
   
-  df = pd.read_csv("outfile.mode_intensity.csv", comment="#")
+  data = np.loadtxt(fname='outfile.raman_intensity_001.csv', skiprows=1, delimiter=',').T
+  freqs = data[0]
+  unpo = data[3]
+  iso = data[4]
   
-  fig, ax = plt.subplots()
+  Fig = plt.figure(figsize=(15,5))
   
-  for imode, frequency in enumerate(df.frequency):
-      ax.axvline(frequency, color="k", alpha=0.3)
-      ax.scatter(frequency, df.intensity_raman.iloc[imode])
+  Fig.add_subplot(1,2,1)
+  # UNPOLARIZED
+  plt.plot(freqs, unpo)
+  plt.xlim(0,800)
+  plt.title('Unpolarized spectrum')
+  plt.xlabel('Raman shift ($cm^{-1}$)')
+  plt.yticks([])
+  plt.ylabel('Intensity (a.u.)')
+  
+  Fig.add_subplot(1,2,2)
+  # ISOTROPIC
+  plt.plot(freqs, iso)
+  plt.xlim(0,800)
+  plt.title('Isotropically averaged spectrum')
+  plt.xlabel('Raman shift ($cm^{-1}$)')
+  plt.yticks([])
+  plt.ylabel('Intensity (a.u.)')
   ```
-
-  This are harmonic Raman intensities as you would get them e.g. from Quantum Espresso directly.
-
-- `outfile.intensity_raman.h5`: This contains the full (isotropically averaged) intensity, with temperature dependence (300K in our case). We furthermore get each mode contribution. You can plot the file e.g. with
-
-  ```python
+#### Polarization orientation spectra
+  ```Python
+  import numpy as np
   import xarray as xr
+  from matplotlib import pyplot as plt
   
-  ds = xr.load_dataset('outfile.intensity_raman.h5')
+  ds = xr.open_dataset('outfile.raman_intensity_001_po.h5')
+  angles = np.array(ds['angle'])
+  freqs = np.array(ds['frequency'])
+  paral = np.array(ds['parallel'])
+  perp = np.array(ds['perpendicular'])
+  #directions = np.array([ds.direction1, ds.direction2, ds.direction3]) # we don't need this
   
-  ds.intensity.to_series().plot()
+  
+  # z(xx)-z ------ parallel, theta = 0 
+  i_0 = np.argmin(angles) # find the position of theta=0 in the angles array
+  spec1 = paral[i_0] 
+  plt.plot(freqs, spec1)
+  plt.xlim(0,800)
+  plt.title('z(xx)-z')
+  plt.xlabel('Raman shift ($cm^{-1}$)')
+  plt.yticks([])
+  plt.ylabel('Intensity (a.u.)')
+  
+  # z(xy)-z ------ perpendicular, theta = 0
+  plt.figure()
+  spec2 = paral[i_0]
+  plt.plot(freqs, spec2)
+  plt.xlim(0,800)
+  plt.title('z(xy)-z')
+  plt.xlabel('Raman shift ($cm^{-1}$)')
+  plt.yticks([])
+  plt.ylabel('Intensity (a.u.)')
   ```
 
-  **Compare the resulting peak positions with the pure harmonic intensities from `outfile.mode_intensity.csv`:** What has changed? Why?
 
-### Polarization orientation
-
-You might have noticed that `tdep_compute_raman_intensities` dumps another file, `outfile.intensity_raman_po.h5`. This HDF5 file contains 2 PO maps. Read with `xarray`, you get
-
-```python
-ds_po = xr.load_dataset("outfile.intensity_raman_po.h5")
-print(ds_po)
-```
-
-```
-<xarray.Dataset>
-Dimensions:        (angle: 361, frequency: 1200)
-Coordinates:
-  * angle          (angle) float64 0.0 1.0 2.0 3.0 ... 357.0 358.0 359.0 360.0
-  * frequency      (frequency) float64 0.0 0.0426 0.0852 ... 50.99 51.03 51.08
-Data variables:
-    parallel       (angle, frequency) float64 0.0 1.797e-10 ... 0.0 0.0
-    perpendicular  (angle, frequency) float64 0.0 1.463e-10 ... 0.0 0.0
-Attributes:
-    direction1:  [0. 0. 1.]
-    direction2:  [1. 0. 0.]
-    direction3:  [0. 1. 0.]
-```
-
-This is hopefully self-explanatory:
-
-- Coordinates:
-  - `angle`: PO orientation angle in 1 degree steps from 0 to 360
-  - `frequency`: probing frequncy in THz
-- Data variables:
-  - `parallel`: Intensity for  $\mathbf e_{\mathrm i} \parallel \mathbf e_{\mathrm o}$
-  - `perpendicular`: Intensity for  $\mathbf e_{\mathrm i} \perp \mathbf e_{\mathrm o}$
-- Attributes:
-  - the coordinate system, i.e. $\{ \mathbf k_\mathrm{i},  \mathbf e_{\mathrm i}, \mathbf e_{\mathrm o}\}$
-
-**Task:** Plot the equivalent of the first 4 plots of Fig. 2b in [[Siegle1995]](#Suggested-reading) and discuss your findings.
-
-## More things to do
-
-- Rerun the Raman calculation for the x direction
-- Plot the remaining 4 intensities of Fig. 2b in [Siegle1995].
+**Task:** Plot all the equivalents of the first 4 plots of Fig. 2b in [[Siegle1995]](#Suggested-reading) and discuss your findings (hint: you need to run the steps of this tutorial again, changing a single parameter).
 
 Congratulations, you have performed a complete description of first-order Raman scattering in wurtzite GaN at room temperature from first principles.
 
@@ -222,6 +267,7 @@ Congratulations, you have performed a complete description of first-order Raman 
 - [[3] N. Benshalom et al., arxiv 2204.12528 (2023)](https://arxiv.org/abs/2204.12528)
 - [[4]C. A. Arguello, D. L. Rousseau, and S. P. S. Porto, Phys Rev **181**, 1351 (1968)](https://journals.aps.org/pr/abstract/10.1103/PhysRev.181.1351)
 - [[5]H. Siegle *et al.*, Solid State Commun. **96**, 943 (1995)](https://www.sciencedirect.com/science/article/pii/0038109895005617)
+- [[6]K. Florian *et al.*, arXiv:2412.17711](https://arxiv.org/abs/2412.17711v1)
 
 ## Prerequisites
 

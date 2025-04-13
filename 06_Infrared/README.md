@@ -3,27 +3,13 @@ Infrared spectra with TDEP
 
 This tutorial covers the basics to compute first-order Infrared spectra with TDEP. We will cover the case of 3ph scattering in magnesium oxide similar to Ref. [[Fugallo2018]](#Suggested-reading), and connect it to the TDEP response formalism described in [[Benshalom2022]](#Suggested-reading).
 
-## Preparation
-
-- Have a converged set of 2nd and 3rd order force constants.
-
-- Have a DFT code ready that can compute the dielectric tensor $\varepsilon$ and Born effective charge tensors $Z_i$ for you.
-
-- **We need the most recent version of ASE in order to be able to parse dielectric tensors and Born effective charges**. Please make sure you have that installed, e.g., by running
-
-  ```
-  pip install git+https://gitlab.com/ase/ase.git@master
-  ```
-
-  The parsers will work for VASP, Quantum Espresso, and FHI-aims (the latter only computes the dielectric tensor). For Quantum Espresso, please note the extra step explained in the `00_preparation/qe_dielectric_tensors` tutorial.
-
 ## Background
 
 Infrared absorption describes the phenomenon of a polar insulator or semiconductor absorbing light at infrared wavelengths (few $\text{cm}^{-1}$ to few thousand $\mathrm{cm}^{-1}$), i.e., well below the bandgap. The simplest explanation is that the incident light drives certain phonon modes which couple to electromagnetic radiation (optical modes) and therefore loses energy. The energy loss can be measured as a function of wavelength or frequency, and from the resulting spectrum we can learn which phonons were excited.
 
 A sketch of the scattering geometry copied from [Ref. 1](#Suggested-reading) is shown below. Note that the incident angle is typically (very close to) perpendicular to the sample surface and the angle is exaggerated for visualization.
 
-**TODO: Update Figure and use notation from Fugallo2018**
+<!--**TODO: Update Figure and use notation from Fugallo2018**-->
 
 <p>
 	<img src=".assets/figure_infrared_hofmeister_1.png" width="450"/>
@@ -118,11 +104,10 @@ which describes the dielectric response of a damped harmonic oscillator with _os
 
 **Bonus points: Figure out the value of $S$ in [[Fugallo2018]](#Suggested-reading).**
 
-**_IMPORTANT NOTE:_** The oscillator function is sometimes with defined as
+**_IMPORTANT NOTE:_** The oscillator strength is sometimes with defined such that (**equation (1)**):
 
 $$
 {\epsilon}(\omega)=\epsilon_{\infty}+\frac{S}{\omega_0^2-\omega^2-i \omega \gamma}~,
-\tag{1}
 $$
 
 e.g. in [[Gonze1997]](#Suggested-reading), i.e., with $S$ instead of $S \omega^2_0$ in the nominator. From a computational point of view it is a bit more natural to use this definition because then $S$ will be independent of the eigenfrequency $\omega_0$, so we are adopting this convention in the following.
@@ -137,11 +122,10 @@ $$
 \mathbf P (\omega) = \epsilon (\omega) \mathbf E (\omega)~,
 $$
 
-where retardation effects are neglected. In the case of light absorption, we are interested in the induced polarization that the solid develops in response to incoming light (= electric field). In the limit of weak fields, we can leverage the fluctuation-dissipation theorem and obtain the dielectric function as the polarization-polarization response in equilibrium:
+where retardation effects are neglected. In the case of light absorption, we are interested in the induced polarization that the solid develops in response to incoming light (= electric field). In the limit of weak fields, we can leverage the fluctuation-dissipation theorem and obtain the dielectric function as the polarization-polarization response in equilibrium (**equation (2)**):
 
 $$
 \epsilon (\omega) = \int \mathrm{e}^{- \mathrm i \omega t} \left\langle P(t) P \right\rangle \mathrm d t~.
-\tag{2}
 $$
 
 Expanding the polarization to first order in atomic displacements $u_i$, we get
@@ -201,11 +185,10 @@ $$
 
 Therefore we can construct the full Green's function from the spectral function (= imaginary part) alone.
 
-Note that Eq. (14) in [[Benshalom2022]](#Suggested-reading)) reads
+Note that Eq. (14) in [[Benshalom2022]](#Suggested-reading)) reads (**equation (3)**):
 
 $$
 G_s(Z)=\frac{2 \omega_s}{\omega_s^2-2 \omega_s \Sigma_s(Z)-Z^2}
-\tag{3}~,
 $$
 
 so there is a factor $\omega_s/2$ to be considered when comparing this to Eq. (1) above or Eq. (3) in [[Fugallo2018]](#Suggested-reading).
@@ -247,18 +230,32 @@ One more important aspect to consider is the transverse nature of light propagat
 **Question:** What is the consequence for the oscillator strength? Do all modes contribute to the dielectric function? Which do?
 
 
+## Preparation
+Before trying the tutorial, read the [documentation](https://tdep-developers.github.io/tdep/program/lineshape/) of the TDEP program `lineshape`.
+Moreover, in order to run the steps, you need the following infiles:
+- `infile.ucposcar`
+- `infile.ssposcar`
+- `infile.lotosplitting` (hence you need to compute the Born Effective Charges, e.g. with a DFPT code; see [documentation](https://tdep-developers.github.io/tdep/files/#infile.lotosplitting) for the parsing)
+- `infile.forceconstant` (converged)
+- `infile.forceconstant_thirdorder` (converged)
+</br>
+They are all provided for this tutorial, but make sure to get them for your production runs. 
 
 ## Steps
 
-- Go to the folder `example_MgO`
-- Perform sTDEP sampling for MgO at 300K until you reach convergence
-- Extract 2nd and 3rd order force constants
-- Copy `infile.ucposcar`, `infile.lotosplitting` and the `infile.forceconstant` + `infile.forceconstant_thirdorder` into a new folder
-- Run `lineshape` with `lineshape --temperature TEMPERATURE --qpoint Q1 Q2 Q3 --qdirin Q1 Q2 Q3` where you fill the numbers according to the considerations above. This will produce the phonon spectral function and write it to `outfile.phonon_self_energy.hdf5`
-- Copy `infile.ucposcar`, `infile.lotosplitting`, and `outfile.phonon_self_energy.hdf5` to the `example_MgO/IR` folder
-- Run `tdep_compute_ir_intensities` which will compute the oscillator strength $S_q$ for each mode
-- Now put everything together! Open the Jupyter notebook `example_MgO/IR/notebook_get_ir.ipynb` and follow the steps to compute the optical functions defined in [[Fugallo2018]](#Suggested-reading)
-- Compare the results to the experimental study in Ref. [[Hofmeister2003]](#Suggested-reading)
+1. Go to the folder `example_MgO`
+2. Copy all the needed infiles there (for the tutorial they are already in the folder) 
+3. Compute the lineshape:
+   ```bash
+   lineshape --temperature 300 --qpoint q1 q2 q3 --qdirin d1 d2 d3
+   ```
+   where you have to replace (q1, q2, q3) and (d1, d2, d3) with the q-point to probe and the propagation direction of the probing light, according to the considerations made above. Also note that this binary has produced an output file (see tutorial 05_lineshape for more details).
+4. Compute the oscillator strength $S_q$ for each mode:
+   ```bash
+   tdep_compute_ir_intensities
+   ```
+5. Now put everything together! Open the Jupyter notebook `example_MgO/IR/notebook_get_ir.ipynb` and follow the steps to compute the optical functions defined in [[Fugallo2018]](#Suggested-reading)
+6. Compare the results to the experimental study in Ref. [[Hofmeister2003]](#Suggested-reading)
 
 
 ## Suggested reading
