@@ -254,7 +254,7 @@ They are all provided for this tutorial, but make sure to get them for your prod
    ```bash
    tdep_compute_ir_intensities
    ```
-5. Now put everything together! Open the Jupyter notebook `example_MgO/IR/notebook_get_ir.ipynb` and follow the steps to compute the optical functions defined in [[Fugallo2018]](#Suggested-reading)
+5. Now put everything together! Open the Jupyter notebook `example_MgO/postprocess/notebook_get_ir.ipynb` and follow the steps to compute the optical functions defined in [[Fugallo2018]](#Suggested-reading)
 6. Compare the results to the experimental study in Ref. [[Hofmeister2003]](#Suggested-reading)
 
 
