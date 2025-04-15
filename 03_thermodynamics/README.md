@@ -2,7 +2,7 @@ Thermodynamics with TDEP
 ========================
 
 The free energy is a central property in statistical physics that makes it possible to assess the stability of a structure, find its equilibrium volume, compute phase diagrams and many other things.
-For an arbitrary system with a potential $V(\vec{R})$, the free energy is very difficult to compute and requires complex and expensive method.
+For an arbitrary system with a potential $V(\vec{R})$, the free energy is very difficult to compute and requires expensive methods such as thermodynamic integration to attain accurate predictions.
 
 Fortunately, in the harmonic approximation, the free energy can computed exactly from the partition function
 ```math
@@ -14,7 +14,7 @@ The harmonic free energy, $\mathcal{F}_0$, naturally follows from the partition 
 \mathcal{F}_0 = -k_BT\log(Z_{\text{harmonic}}) = \sum_{\lambda}\left(\frac{\hbar\omega_{\lambda}}{2} + k_BT\log\left(1-\exp\left(-\frac{\hbar\omega_{\lambda}}{k_BT}\right)\right)\right)
 ```
 
-In TDEP the harmonic free energy is actually evalulated by integreating the phonon density of states.
+In TDEP the harmonic free energy is actually evaluated by integreating the phonon density of states.
 ```math
 \mathcal{F}_0 = k_BT \int_0^\infty d\omega g(\omega) \ln\big[2 \sinh(\frac{\hbar\omega}{2k_BT})\big] 
 ```
@@ -27,7 +27,7 @@ For given volume and temperature, and staying at the second order in the force c
 ```math
 \mathcal{F}^{\mathrm{TDEP}}(T) = \mathcal{F}_0^{\mathrm{TDEP}}(T) + < V(\vec{R}) - V^{\mathrm{TDEP}}(\vec{R}) >_T = \mathcal{F}_0^{\mathrm{TDEP}}(T) + U_0
 ```
-For more details on this equatoin checkout the [THEORY.md](./THEORY.md) file
+For more details on this equation checkout the [THEORY.md](./THEORY.md) file
 In this equation
 - $\mathcal{F}_0^{\mathrm{TDEP}}$ is the effective harmonic free energy.
 - $V(\vec{R})$ is the potential energy of the system (given for example by DFT).
@@ -146,13 +146,13 @@ cd ./a5.40/T100
 cp ../infile.ucposcar ./
 ```
 
-Much of this workflow will mimic the sampling tutorial, don't hesitate to go back to that tutorial to get more details on some of the steps. Since we only start with an `infile.ucposcar` we need to generate a supercell first. Silicon has a dimonad lattice with 8 atoms per conventional cell. So a 3x3x3 cubic supercell will have 216 atoms. 
+Much of this workflow will mimic the sampling tutorial, don't hesitate to go back to that tutorial to get more details on some of the steps. Since we only start with an `infile.ucposcar` we need to generate a supercell first. Silicon has a diamond lattice with 8 atoms per conventional cell. So a 3x3x3 cubic supercell will have 216 atoms. 
 ```sh
 generate_structure -na 216
 mv outfile.ssposcar infile.ssposcar
 ```
 
-Next we will leverage the `run_sTDEP.sh` script from the sampling tutorial. This automates the process of self-consistently looping to obtain force constants. Since we are using silicon now we need to set some of the parameters. Specifically, set the second-order force constant cutoff to 8.0 angstroms and the maximum freuqency to 17 THz. In practice another study should be done to ensure the force constant cutoff is converged. For today, 8.0 will work (and is probably overkill). Furthermore, the number of iterations until convergence cannot be known a priori. We will start with 5, but could refine this guess later depending on convergence. 
+Next we will leverage the `run_sTDEP.sh` script from the sampling tutorial. This automates the process of self-consistently looping to obtain force constants. Since we are using silicon now we need to set some of the parameters. Specifically, set the second-order force constant cutoff to 8.0 angstroms and the maximum frequency to 17 THz. In practice another study should be done to ensure the force constant cutoff is converged. For today, 8.0 will work (and is probably overkill). Furthermore, the number of iterations until convergence cannot be known a priori. We will start with 5, but could refine this guess later depending on convergence. 
 ```sh
 bash ../../../../02_sampling/sTDEP/scripts/run_sTDEP.sh --niter 5 --maximum_frequency 17.0 --temperature 100 --cutoff 8.0
 ```
@@ -175,7 +175,7 @@ Now we have all the free energy and U0 data to asses convergence. From the `T100
 python ../../../scripts/plot_dos.py --convergence --basepath=$(pwd)
 ```
 
-This will create 3 plots: `convergence_of_Harmonic_Free_Energy.png`, `convergence_of_U0.png` and `DOS_convergence.png`. Remeber that converging free energy to 1 meV/atom is a good goal. Open the plots at various temperatures and try to answer these questions:
+This will create 3 plots: `convergence_of_Harmonic_Free_Energy.png`, `convergence_of_U0.png` and `DOS_convergence.png`. Remember that converging free energy to 1 meV/atom is a good goal. Open the plots at various temperatures and try to answer these questions:
 - Do you think we've reached convergence? 
 - Which property do you expect to converge first? Why?
 - Could we get away with running fewer sampling iterations?
@@ -194,7 +194,7 @@ Here is an example of some of the $U_0$ and $F_0$ plots at 200K and a = 5.40:
 </div>
 
 
-The remaining temperatures are calculated for you. The script to loop over temperature, run sTDEP, and create the convergence plots is in the `scripts` directory if you want to run more temperatures or play with the settings. If you open the `run.sh` script you will see several parameters hard coded at the top for silicon. Try running more temepartures or changing the number of iterations. This script takes in the directory which must contain the `infile.ucposcar` and a list of temperatures to calculate.
+The remaining temperatures are calculated for you. The script to loop over temperature, run sTDEP, and create the convergence plots is in the `scripts` directory if you want to run more temperatures or play with the settings. If you open the `run.sh` script you will see several parameters hard coded at the top for silicon. Try running more temperatures or changing the number of iterations. This script takes in the directory which must contain the `infile.ucposcar` and a list of temperatures to calculate.
 ```sh
 sh ../scripts/run.sh a5.40 400 600 800
 ```
