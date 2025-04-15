@@ -45,7 +45,7 @@ In the folder `sampling.300K`, create a new folder `iter.000` and go into it.
 
 Copy your unitcell, supercell and dielectric properties inside this folder
 ```bash
-cp ../../infile.ucposcar ../outfile.ssposcar ../../infile.lotosplitting .
+cp ../../infile.ucposcar ../infile.ssposcar ../../infile.lotosplitting .
 ```
 
 Now we will create 4 configurations at 300K with a fake model having a maximum phonon frequency of 20 THz.
