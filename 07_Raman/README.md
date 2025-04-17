@@ -139,7 +139,7 @@ We will start with backscattering in $z$ direction:
    tdep_displace_atoms infile.ucposcar
    ```
 
-   which will create positive and negative displacements for each mode, minus the acoustic ones, and write them to `outfile.ucposcar.displacement.00001.x.plus`, `outfile.ucposcar.displacement.00002.x.minus`, etc. Tidy up the mess by moving these outfiles inside a dedicated folder (e.g. `displacements`):
+   which will create positive and negative displacements for each atom and cartesian direction and write them to `outfile.ucposcar.displacement.00001.x.plus`, `outfile.ucposcar.displacement.00002.x.minus`, etc. Tidy up the mess by moving these outfiles inside a dedicated folder (e.g. `displacements`):
    ```bash
    mkdir displacements
    mv outfile.ucposcar.displacement* displacements/
