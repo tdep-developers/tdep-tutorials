@@ -1,0 +1,10 @@
+set terminal x11 enhanced
+set encoding utf8
+set ylabel "{/Symbol w} (meV)"
+set xtics ("{/Symbol G}" 0, "X" 0.146349, "K" 0.262047, "{/Symbol G}" 0.417273, "L" 0.544015)
+set arrow from 0.146349, graph 0 to 0.146349, graph 1 nohead
+set arrow from 0.262047, graph 0 to 0.262047, graph 1 nohead
+set arrow from 0.417273, graph 0 to 0.417273, graph 1 nohead
+plot "bn.freq.gp" u 1:2 w l title "TDEP", "bn.freq.gp" u 1:3 w l lc 1 title "",
+"bn.freq.gp" u 1:4 w l lc 1 title "", "bn.freq.gp" u 1:5 w l lc 1 title "",
+"bn.freq.gp" u 1:6 w l lc 1 title "", "bn.freq.gp" u 1:7 w l lc 1 title ""

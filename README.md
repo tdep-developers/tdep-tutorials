@@ -11,3 +11,4 @@ Tutorials for the Temperature Dependent Effective Potentials code and method.
 - Spectral functions: [here](05_lineshape/README.md)
 - Infrared spectroscopy: [here](06_Infrared/README.md)
 - Raman spectroscopy: [here](07_Raman/README.md)
+- Electronic conductivity: [here](08_electronic_conductivity/README.md)

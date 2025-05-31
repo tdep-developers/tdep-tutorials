@@ -1,0 +1,6 @@
+&input
+zasr   ='simple',
+fildyn ='bn.dyn.xml', 
+flfrc  ='bn444.fc',
+write_lr = .true.
+/
