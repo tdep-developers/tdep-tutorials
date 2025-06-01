@@ -7,7 +7,7 @@ We will show how to compute the harmonic phonon dispersion of c-BN using density
 
 For the description of inputs and more information please follow the link:
 - [TDEP inputs](https://tdep-developers.github.io/tdep/files/)
-- [Quantum ESPRESSO inputs](https://epwdoc.gitlab.io/source/doc/Inputs.html)
+- [Quantum ESPRESSO inputs](https://www.quantum-espresso.org/Doc/INPUT_PW.html)
 - [EPW inputs](https://epwdoc.gitlab.io/source/doc/Inputs.html)
 
 The TDEP to Quantum ESPRESSO interface is described in [[Yin2025]](#suggested-reading).
